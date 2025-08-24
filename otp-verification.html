@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OTP Verification - JobBridge</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/dashboard.css">
+    <style>
+        /* OTP Verification Specific Styles */
+        .otp-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #fefcf3 0%, #f9f6f1 100%);
+            padding: 2rem;
+        }
+
+        .otp-card {
+            background: rgba(255, 254, 249, 0.95);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(247, 244, 240, 0.5);
+            border-radius: 24px;
+            padding: 3rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            max-width: 450px;
+            width: 100%;
+            text-align: center;
+            animation: slideInUp 0.8s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+        }
+
+        .otp-header {
+            margin-bottom: 2rem;
+        }
+
+        .otp-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #3b82f6, #1e40af);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            margin: 0 auto 1.5rem;
+            animation: pulse 2s infinite;
+        }
+
+        .otp-title {
+            font-size: 2rem;
+            font-weight: 800;
+            color: #111827;
+            margin-bottom: 0.5rem;
+        }
+
+        .otp-subtitle {
+            font-size: 1rem;
+            color: #6b7280;
+            margin-bottom: 0.5rem;
+        }
+
+        .otp-phone {
+            font-size: 1rem;
+            color: #3b82f6;
+            font-weight: 600;
+        }
+
+        .otp-form {
+            margin: 2rem 0;
+        }
+
+        .otp-inputs {
+            display: flex;
+            gap: 0.75rem;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .otp-input {
+            width: 50px;
+            height: 60px;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #111827;
+            background: white;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            outline: none;
+        }
+
+        .otp-input:focus {
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+            transform: scale(1.05);
+        }
+
+        .otp-input.filled {
+            border-color: #10b981;
+            background: rgba(16, 185, 129, 0.05);
+        }
+
+        .otp-input.error {
+            border-color: #ef4444;
+            background: rgba(239, 68, 68, 0.05);
+            animation: shake 0.5s ease-in-out;
+        }
+
+        .verify-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #3b82f6, #1e40af);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            margin-bottom: 1rem;
+        }
+
+        .verify-btn:hover {
+            background: linear-gradient(135deg, #1e40af, #1e3a8a);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
+        }
+
+        .verify-btn:disabled {
+            background: #9ca3af;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .resend-section {
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #e5e7eb;
+        }
+
+        .resend-text {
+            font-size: 0.9rem;
+            color: #6b7280;
+            margin-bottom: 1rem;
+        }
+
+        .resend-timer {
+            font-weight: 600;
+            color: #ef4444;
+        }
+
+        .resend-btn {
+            background: none;
+            border: none;
+            color: #3b82f6;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: underline;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+        }
+
+        .resend-btn:hover {
+            color: #1e40af;
+        }
+
+        .resend-btn:disabled {
+            color: #9ca3af;
+            cursor: not-allowed;
+            text-decoration: none;
+        }
+
+        .back-btn {
+            background: none;
+            border: 2px solid #e5e7eb;
+            color: #6b7280;
+            padding: 0.75rem 1.5rem;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .back-btn:hover {
+            border-color: #3b82f6;
+            color: #3b82f6;
+        }
+
+        .error-message {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            color: #dc2626;
+            padding: 1rem;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            display: none;
+        }
+
+        .success-message {
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            color: #047857;
+            padding: 1rem;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            display: none;
+        }
+
+        /* Dark Mode Styles */
+        [data-theme="dark"] .otp-container {
+            background: linear-gradient(135deg, #1a1625 0%, #2d1b37 100%);
+        }
+
+        [data-theme="dark"] .otp-card {
+            background: rgba(37, 32, 50, 0.95);
+            border: 1px solid rgba(75, 85, 99, 0.3);
+        }
+
+        [data-theme="dark"] .otp-icon {
+            background: linear-gradient(135deg, #a855f7, #9333ea);
+        }
+
+        [data-theme="dark"] .otp-title {
+            color: #ffffff;
+        }
+
+        [data-theme="dark"] .otp-subtitle {
+            color: #d1d5db;
+        }
+
+        [data-theme="dark"] .otp-phone {
+            color: #a855f7;
+        }
+
+        [data-theme="dark"] .otp-input {
+            background: rgba(37, 32, 50, 0.8);
+            border-color: #6b7280;
+            color: #ffffff;
+        }
+
+        [data-theme="dark"] .otp-input:focus {
+            border-color: #a855f7;
+            box-shadow: 0 0 0 3px rgba(168, 85, 247, 0.1);
+        }
+
+        [data-theme="dark"] .verify-btn {
+            background: linear-gradient(135deg, #a855f7, #9333ea);
+        }
+
+        [data-theme="dark"] .verify-btn:hover {
+            background: linear-gradient(135deg, #9333ea, #7c3aed);
+        }
+
+        [data-theme="dark"] .resend-text {
+            color: #9ca3af;
+        }
+
+        [data-theme="dark"] .resend-btn {
+            color: #a855f7;
+        }
+
+        [data-theme="dark"] .resend-btn:hover {
+            color: #c084fc;
+        }
+
+        [data-theme="dark"] .back-btn {
+            border-color: #6b7280;
+            color: #9ca3af;
+        }
+
+        [data-theme="dark"] .back-btn:hover {
+            border-color: #a855f7;
+            color: #a855f7;
+        }
+
+        /* Animations */
+        @keyframes slideInUp {
+            0% {
+                opacity: 0;
+                transform: translateY(30px) scale(0.95);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 640px) {
+            .otp-container {
+                padding: 1rem;
+            }
+
+            .otp-card {
+                padding: 2rem;
+            }
+
+            .otp-inputs {
+                gap: 0.5rem;
+            }
+
+            .otp-input {
+                width: 45px;
+                height: 55px;
+                font-size: 1.3rem;
+            }
+
+            .otp-title {
+                font-size: 1.75rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="otp-container">
+        <div class="otp-card">
+            <div class="otp-header">
+                <div class="otp-icon">📱</div>
+                <h1 class="otp-title">Verify Your Account</h1>
+                <p class="otp-subtitle">We've sent a 6-digit verification code to</p>
+                <p class="otp-phone" id="phoneNumber">+1 (555) 123-4567</p>
+            </div>
+
+            <div id="errorMessage" class="error-message"></div>
+            <div id="successMessage" class="success-message"></div>
+
+            <form class="otp-form" id="otpForm">
+                <div class="otp-inputs">
+                    <input type="text" class="otp-input" maxlength="1" data-index="0">
+                    <input type="text" class="otp-input" maxlength="1" data-index="1">
+                    <input type="text" class="otp-input" maxlength="1" data-index="2">
+                    <input type="text" class="otp-input" maxlength="1" data-index="3">
+                    <input type="text" class="otp-input" maxlength="1" data-index="4">
+                    <input type="text" class="otp-input" maxlength="1" data-index="5">
+                </div>
+
+                <button type="submit" class="verify-btn" id="verifyBtn">
+                    Verify & Continue
+                </button>
+            </form>
+
+            <div class="resend-section">
+                <p class="resend-text">
+                    Didn't receive the code? 
+                    <span class="resend-timer" id="resendTimer">Resend in 30s</span>
+                </p>
+                <button class="resend-btn" id="resendBtn" disabled>
+                    Resend Code
+                </button>
+            </div>
+
+            <a href="signup.html" class="back-btn">
+                <span>←</span>
+                Back to Sign Up
+            </a>
+        </div>
+    </div>
+
+    <!-- Theme Toggle (Hidden but functional) -->
+    <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode" style="position: fixed; top: 20px; right: 20px; z-index: 1000;">
+        <span class="theme-icon">🌙</span>
+    </button>
+
+    <script src="scripts/theme.js"></script>
+    <script src="scripts/otp-verification.js"></script>
+</body>
+</html>
