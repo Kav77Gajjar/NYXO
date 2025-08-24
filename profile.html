@@ -33,10 +33,7 @@
                     <span class="btn-icon">✏️</span>
                     Edit Profile
                 </button>
-                <button class="action-btn secondary" onclick="window.location.href='resume-builder.html'">
-                    <span class="btn-icon">📄</span>
-                    Build Resume
-                </button>
+                
             </div>
         </section>
 
@@ -87,8 +84,9 @@
                 <div id="profileDisplay" class="profile-display">
                     <div class="profile-main-card">
                         <div class="profile-header">
-                            <div class="profile-avatar-large">
-                                <span id="displayAvatar">👤</span>
+                            <div class="profile-avatar-large" id="displayAvatar">
+                                <span class="avatar-text">👤</span>
+                                <img class="avatar-image" style="display: none;" alt="Profile Photo">
                             </div>
                             <div class="profile-basic-info">
                                 <h2 class="profile-name" id="displayName">John Doe</h2>
@@ -149,6 +147,36 @@
                 <div id="profileEdit" class="profile-edit" style="display: none;">
                     <form id="profileForm" class="profile-form">
                         <div class="form-grid">
+                            <!-- Profile Photo Upload Section -->
+                            <div class="form-group full-width">
+                                <label for="profilePhoto">Profile Photo</label>
+                                <div class="photo-upload-container">
+                                    <div class="photo-preview">
+                                        <div class="photo-placeholder" id="photoPlaceholder">
+                                            <span class="photo-icon">📷</span>
+                                            <span class="photo-text">Click to upload photo</span>
+                                        </div>
+                                        <img id="photoPreview" src="" alt="Profile Preview" style="display: none;">
+                                    </div>
+                                    <input 
+                                        type="file" 
+                                        id="photoInput" 
+                                        name="profilePhoto" 
+                                        accept=".jpg,.jpeg,.png,.gif,.bmp,.webp,.svg,.tiff,.ico"
+                                        style="display: none;"
+                                    >
+                                    <div class="photo-upload-info">
+                                        <p class="upload-text">Supported formats: JPG, JPEG, PNG, GIF, BMP, WEBP, SVG, TIFF, ICO</p>
+                                        <p class="upload-size">Maximum file size: 5MB</p>
+                                                                                 
+                                        <button type="button" class="remove-btn" id="removePhotoBtn" onclick="removePhoto()" style="display: none;">
+                                            <span class="btn-icon">🗑️</span>
+                                            Remove Photo
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            
                             <div class="form-group">
                                 <label for="profileName">Full Name</label>
                                 <input type="text" id="profileName" name="profileName" required>
@@ -175,7 +203,7 @@
                             </div>
                         </div>
                         <div class="form-actions">
-                            <button type="submit" class="action-btn primary">
+                            <button type="submit" class="action-btn secondary">
                                 <span class="btn-icon">💾</span>
                                 Save Changes
                             </button>
