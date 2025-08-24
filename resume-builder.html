@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume Builder - JobBridge</title>
+    <link rel="stylesheet" href="styles/main.css">
+</head>
+<body>
+    <header>
+        <h1>JobBridge</h1>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="signup.html">Sign Up</a>
+            <a href="dashboard.html">Dashboard</a>
+            <a href="toolkit.html">Toolkit</a>
+            <a href="jobcontroller.html">Job Controller</a>
+            <a href="profile.html">Profile</a>
+        </nav>
+    </header>
+    <main>
+        <section class="resume-builder">
+            <h2>Resume Builder</h2>
+            <form id="resumeForm">
+                <label for="fullName">Full Name:</label>
+                <input type="text" id="fullName" name="fullName" required>
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+                <label for="skills">Skills:</label>
+                <input type="text" id="skills" name="skills" placeholder="e.g. JavaScript, React, CSS" required>
+                <label for="experience">Experience:</label>
+                <textarea id="experience" name="experience" rows="4" required></textarea>
+                <button type="submit">Generate Resume</button>
+            </form>
+            <div id="resumeOutput" style="margin-top:2rem;"></div>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2025 JobBridge. All rights reserved.</p>
+    </footer>
+    <script src="scripts/resume-builder.js"></script>
+</body>
+</html>

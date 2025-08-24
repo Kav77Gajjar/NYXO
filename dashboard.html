@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - JobBridge</title>
+    <link rel="stylesheet" href="styles/main.css">
+</head>
+<body>
+    <header>
+        <h1>JobBridge</h1>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="signup.html">Sign Up</a>
+            <a href="dashboard.html">Dashboard</a>
+            <a href="toolkit.html">Toolkit</a>
+            <a href="jobcontroller.html">Job Controller</a>
+            <a href="profile.html">Profile</a>
+        </nav>
+    </header>
+    <main>
+        <div class="dashboard-grid">
+            <div class="dashboard-main">
+                <h2 class="dashboard-title">Today's Top Matches For You</h2>
+                <div id="jobsContainer" class="jobs-container"></div>
+            </div>
+            <aside class="dashboard-sidebar">
+                <div class="sidebar-card profile-strength-card">
+                    <h3>Profile Strength</h3>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar-bg">
+                            <div class="progress-bar-fill" id="profileProgressBar"></div>
+                        </div>
+                        <span id="profileCompletionText" class="progress-bar-label">80%</span>
+                    </div>
+                    <button class="btn-primary" style="margin-top:1.2rem; width:100%;" onclick="window.location.href='profile.html'">Complete your profile</button>
+                </div>
+                <div class="sidebar-card application-tracker-card">
+                    <h3>Application Tracker</h3>
+                    <div class="tracker-stats">
+                        <div><span class="tracker-label">Saved:</span> <span id="savedCount">5</span></div>
+                        <div><span class="tracker-label">Applied:</span> <span id="appliedCount">2</span></div>
+                        <div><span class="tracker-label">Interviewing:</span> <span id="interviewingCount">1</span></div>
+                    </div>
+                    <button class="btn-secondary" style="margin-top:1.2rem; width:100%;">View Full Tracker</button>
+                </div>
+            </aside>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2025 JobBridge. All rights reserved.</p>
+    </footer>
+<style>
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: 2.5fr 1fr;
+    gap: 2.5rem;
+    margin: 2.5rem 0 0 0;
+    min-height: 70vh;
+}
+.dashboard-main {
+    background: #fff;
+    border-radius: 1.2rem;
+    box-shadow: 0 2px 12px rgba(17,24,39,0.07);
+    padding: 2.5rem 2rem 2rem 2rem;
+    animation: fadeInMain 0.8s cubic-bezier(.68,-0.55,.27,1.55);
+}
+.dashboard-title {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+    color: #111827;
+    letter-spacing: -1px;
+}
+.dashboard-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+.profile-strength-card {
+    background: #F8F9FA;
+    border-radius: 1.2rem;
+    box-shadow: 0 2px 12px rgba(59,130,246,0.09);
+    padding: 2rem 1.5rem;
+    text-align: center;
+    animation: popIn 1s cubic-bezier(.68,-0.55,.27,1.55);
+}
+.progress-bar-container {
+    margin: 1.5rem 0 0.5rem 0;
+    position: relative;
+    height: 32px;
+}
+.progress-bar-bg {
+    width: 100%;
+    height: 16px;
+    background: #E5E7EB;
+    border-radius: 999px;
+    overflow: hidden;
+    position: relative;
+}
+.progress-bar-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, #3B82F6 60%, #10B981 100%);
+    border-radius: 999px;
+    transition: width 1.2s cubic-bezier(.68,-0.55,.27,1.55);
+}
+.progress-bar-label {
+    position: absolute;
+    right: 1rem;
+    top: -2.2rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #3B82F6;
+}
+.application-tracker-card {
+    background: #F8F9FA;
+    border-radius: 1.2rem;
+    box-shadow: 0 2px 12px rgba(59,130,246,0.09);
+    padding: 2rem 1.5rem;
+    animation: popIn 1.2s cubic-bezier(.68,-0.55,.27,1.55);
+}
+.tracker-stats {
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+    margin: 1.2rem 0 1.2rem 0;
+    font-size: 1.08rem;
+}
+.tracker-label {
+    color: #6B7280;
+    font-weight: 500;
+}
+@keyframes fadeInMain {
+    0% { opacity: 0; transform: translateY(30px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+@keyframes popIn {
+    0% { opacity: 0; transform: scale(0.85) translateY(30px); }
+    100% { opacity: 1; transform: scale(1) translateY(0); }
+}
+@media (max-width: 900px) {
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    .dashboard-sidebar {
+        flex-direction: row;
+        gap: 1.2rem;
+    }
+    .profile-strength-card, .application-tracker-card {
+        min-width: 45vw;
+    }
+}
+</style>
+    <script src="scripts/dashboard.js"></script>
+</body>
+</html>

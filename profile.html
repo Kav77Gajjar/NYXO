@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile - JobBridge</title>
+    <link rel="stylesheet" href="styles/main.css">
+</head>
+<body>
+    <header>
+        <h1>JobBridge</h1>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="signup.html">Sign Up</a>
+            <a href="dashboard.html">Dashboard</a>
+            <a href="toolkit.html">Toolkit</a>
+            <a href="jobcontroller.html">Job Controller</a>
+            <a href="profile.html">Profile</a>
+        </nav>
+    </header>
+    <main>
+        <section class="profile">
+            <h2>Your Profile</h2>
+            <div class="profile-card card">
+                <div class="profile-row">
+                    <div class="profile-avatar">👤</div>
+                    <div class="profile-info">
+                        <div class="profile-name" id="displayName">Name</div>
+                        <div class="profile-username"><span class="profile-label">Username:</span> <span id="displayUsername">-</span></div>
+                        <div class="profile-email" id="displayEmail">Email</div>
+                        <div class="profile-skills"><span class="profile-label">Skills:</span> <span id="displaySkills">-</span></div>
+                        <div class="profile-bio"><span class="profile-label">Bio:</span> <span id="displayBio">-</span></div>
+                    </div>
+                </div>
+                <button class="btn-primary" id="updateProfileBtn" style="margin-top:1.5rem;">Update</button>
+            </div>
+            <form id="profileForm" style="display:none; margin-top:2rem;">
+                <label for="profileName">Name:</label>
+                <input type="text" id="profileName" name="profileName" required>
+                <label for="profileUsername">Username:</label>
+                <input type="text" id="profileUsername" name="profileUsername" required>
+                <label for="profileEmail">Email:</label>
+                <input type="email" id="profileEmail" name="profileEmail" required>
+                <label for="profileSkills">Skills:</label>
+                <input type="text" id="profileSkills" name="profileSkills" placeholder="e.g. JavaScript, React, CSS">
+                <label for="profileBio">Bio:</label>
+                <textarea id="profileBio" name="profileBio" rows="3"></textarea>
+                <button type="submit" class="btn-primary">Save</button>
+                <button type="button" class="btn-secondary" id="cancelUpdateBtn" style="margin-top:1rem;">Cancel</button>
+            </form>
+            <div id="profileMessage" style="margin-top:1rem;"></div>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2025 JobBridge. All rights reserved.</p>
+    </footer>
+<style>
+.profile-card {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.2rem;
+    background: #F8F9FA;
+    border-radius: 1.2rem;
+    box-shadow: 0 2px 12px rgba(17,24,39,0.09);
+    padding: 2.2rem 2.5rem;
+    min-width: 320px;
+    max-width: 420px;
+    margin: 0 auto;
+}
+.profile-row {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+.profile-avatar {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    background: #3B82F6;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5rem;
+    font-weight: 700;
+    box-shadow: 0 2px 8px rgba(59,130,246,0.10);
+}
+.profile-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+}
+.profile-name {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #111827;
+}
+.profile-email {
+    color: #6B7280;
+    font-size: 1rem;
+}
+.profile-label {
+    color: #6B7280;
+    font-weight: 500;
+}
+.profile-skills, .profile-bio {
+    font-size: 1rem;
+    color: #111827;
+}
+@media (max-width: 700px) {
+    .profile-card {
+        min-width: 90vw;
+        max-width: 98vw;
+        padding: 1.2rem 0.5rem;
+    }
+    .profile-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.7rem;
+    }
+    .profile-avatar {
+        width: 56px;
+        height: 56px;
+        font-size: 1.7rem;
+    }
+}
+</style>
+    <script src="scripts/profile.js"></script>
+</body>
+</html>

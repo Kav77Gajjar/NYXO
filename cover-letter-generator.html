@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cover Letter Generator - JobBridge</title>
+    <link rel="stylesheet" href="styles/main.css">
+</head>
+<body>
+    <header>
+        <h1>JobBridge</h1>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="signup.html">Sign Up</a>
+            <a href="dashboard.html">Dashboard</a>
+            <a href="toolkit.html">Toolkit</a>
+            <a href="jobcontroller.html">Job Controller</a>
+            <a href="profile.html">Profile</a>
+        </nav>
+    </header>
+    <main>
+        <section class="cover-letter-generator">
+            <h2>Cover Letter Generator</h2>
+            <form id="coverLetterForm">
+                <label for="position">Position:</label>
+                <input type="text" id="position" name="position" required>
+                <label for="company">Company:</label>
+                <input type="text" id="company" name="company" required>
+                <label for="highlights">Highlights:</label>
+                <textarea id="highlights" name="highlights" rows="3" required></textarea>
+                <button type="submit">Generate Cover Letter</button>
+            </form>
+            <div id="coverLetterOutput" style="margin-top:2rem;"></div>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2025 JobBridge. All rights reserved.</p>
+    </footer>
+    <script src="scripts/cover-letter-generator.js"></script>
+</body>
+</html>

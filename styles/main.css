@@ -1,0 +1,331 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Poppins:wght@400;600;700&display=swap');
+
+body {
+    font-family: 'Inter', 'Poppins', Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: #FFFFFF;
+    color: #111827;
+    min-height: 100vh;
+}
+
+/* Navbar */
+header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: #fff;
+    box-shadow: 0 2px 8px rgba(17,24,39,0.04);
+    padding: 0.75rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+header h1 {
+    margin: 0;
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: -1px;
+    color: #3B82F6;
+    display: flex;
+    align-items: center;
+}
+nav {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+nav a {
+    color: #111827;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 1rem;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    transition: background 0.2s, color 0.2s;
+}
+nav a:hover, nav a.active {
+    background: #3B82F6;
+    color: #fff;
+}
+
+/* Hero Section */
+.hero {
+    text-align: center;
+    padding: 5rem 1rem 3rem 1rem;
+    background: #F8F9FA;
+    border-radius: 0 0 2rem 2rem;
+}
+.hero h2, .hero .headline {
+    font-size: 2.7rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: #111827;
+}
+.hero p, .hero .subheadline {
+    font-size: 1.25rem;
+    color: #6B7280;
+    margin-bottom: 2rem;
+}
+.hero button, .btn-primary {
+    background: #3B82F6;
+    color: #fff;
+    border: none;
+    padding: 1rem 2.5rem;
+    font-size: 1.2rem;
+    font-weight: 600;
+    border-radius: 0.75rem;
+    cursor: pointer;
+    transition: background 0.2s;
+    box-shadow: 0 2px 8px rgba(59,130,246,0.08);
+}
+.hero button:hover, .btn-primary:hover {
+    background: #2563EB;
+}
+
+/* How It Works Section */
+.how-it-works {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin: 3rem 0 2rem 0;
+}
+.how-step {
+    background: #fff;
+    border-radius: 1rem;
+    box-shadow: 0 2px 8px rgba(17,24,39,0.06);
+    padding: 2rem 1.5rem;
+    flex: 1 1 0;
+    min-width: 220px;
+    text-align: center;
+}
+.how-step h3 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin: 1rem 0 0.5rem 0;
+}
+.how-step p {
+    color: #6B7280;
+    font-size: 1rem;
+}
+
+/* Card Styles */
+.card, .signup-form, .profile, .toolkit, .job-controller, .how-step, .sidebar-card {
+    background: #fff;
+    border-radius: 1rem;
+    box-shadow: 0 2px 12px rgba(17,24,39,0.07);
+    padding: 2rem;
+    margin-bottom: 2rem;
+}
+
+/* Job Card */
+.jobs-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    justify-content: center;
+    margin-top: 2rem;
+}
+.job-card {
+    display: flex;
+    align-items: flex-start;
+    background: #F8F9FA;
+    border-radius: 1rem;
+    box-shadow: 0 2px 12px rgba(17,24,39,0.09);
+    padding: 1.5rem 2rem;
+    min-width: 340px;
+    max-width: 420px;
+    margin-bottom: 1.5rem;
+    transition: box-shadow 0.2s;
+    position: relative;
+}
+.job-card:hover {
+    box-shadow: 0 6px 24px rgba(59,130,246,0.13);
+}
+.job-logo {
+    width: 48px;
+    height: 48px;
+    border-radius: 0.75rem;
+    background: #fff;
+    box-shadow: 0 1px 4px rgba(17,24,39,0.07);
+    margin-right: 1.5rem;
+    object-fit: contain;
+}
+.job-content {
+    flex: 1;
+}
+.job-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin: 0 0 0.3rem 0;
+    color: #111827;
+}
+.job-company {
+    font-size: 1rem;
+    color: #111827;
+    margin-bottom: 0.5rem;
+}
+.job-tags {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 0.7rem;
+}
+.job-tag {
+    background: #E0E7EF;
+    color: #3B82F6;
+    font-size: 0.95rem;
+    padding: 0.2rem 0.8rem;
+    border-radius: 999px;
+    font-weight: 500;
+}
+.job-location {
+    color: #6B7280;
+    font-size: 0.98rem;
+    margin-bottom: 0.5rem;
+}
+.job-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    margin-top: 0.7rem;
+}
+.icon-btn {
+    background: #F3F4F6;
+    border: none;
+    border-radius: 0.5rem;
+    padding: 0.4rem 0.7rem;
+    cursor: pointer;
+    color: #111827;
+    font-size: 1.1rem;
+    transition: background 0.2s;
+}
+.icon-btn:hover {
+    background: #E0E7EF;
+}
+.match-score {
+    background: #10B981;
+    color: #fff;
+    font-size: 0.95rem;
+    font-weight: 600;
+    border-radius: 999px;
+    padding: 0.2rem 0.9rem;
+    position: absolute;
+    right: 1.5rem;
+    top: 1.5rem;
+    box-shadow: 0 1px 4px rgba(16,185,129,0.09);
+}
+
+/* Buttons */
+.btn-secondary {
+    background: #F3F4F6;
+    color: #111827;
+    border: none;
+    padding: 0.7rem 1.5rem;
+    border-radius: 0.75rem;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+.btn-secondary:hover {
+    background: #E0E7EF;
+}
+
+/* Forms */
+form label {
+    display: block;
+    margin-top: 1.2rem;
+    color: #111827;
+    font-weight: 500;
+}
+form input, form textarea, form select {
+    width: 100%;
+    padding: 0.7rem;
+    margin-top: 0.4rem;
+    border: 1.5px solid #E5E7EB;
+    border-radius: 0.6rem;
+    font-size: 1rem;
+    font-family: inherit;
+    background: #F8F9FA;
+    color: #111827;
+    transition: border 0.2s;
+}
+form input:focus, form textarea:focus, form select:focus {
+    border-color: #3B82F6;
+    outline: none;
+}
+form button[type="submit"] {
+    margin-top: 2rem;
+    width: 100%;
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Inter', 'Poppins', Arial, sans-serif;
+    color: #111827;
+}
+h2, .headline {
+    font-size: 2rem;
+    font-weight: 700;
+}
+h3 {
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+p, .body-text {
+    font-size: 1rem;
+    font-weight: 400;
+    color: #6B7280;
+}
+
+/* Sidebar Cards */
+.sidebar-card {
+    margin-bottom: 2rem;
+    padding: 1.5rem 1.2rem;
+    border-radius: 1rem;
+    background: #F8F9FA;
+    box-shadow: 0 2px 8px rgba(17,24,39,0.06);
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 2rem 0 1rem 0;
+    color: #6B7280;
+    background: none;
+    font-size: 1rem;
+    border-top: 1px solid #E5E7EB;
+    margin-top: 3rem;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+ul li {
+    margin-bottom: 1rem;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+    .how-it-works {
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+    .jobs-container {
+        flex-direction: column;
+        align-items: center;
+    }
+    .job-card {
+        min-width: 90vw;
+        max-width: 98vw;
+    }
+    header {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 1rem 1rem;
+    }
+    nav {
+        margin-top: 1rem;
+    }
+}
