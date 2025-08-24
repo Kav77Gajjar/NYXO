@@ -5,154 +5,215 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard - JobBridge</title>
     <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/dashboard.css">
 </head>
 <body>
     <header>
         <h1>JobBridge</h1>
         <nav>
-            <a href="index.html">Home</a>
-            <a href="signup.html">Sign Up</a>
-            <a href="dashboard.html">Dashboard</a>
+            <a href="dashboard.html" class="active">Dashboard</a>
+            <a href="profile.html">Profile</a>
             <a href="toolkit.html">Toolkit</a>
             <a href="jobcontroller.html">Job Controller</a>
-            <a href="profile.html">Profile</a>
+            <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode">
+                <span class="theme-icon">🌙</span>
+            </button>
         </nav>
     </header>
-    <main>
-        <div class="dashboard-grid">
-            <div class="dashboard-main">
-                <h2 class="dashboard-title">Today's Top Matches For You</h2>
-                <div id="jobsContainer" class="jobs-container"></div>
+
+    <main class="dashboard-container">
+        <!-- Dashboard Header -->
+        <section class="dashboard-header">
+            <div class="welcome-section">
+                <h1 class="welcome-title">Welcome back, <span class="user-name">John</span></h1>
+                <p class="welcome-subtitle">Here's what's happening with your job search today</p>
             </div>
-            <aside class="dashboard-sidebar">
-                <div class="sidebar-card profile-strength-card">
-                    <h3>Profile Strength</h3>
-                    <div class="progress-bar-container">
-                        <div class="progress-bar-bg">
-                            <div class="progress-bar-fill" id="profileProgressBar"></div>
-                        </div>
-                        <span id="profileCompletionText" class="progress-bar-label">80%</span>
-                    </div>
-                    <button class="btn-primary" style="margin-top:1.2rem; width:100%;" onclick="window.location.href='profile.html'">Complete your profile</button>
+            <div class="quick-actions">
+                <button class="action-btn primary" onclick="window.location.href='profile.html'">
+                    <span class="btn-icon">👤</span>
+                    Update Profile
+                </button>
+                <button class="action-btn secondary" onclick="window.location.href='toolkit.html'">
+                    <span class="btn-icon">🛠️</span>
+                    Job Tools
+                </button>
+            </div>
+        </section>
+
+        <!-- Stats Grid -->
+        <section class="stats-grid">
+            <div class="stat-card applications">
+                <div class="stat-icon">📝</div>
+                <div class="stat-content">
+                    <h3 class="stat-number" data-target="24">0</h3>
+                    <p class="stat-label">Applications Sent</p>
+                    <span class="stat-change positive">+3 this week</span>
                 </div>
-                <div class="sidebar-card application-tracker-card">
-                    <h3>Application Tracker</h3>
-                    <div class="tracker-stats">
-                        <div><span class="tracker-label">Saved:</span> <span id="savedCount">5</span></div>
-                        <div><span class="tracker-label">Applied:</span> <span id="appliedCount">2</span></div>
-                        <div><span class="tracker-label">Interviewing:</span> <span id="interviewingCount">1</span></div>
+            </div>
+            <div class="stat-card interviews">
+                <div class="stat-icon">🤝</div>
+                <div class="stat-content">
+                    <h3 class="stat-number" data-target="5">0</h3>
+                    <p class="stat-label">Interviews Scheduled</p>
+                    <span class="stat-change positive">+2 this week</span>
+                </div>
+            </div>
+            <div class="stat-card saved">
+                <div class="stat-icon">💾</div>
+                <div class="stat-content">
+                    <h3 class="stat-number" data-target="12">0</h3>
+                    <p class="stat-label">Saved Jobs</p>
+                    <span class="stat-change neutral">+1 this week</span>
+                </div>
+            </div>
+            <div class="stat-card profile">
+                <div class="stat-icon">📊</div>
+                <div class="stat-content">
+                    <h3 class="stat-number" data-target="85">0</h3>
+                    <p class="stat-label">Profile Strength</p>
+                    <span class="stat-change positive">+5% this week</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Main Content Grid -->
+        <section class="dashboard-grid">
+            <!-- Job Matches Section -->
+            <div class="main-content">
+                <div class="section-header">
+                    <h2 class="section-title">Today's Top Matches</h2>
+                    <div class="section-actions">
+                        <button class="filter-btn active" data-filter="all">All Jobs</button>
+                        <button class="filter-btn" data-filter="recent">Recent</button>
+                        <button class="filter-btn" data-filter="saved">Saved</button>
                     </div>
-                    <button class="btn-secondary" style="margin-top:1.2rem; width:100%;">View Full Tracker</button>
+                </div>
+                
+                <div class="jobs-container" id="jobsContainer">
+                    <!-- Jobs will be loaded dynamically -->
+                </div>
+                
+                <div class="load-more-container">
+                    <button class="load-more-btn">Load More Jobs</button>
+                </div>
+            </div>
+
+            <!-- Sidebar -->
+            <aside class="dashboard-sidebar">
+                <!-- Profile Completion Card -->
+                <div class="sidebar-card profile-card">
+                    <div class="card-header">
+                        <h3 class="card-title">Complete Your Profile</h3>
+                        <span class="completion-badge">85%</span>
+                    </div>
+                    <div class="progress-container">
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 85%"></div>
+                        </div>
+                        <p class="progress-text">Almost there! Complete your profile to get better matches.</p>
+                    </div>
+                    <div class="missing-items">
+                        <div class="missing-item">
+                            <span class="item-icon">📷</span>
+                            <span class="item-text">Add profile photo</span>
+                        </div>
+                        <div class="missing-item">
+                            <span class="item-icon">🎯</span>
+                            <span class="item-text">Set job preferences</span>
+                        </div>
+                    </div>
+                    <button class="complete-profile-btn" onclick="window.location.href='profile.html'">
+                        Complete Profile
+                    </button>
+                </div>
+
+                <!-- Application Tracker Card -->
+                <div class="sidebar-card tracker-card">
+                    <div class="card-header">
+                        <h3 class="card-title">Application Tracker</h3>
+                        <span class="view-all-btn">View All</span>
+                    </div>
+                    <div class="tracker-stats">
+                        <div class="tracker-item">
+                            <div class="tracker-dot applied"></div>
+                            <span class="tracker-label">Applied</span>
+                            <span class="tracker-count">24</span>
+                        </div>
+                        <div class="tracker-item">
+                            <div class="tracker-dot interview"></div>
+                            <span class="tracker-label">Interview</span>
+                            <span class="tracker-count">5</span>
+                        </div>
+                        <div class="tracker-item">
+                            <div class="tracker-dot offer"></div>
+                            <span class="tracker-label">Offer</span>
+                            <span class="tracker-count">2</span>
+                        </div>
+                        <div class="tracker-item">
+                            <div class="tracker-dot rejected"></div>
+                            <span class="tracker-label">Rejected</span>
+                            <span class="tracker-count">7</span>
+                        </div>
+                    </div>
+                    <div class="recent-activity">
+                        <h4 class="activity-title">Recent Activity</h4>
+                        <div class="activity-list">
+                            <div class="activity-item">
+                                <div class="activity-icon applied"></div>
+                                <div class="activity-content">
+                                    <p class="activity-text">Applied to Frontend Developer at TechCorp</p>
+                                    <span class="activity-time">2 hours ago</span>
+                                </div>
+                            </div>
+                            <div class="activity-item">
+                                <div class="activity-icon interview"></div>
+                                <div class="activity-content">
+                                    <p class="activity-text">Interview scheduled with StartupXYZ</p>
+                                    <span class="activity-time">1 day ago</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Links Card -->
+                <div class="sidebar-card quick-links-card">
+                    <div class="card-header">
+                        <h3 class="card-title">Quick Actions</h3>
+                    </div>
+                    <div class="quick-links">
+                        <a href="resume-builder.html" class="quick-link">
+                            <span class="link-icon">📄</span>
+                            <span class="link-text">Resume Builder</span>
+                            <span class="link-arrow">→</span>
+                        </a>
+                        <a href="interview-prep.html" class="quick-link">
+                            <span class="link-icon">🎯</span>
+                            <span class="link-text">Interview Prep</span>
+                            <span class="link-arrow">→</span>
+                        </a>
+                        <a href="cover-letter-generator.html" class="quick-link">
+                            <span class="link-icon">✉️</span>
+                            <span class="link-text">Cover Letter</span>
+                            <span class="link-arrow">→</span>
+                        </a>
+                        <a href="career-advice.html" class="quick-link">
+                            <span class="link-icon">💡</span>
+                            <span class="link-text">Career Advice</span>
+                            <span class="link-arrow">→</span>
+                        </a>
+                    </div>
                 </div>
             </aside>
-        </div>
+        </section>
     </main>
+
     <footer>
         <p>&copy; 2025 JobBridge. All rights reserved.</p>
     </footer>
-<style>
-.dashboard-grid {
-    display: grid;
-    grid-template-columns: 2.5fr 1fr;
-    gap: 2.5rem;
-    margin: 2.5rem 0 0 0;
-    min-height: 70vh;
-}
-.dashboard-main {
-    background: #fff;
-    border-radius: 1.2rem;
-    box-shadow: 0 2px 12px rgba(17,24,39,0.07);
-    padding: 2.5rem 2rem 2rem 2rem;
-    animation: fadeInMain 0.8s cubic-bezier(.68,-0.55,.27,1.55);
-}
-.dashboard-title {
-    font-size: 2rem;
-    font-weight: 700;
-    margin-bottom: 2rem;
-    color: #111827;
-    letter-spacing: -1px;
-}
-.dashboard-sidebar {
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-}
-.profile-strength-card {
-    background: #F8F9FA;
-    border-radius: 1.2rem;
-    box-shadow: 0 2px 12px rgba(59,130,246,0.09);
-    padding: 2rem 1.5rem;
-    text-align: center;
-    animation: popIn 1s cubic-bezier(.68,-0.55,.27,1.55);
-}
-.progress-bar-container {
-    margin: 1.5rem 0 0.5rem 0;
-    position: relative;
-    height: 32px;
-}
-.progress-bar-bg {
-    width: 100%;
-    height: 16px;
-    background: #E5E7EB;
-    border-radius: 999px;
-    overflow: hidden;
-    position: relative;
-}
-.progress-bar-fill {
-    height: 100%;
-    width: 0%;
-    background: linear-gradient(90deg, #3B82F6 60%, #10B981 100%);
-    border-radius: 999px;
-    transition: width 1.2s cubic-bezier(.68,-0.55,.27,1.55);
-}
-.progress-bar-label {
-    position: absolute;
-    right: 1rem;
-    top: -2.2rem;
-    font-size: 1.1rem;
-    font-weight: 600;
-    color: #3B82F6;
-}
-.application-tracker-card {
-    background: #F8F9FA;
-    border-radius: 1.2rem;
-    box-shadow: 0 2px 12px rgba(59,130,246,0.09);
-    padding: 2rem 1.5rem;
-    animation: popIn 1.2s cubic-bezier(.68,-0.55,.27,1.55);
-}
-.tracker-stats {
-    display: flex;
-    flex-direction: column;
-    gap: 0.7rem;
-    margin: 1.2rem 0 1.2rem 0;
-    font-size: 1.08rem;
-}
-.tracker-label {
-    color: #6B7280;
-    font-weight: 500;
-}
-@keyframes fadeInMain {
-    0% { opacity: 0; transform: translateY(30px); }
-    100% { opacity: 1; transform: translateY(0); }
-}
-@keyframes popIn {
-    0% { opacity: 0; transform: scale(0.85) translateY(30px); }
-    100% { opacity: 1; transform: scale(1) translateY(0); }
-}
-@media (max-width: 900px) {
-    .dashboard-grid {
-        grid-template-columns: 1fr;
-        gap: 1.5rem;
-    }
-    .dashboard-sidebar {
-        flex-direction: row;
-        gap: 1.2rem;
-    }
-    .profile-strength-card, .application-tracker-card {
-        min-width: 45vw;
-    }
-}
-</style>
+
     <script src="scripts/dashboard.js"></script>
+    <script src="scripts/animations.js"></script>
+    <script src="scripts/theme.js"></script>
 </body>
 </html>

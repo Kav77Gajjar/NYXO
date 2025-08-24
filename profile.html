@@ -5,127 +5,278 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profile - JobBridge</title>
     <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/dashboard.css">
 </head>
 <body>
     <header>
         <h1>JobBridge</h1>
         <nav>
-            <a href="index.html">Home</a>
-            <a href="signup.html">Sign Up</a>
             <a href="dashboard.html">Dashboard</a>
+            <a href="profile.html" class="active">Profile</a>
             <a href="toolkit.html">Toolkit</a>
             <a href="jobcontroller.html">Job Controller</a>
-            <a href="profile.html">Profile</a>
+            <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode">
+                <span class="theme-icon">🌙</span>
+            </button>
         </nav>
     </header>
-    <main>
-        <section class="profile">
-            <h2>Your Profile</h2>
-            <div class="profile-card card">
-                <div class="profile-row">
-                    <div class="profile-avatar">👤</div>
-                    <div class="profile-info">
-                        <div class="profile-name" id="displayName">Name</div>
-                        <div class="profile-username"><span class="profile-label">Username:</span> <span id="displayUsername">-</span></div>
-                        <div class="profile-email" id="displayEmail">Email</div>
-                        <div class="profile-skills"><span class="profile-label">Skills:</span> <span id="displaySkills">-</span></div>
-                        <div class="profile-bio"><span class="profile-label">Bio:</span> <span id="displayBio">-</span></div>
+
+    <main class="dashboard-container">
+        <!-- Profile Header -->
+        <section class="dashboard-header">
+            <div class="welcome-section">
+                <h1 class="welcome-title">Your Professional Profile</h1>
+                <p class="welcome-subtitle">Manage your profile information and showcase your skills</p>
+            </div>
+            <div class="quick-actions">
+                <button class="action-btn primary" onclick="toggleEditMode()">
+                    <span class="btn-icon">✏️</span>
+                    Edit Profile
+                </button>
+                <button class="action-btn secondary" onclick="window.location.href='resume-builder.html'">
+                    <span class="btn-icon">📄</span>
+                    Build Resume
+                </button>
+            </div>
+        </section>
+
+        <!-- Profile Stats -->
+        <section class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon">👁️</div>
+                <div class="stat-content">
+                    <h3 class="stat-number" data-target="47">0</h3>
+                    <p class="stat-label">Profile Views</p>
+                    <span class="stat-change positive">+12 this week</span>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">📧</div>
+                <div class="stat-content">
+                    <h3 class="stat-number" data-target="8">0</h3>
+                    <p class="stat-label">Messages</p>
+                    <span class="stat-change positive">+3 new</span>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">🎯</div>
+                <div class="stat-content">
+                    <h3 class="stat-number" data-target="92">0</h3>
+                    <p class="stat-label">Skills Match</p>
+                    <span class="stat-change positive">Excellent</span>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">⭐</div>
+                <div class="stat-content">
+                    <h3 class="stat-number" data-target="4.8">0</h3>
+                    <p class="stat-label">Rating</p>
+                    <span class="stat-change positive">5-star reviews</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Main Profile Content -->
+        <section class="dashboard-grid">
+            <div class="main-content">
+                <div class="section-header">
+                    <h2 class="section-title">Profile Information</h2>
+                </div>
+
+                <!-- Profile Display Mode -->
+                <div id="profileDisplay" class="profile-display">
+                    <div class="profile-main-card">
+                        <div class="profile-header">
+                            <div class="profile-avatar-large">
+                                <span id="displayAvatar">👤</span>
+                            </div>
+                            <div class="profile-basic-info">
+                                <h2 class="profile-name" id="displayName">John Doe</h2>
+                                <p class="profile-title">Frontend Developer</p>
+                                <p class="profile-location">📍 San Francisco, CA</p>
+                                <div class="profile-contact">
+                                    <span class="contact-item">
+                                        <span class="contact-icon">📧</span>
+                                        <span id="displayEmail">john.doe@email.com</span>
+                                    </span>
+                                    <span class="contact-item">
+                                        <span class="contact-icon">👤</span>
+                                        <span id="displayUsername">@johndoe</span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="profile-section">
+                            <h3 class="section-subtitle">About Me</h3>
+                            <p class="profile-bio" id="displayBio">
+                                Passionate frontend developer with 5+ years of experience building modern web applications. 
+                                Specialized in React, TypeScript, and creating exceptional user experiences.
+                            </p>
+                        </div>
+
+                        <div class="profile-section">
+                            <h3 class="section-subtitle">Skills & Expertise</h3>
+                            <div class="skills-grid" id="displaySkills">
+                                <span class="skill-tag">JavaScript</span>
+                                <span class="skill-tag">React</span>
+                                <span class="skill-tag">TypeScript</span>
+                                <span class="skill-tag">CSS3</span>
+                                <span class="skill-tag">Node.js</span>
+                                <span class="skill-tag">Git</span>
+                            </div>
+                        </div>
+
+                        <div class="profile-section">
+                            <h3 class="section-subtitle">Experience</h3>
+                            <div class="experience-list">
+                                <div class="experience-item">
+                                    <div class="experience-company">TechCorp Inc.</div>
+                                    <div class="experience-role">Senior Frontend Developer</div>
+                                    <div class="experience-duration">2022 - Present</div>
+                                </div>
+                                <div class="experience-item">
+                                    <div class="experience-company">StartupXYZ</div>
+                                    <div class="experience-role">Frontend Developer</div>
+                                    <div class="experience-duration">2020 - 2022</div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <button class="btn-primary" id="updateProfileBtn" style="margin-top:1.5rem;">Update</button>
+
+                <!-- Profile Edit Mode -->
+                <div id="profileEdit" class="profile-edit" style="display: none;">
+                    <form id="profileForm" class="profile-form">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="profileName">Full Name</label>
+                                <input type="text" id="profileName" name="profileName" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="profileUsername">Username</label>
+                                <input type="text" id="profileUsername" name="profileUsername" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="profileEmail">Email</label>
+                                <input type="email" id="profileEmail" name="profileEmail" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="profileTitle">Professional Title</label>
+                                <input type="text" id="profileTitle" name="profileTitle" placeholder="e.g. Frontend Developer">
+                            </div>
+                            <div class="form-group full-width">
+                                <label for="profileBio">Bio</label>
+                                <textarea id="profileBio" name="profileBio" rows="4" placeholder="Tell us about yourself..."></textarea>
+                            </div>
+                            <div class="form-group full-width">
+                                <label for="profileSkills">Skills (comma separated)</label>
+                                <input type="text" id="profileSkills" name="profileSkills" placeholder="e.g. JavaScript, React, CSS, Node.js">
+                            </div>
+                        </div>
+                        <div class="form-actions">
+                            <button type="submit" class="action-btn primary">
+                                <span class="btn-icon">💾</span>
+                                Save Changes
+                            </button>
+                            <button type="button" class="action-btn secondary" onclick="cancelEdit()">
+                                <span class="btn-icon">❌</span>
+                                Cancel
+                            </button>
+                        </div>
+                    </form>
+                </div>
             </div>
-            <form id="profileForm" style="display:none; margin-top:2rem;">
-                <label for="profileName">Name:</label>
-                <input type="text" id="profileName" name="profileName" required>
-                <label for="profileUsername">Username:</label>
-                <input type="text" id="profileUsername" name="profileUsername" required>
-                <label for="profileEmail">Email:</label>
-                <input type="email" id="profileEmail" name="profileEmail" required>
-                <label for="profileSkills">Skills:</label>
-                <input type="text" id="profileSkills" name="profileSkills" placeholder="e.g. JavaScript, React, CSS">
-                <label for="profileBio">Bio:</label>
-                <textarea id="profileBio" name="profileBio" rows="3"></textarea>
-                <button type="submit" class="btn-primary">Save</button>
-                <button type="button" class="btn-secondary" id="cancelUpdateBtn" style="margin-top:1rem;">Cancel</button>
-            </form>
-            <div id="profileMessage" style="margin-top:1rem;"></div>
+
+            <!-- Sidebar -->
+            <aside class="dashboard-sidebar">
+                <!-- Profile Completion -->
+                <div class="sidebar-card">
+                    <div class="card-header">
+                        <h3 class="card-title">Profile Completion</h3>
+                        <span class="completion-badge">92%</span>
+                    </div>
+                    <div class="progress-container">
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 92%"></div>
+                        </div>
+                        <p class="progress-text">Your profile is almost complete! Add a few more details to reach 100%.</p>
+                    </div>
+                    <div class="missing-items">
+                        <div class="missing-item">
+                            <span class="item-icon">📷</span>
+                            <span class="item-text">Upload profile photo</span>
+                        </div>
+                        <div class="missing-item">
+                            <span class="item-icon">🏢</span>
+                            <span class="item-text">Add work experience</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Profile Visibility -->
+                <div class="sidebar-card">
+                    <div class="card-header">
+                        <h3 class="card-title">Profile Visibility</h3>
+                    </div>
+                    <div class="visibility-options">
+                        <label class="visibility-option">
+                            <input type="radio" name="visibility" value="public" checked>
+                            <span class="option-content">
+                                <span class="option-title">🌐 Public</span>
+                                <span class="option-desc">Visible to all employers</span>
+                            </span>
+                        </label>
+                        <label class="visibility-option">
+                            <input type="radio" name="visibility" value="private">
+                            <span class="option-content">
+                                <span class="option-title">🔒 Private</span>
+                                <span class="option-desc">Only visible to you</span>
+                            </span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Quick Links -->
+                <div class="sidebar-card">
+                    <div class="card-header">
+                        <h3 class="card-title">Quick Actions</h3>
+                    </div>
+                    <div class="quick-links">
+                        <a href="resume-builder.html" class="quick-link">
+                            <span class="link-icon">📄</span>
+                            <span class="link-text">Build Resume</span>
+                            <span class="link-arrow">→</span>
+                        </a>
+                        <a href="cover-letter-generator.html" class="quick-link">
+                            <span class="link-icon">✉️</span>
+                            <span class="link-text">Cover Letter</span>
+                            <span class="link-arrow">→</span>
+                        </a>
+                        <a href="interview-prep.html" class="quick-link">
+                            <span class="link-icon">🎯</span>
+                            <span class="link-text">Interview Prep</span>
+                            <span class="link-arrow">→</span>
+                        </a>
+                        <a href="dashboard.html" class="quick-link">
+                            <span class="link-icon">📊</span>
+                            <span class="link-text">Dashboard</span>
+                            <span class="link-arrow">→</span>
+                        </a>
+                    </div>
+                </div>
+            </aside>
         </section>
+
+        <div id="profileMessage" class="message-container"></div>
     </main>
+
     <footer>
         <p>&copy; 2025 JobBridge. All rights reserved.</p>
     </footer>
-<style>
-.profile-card {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 1.2rem;
-    background: #F8F9FA;
-    border-radius: 1.2rem;
-    box-shadow: 0 2px 12px rgba(17,24,39,0.09);
-    padding: 2.2rem 2.5rem;
-    min-width: 320px;
-    max-width: 420px;
-    margin: 0 auto;
-}
-.profile-row {
-    display: flex;
-    align-items: center;
-    gap: 1.5rem;
-}
-.profile-avatar {
-    width: 72px;
-    height: 72px;
-    border-radius: 50%;
-    background: #3B82F6;
-    color: #fff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 2.5rem;
-    font-weight: 700;
-    box-shadow: 0 2px 8px rgba(59,130,246,0.10);
-}
-.profile-info {
-    display: flex;
-    flex-direction: column;
-    gap: 0.3rem;
-}
-.profile-name {
-    font-size: 1.3rem;
-    font-weight: 700;
-    color: #111827;
-}
-.profile-email {
-    color: #6B7280;
-    font-size: 1rem;
-}
-.profile-label {
-    color: #6B7280;
-    font-weight: 500;
-}
-.profile-skills, .profile-bio {
-    font-size: 1rem;
-    color: #111827;
-}
-@media (max-width: 700px) {
-    .profile-card {
-        min-width: 90vw;
-        max-width: 98vw;
-        padding: 1.2rem 0.5rem;
-    }
-    .profile-row {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 0.7rem;
-    }
-    .profile-avatar {
-        width: 56px;
-        height: 56px;
-        font-size: 1.7rem;
-    }
-}
-</style>
+
     <script src="scripts/profile.js"></script>
+    <script src="scripts/animations.js"></script>
+    <script src="scripts/theme.js"></script>
 </body>
 </html>

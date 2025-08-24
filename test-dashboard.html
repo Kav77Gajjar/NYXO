@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Dashboard - JobBridge</title>
+    <link rel="stylesheet" href="styles/dashboard.css">
+    <style>
+        /* Emergency visibility fix */
+        * {
+            opacity: 1 !important;
+            color: #111827 !important;
+        }
+        
+        .job-card {
+            background: white !important;
+            border: 2px solid #e5e7eb !important;
+            margin: 1rem !important;
+            padding: 2rem !important;
+        }
+        
+        .job-title {
+            font-size: 1.5rem !important;
+            font-weight: bold !important;
+            color: #111827 !important;
+            margin-bottom: 1rem !important;
+        }
+        
+        .company-info h3 {
+            color: #111827 !important;
+            font-weight: bold !important;
+        }
+        
+        .company-info p {
+            color: #666 !important;
+        }
+    </style>
+</head>
+<body>
+    <h1>Job Card Test</h1>
+    
+    <div class="job-card">
+        <div class="job-header">
+            <div class="job-company">
+                <div class="company-logo">TC</div>
+                <div class="company-info">
+                    <h3>TechCorp Inc.</h3>
+                    <p>San Francisco, CA</p>
+                </div>
+            </div>
+        </div>
+        
+        <h2 class="job-title">Senior Frontend Developer</h2>
+        
+        <div class="job-details">
+            <span class="job-tag">Full-time</span>
+            <span class="job-tag salary">$120k - $150k</span>
+            <span class="job-tag">React</span>
+            <span class="job-tag">TypeScript</span>
+        </div>
+        
+        <div class="job-footer">
+            <span class="job-posted">Posted 2 days ago</span>
+            <button class="apply-btn">Apply Now</button>
+        </div>
+    </div>
+    
+</body>
+</html>

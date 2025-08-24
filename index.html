@@ -10,12 +10,13 @@
     <header>
         <h1>JobBridge</h1>
         <nav>
-            <a href="index.html">Home</a>
-            <a href="signup.html">Sign Up</a>
-            <a href="dashboard.html">Dashboard</a>
-            <a href="toolkit.html">Toolkit</a>
-            <a href="jobcontroller.html">Job Controller</a>
-            <a href="profile.html">Profile</a>
+            <a href="#about">About Us</a>
+            <a href="#services">Services</a>
+            <a href="#contact">Contact</a>
+            <a href="signup.html" class="signup-btn">Sign Up</a>
+            <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode">
+                <span class="theme-icon">🌙</span>
+            </button>
         </nav>
     </header>
     <main>
@@ -24,10 +25,62 @@
             <p>Scan your resume or enter your details to find jobs across multiple platforms!</p>
             <button onclick="window.location.href='signup.html'">Get Started</button>
         </section>
+
+        <section id="about" class="about-section animate-on-scroll">
+            <h2>About Us</h2>
+            <p>JobBridge is your comprehensive platform for finding the perfect job opportunities across multiple job boards. We simplify your job search by aggregating listings from various sources and matching them to your skills and preferences.</p>
+        </section>
+
+        <section id="services" class="services-section animate-on-scroll">
+            <h2>Our Services</h2>
+            <div class="services-grid">
+                <div class="service-card animate-on-scroll">
+                    <h3>Job Matching</h3>
+                    <p>Advanced algorithms to match your skills with relevant job opportunities.</p>
+                </div>
+                <div class="service-card animate-on-scroll">
+                    <h3>Resume Builder</h3>
+                    <p>Create professional resumes that stand out to employers.</p>
+                </div>
+                <div class="service-card animate-on-scroll">
+                    <h3>Interview Prep</h3>
+                    <p>Get ready for interviews with our comprehensive preparation tools.</p>
+                </div>
+                <div class="service-card animate-on-scroll">
+                    <h3>Career Advice</h3>
+                    <p>Expert guidance to help advance your career to the next level.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="contact-section animate-on-scroll">
+            <h2>Get In Touch</h2>
+            <form class="contact-form">
+                <div class="form-group">
+                    <label for="name">Name *</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email *</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="mobile">Mobile Number</label>
+                    <input type="tel" id="mobile" name="mobile">
+                </div>
+                <div class="form-group">
+                    <label for="message">Message *</label>
+                    <textarea id="message" name="message" rows="4" required></textarea>
+                </div>
+                <button type="submit" class="submit-btn">Send Message</button>
+            </form>
+        </section>
     </main>
     <footer>
         <p>&copy; 2025 JobBridge. All rights reserved.</p>
     </footer>
     <script src="scripts/main.js"></script>
+    <script src="scripts/animations.js"></script>
+    <script src="scripts/theme.js"></script>
 </body>
 </html>

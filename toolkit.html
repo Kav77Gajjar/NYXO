@@ -5,122 +5,331 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Toolkit - JobBridge</title>
     <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/dashboard.css">
 </head>
 <body>
     <header>
         <h1>JobBridge</h1>
         <nav>
-            <a href="index.html">Home</a>
-            <a href="signup.html">Sign Up</a>
             <a href="dashboard.html">Dashboard</a>
-            <a href="toolkit.html">Toolkit</a>
-            <a href="jobcontroller.html">Job Controller</a>
             <a href="profile.html">Profile</a>
+            <a href="toolkit.html" class="active">Toolkit</a>
+            <a href="jobcontroller.html">Job Controller</a>
+            <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode">
+                <span class="theme-icon">🌙</span>
+            </button>
         </nav>
     </header>
-    <main>
-        <section class="toolkit">
-            <h2>Career Toolkit</h2>
-            <div class="toolkit-cards">
-                <div class="tool-card" onclick="window.location.href='resume-builder.html'">
-                    <div class="tool-icon" style="background:#3B82F6;"><span>📄</span></div>
-                    <div class="tool-content">
-                        <h3>Resume Builder</h3>
-                        <p>Create a professional resume in minutes with guided templates and export options.</p>
-                    </div>
+
+    <main class="dashboard-container">
+        <!-- Toolkit Header -->
+        <section class="dashboard-header">
+            <div class="welcome-section">
+                <h1 class="welcome-title">Career Toolkit</h1>
+                <p class="welcome-subtitle">Everything you need to boost your job search and career growth</p>
+            </div>
+            <div class="quick-actions">
+                <button class="action-btn primary" onclick="window.location.href='dashboard.html'">
+                    <span class="btn-icon">📊</span>
+                    Dashboard
+                </button>
+                <button class="action-btn secondary" onclick="window.location.href='profile.html'">
+                    <span class="btn-icon">👤</span>
+                    Profile
+                </button>
+            </div>
+        </section>
+
+        <!-- Toolkit Stats -->
+        <section class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon">📄</div>
+                <div class="stat-content">
+                    <h3 class="stat-number" data-target="3">0</h3>
+                    <p class="stat-label">Resumes Created</p>
+                    <span class="stat-change positive">+1 this week</span>
                 </div>
-                <div class="tool-card" onclick="window.location.href='cover-letter-generator.html'">
-                    <div class="tool-icon" style="background:#10B981;"><span>✉️</span></div>
-                    <div class="tool-content">
-                        <h3>Cover Letter Generator</h3>
-                        <p>Generate personalized cover letters tailored to each job application.</p>
-                    </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">✉️</div>
+                <div class="stat-content">
+                    <h3 class="stat-number" data-target="12">0</h3>
+                    <p class="stat-label">Cover Letters</p>
+                    <span class="stat-change positive">+5 this week</span>
                 </div>
-                <div class="tool-card" onclick="window.location.href='interview-prep.html'">
-                    <div class="tool-icon" style="background:#F59E42;"><span>🎤</span></div>
-                    <div class="tool-content">
-                        <h3>Interview Prep</h3>
-                        <p>Practice common interview questions and get tips to ace your next interview.</p>
-                    </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">🎯</div>
+                <div class="stat-content">
+                    <h3 class="stat-number" data-target="7">0</h3>
+                    <p class="stat-label">Interview Preps</p>
+                    <span class="stat-change positive">+2 this week</span>
                 </div>
-                <div class="tool-card" onclick="window.location.href='career-advice.html'">
-                    <div class="tool-icon" style="background:#6366F1;"><span>💡</span></div>
-                    <div class="tool-content">
-                        <h3>Career Advice</h3>
-                        <p>Read expert articles and get advice to grow and manage your career.</p>
-                    </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">📚</div>
+                <div class="stat-content">
+                    <h3 class="stat-number" data-target="15">0</h3>
+                    <p class="stat-label">Articles Read</p>
+                    <span class="stat-change positive">+8 this week</span>
                 </div>
             </div>
         </section>
+
+        <!-- Main Toolkit Content -->
+        <section class="dashboard-grid">
+            <div class="main-content">
+                <div class="section-header">
+                    <h2 class="section-title">Career Tools</h2>
+                </div>
+
+                <div class="toolkit-grid">
+                    <!-- Resume Builder -->
+                    <div class="toolkit-card" onclick="window.location.href='resume-builder.html'">
+                        <div class="toolkit-header">
+                            <div class="toolkit-icon resume">📄</div>
+                            <div class="toolkit-badge">Popular</div>
+                        </div>
+                        <div class="toolkit-content">
+                            <h3 class="toolkit-title">Resume Builder</h3>
+                            <p class="toolkit-description">
+                                Create professional resumes with AI-powered suggestions and industry-specific templates.
+                            </p>
+                            <div class="toolkit-features">
+                                <span class="feature-tag">✨ AI-Powered</span>
+                                <span class="feature-tag">📱 Mobile-Friendly</span>
+                                <span class="feature-tag">📥 Export PDF</span>
+                            </div>
+                        </div>
+                        <div class="toolkit-footer">
+                            <span class="usage-stats">Used 3 times</span>
+                            <button class="toolkit-btn">
+                                Create Resume
+                                <span class="btn-arrow">→</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Cover Letter Generator -->
+                    <div class="toolkit-card" onclick="window.location.href='cover-letter-generator.html'">
+                        <div class="toolkit-header">
+                            <div class="toolkit-icon cover-letter">✉️</div>
+                            <div class="toolkit-badge new">New</div>
+                        </div>
+                        <div class="toolkit-content">
+                            <h3 class="toolkit-title">Cover Letter Generator</h3>
+                            <p class="toolkit-description">
+                                Generate personalized cover letters tailored to specific job postings and companies.
+                            </p>
+                            <div class="toolkit-features">
+                                <span class="feature-tag">🎯 Job-Specific</span>
+                                <span class="feature-tag">🤖 AI-Generated</span>
+                                <span class="feature-tag">✏️ Editable</span>
+                            </div>
+                        </div>
+                        <div class="toolkit-footer">
+                            <span class="usage-stats">Used 12 times</span>
+                            <button class="toolkit-btn">
+                                Generate Letter
+                                <span class="btn-arrow">→</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Interview Prep -->
+                    <div class="toolkit-card" onclick="window.location.href='interview-prep.html'">
+                        <div class="toolkit-header">
+                            <div class="toolkit-icon interview">🎤</div>
+                            <div class="toolkit-badge trending">Trending</div>
+                        </div>
+                        <div class="toolkit-content">
+                            <h3 class="toolkit-title">Interview Preparation</h3>
+                            <p class="toolkit-description">
+                                Practice with common interview questions and get expert tips for different industries.
+                            </p>
+                            <div class="toolkit-features">
+                                <span class="feature-tag">❓ 500+ Questions</span>
+                                <span class="feature-tag">🎭 Role-Specific</span>
+                                <span class="feature-tag">💡 Expert Tips</span>
+                            </div>
+                        </div>
+                        <div class="toolkit-footer">
+                            <span class="usage-stats">Used 7 times</span>
+                            <button class="toolkit-btn">
+                                Start Practice
+                                <span class="btn-arrow">→</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Career Advice -->
+                    <div class="toolkit-card" onclick="window.location.href='career-advice.html'">
+                        <div class="toolkit-header">
+                            <div class="toolkit-icon advice">💡</div>
+                        </div>
+                        <div class="toolkit-content">
+                            <h3 class="toolkit-title">Career Advice Hub</h3>
+                            <p class="toolkit-description">
+                                Read expert articles, career guides, and industry insights to grow your career.
+                            </p>
+                            <div class="toolkit-features">
+                                <span class="feature-tag">📚 100+ Articles</span>
+                                <span class="feature-tag">🔄 Weekly Updates</span>
+                                <span class="feature-tag">🏆 Expert Authors</span>
+                            </div>
+                        </div>
+                        <div class="toolkit-footer">
+                            <span class="usage-stats">15 articles read</span>
+                            <button class="toolkit-btn">
+                                Browse Articles
+                                <span class="btn-arrow">→</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Salary Calculator -->
+                    <div class="toolkit-card coming-soon">
+                        <div class="toolkit-header">
+                            <div class="toolkit-icon salary">💰</div>
+                            <div class="toolkit-badge coming-soon">Coming Soon</div>
+                        </div>
+                        <div class="toolkit-content">
+                            <h3 class="toolkit-title">Salary Calculator</h3>
+                            <p class="toolkit-description">
+                                Research salary ranges for your role and location to negotiate better offers.
+                            </p>
+                            <div class="toolkit-features">
+                                <span class="feature-tag">📊 Market Data</span>
+                                <span class="feature-tag">📍 Location-Based</span>
+                                <span class="feature-tag">📈 Trends</span>
+                            </div>
+                        </div>
+                        <div class="toolkit-footer">
+                            <span class="usage-stats">Available Soon</span>
+                            <button class="toolkit-btn disabled">
+                                Coming Soon
+                                <span class="btn-arrow">→</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Skills Assessment -->
+                    <div class="toolkit-card coming-soon">
+                        <div class="toolkit-header">
+                            <div class="toolkit-icon skills">🧠</div>
+                            <div class="toolkit-badge coming-soon">Coming Soon</div>
+                        </div>
+                        <div class="toolkit-content">
+                            <h3 class="toolkit-title">Skills Assessment</h3>
+                            <p class="toolkit-description">
+                                Take skill tests to identify strengths and areas for improvement in your career.
+                            </p>
+                            <div class="toolkit-features">
+                                <span class="feature-tag">🎯 Personalized</span>
+                                <span class="feature-tag">📊 Detailed Reports</span>
+                                <span class="feature-tag">🎓 Learning Paths</span>
+                            </div>
+                        </div>
+                        <div class="toolkit-footer">
+                            <span class="usage-stats">Available Soon</span>
+                            <button class="toolkit-btn disabled">
+                                Coming Soon
+                                <span class="btn-arrow">→</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sidebar -->
+            <aside class="dashboard-sidebar">
+                <!-- Recent Activity -->
+                <div class="sidebar-card">
+                    <div class="card-header">
+                        <h3 class="card-title">Recent Activity</h3>
+                    </div>
+                    <div class="activity-list">
+                        <div class="activity-item">
+                            <div class="activity-icon applied"></div>
+                            <div class="activity-content">
+                                <p class="activity-text">Created new resume template</p>
+                                <span class="activity-time">2 hours ago</span>
+                            </div>
+                        </div>
+                        <div class="activity-item">
+                            <div class="activity-icon interview"></div>
+                            <div class="activity-content">
+                                <p class="activity-text">Completed interview prep session</p>
+                                <span class="activity-time">1 day ago</span>
+                            </div>
+                        </div>
+                        <div class="activity-item">
+                            <div class="activity-icon applied"></div>
+                            <div class="activity-content">
+                                <p class="activity-text">Generated cover letter for TechCorp</p>
+                                <span class="activity-time">2 days ago</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Popular Tools -->
+                <div class="sidebar-card">
+                    <div class="card-header">
+                        <h3 class="card-title">Most Popular</h3>
+                    </div>
+                    <div class="popular-tools">
+                        <div class="popular-tool">
+                            <span class="tool-rank">1</span>
+                            <span class="tool-name">Resume Builder</span>
+                            <span class="tool-usage">89% users</span>
+                        </div>
+                        <div class="popular-tool">
+                            <span class="tool-rank">2</span>
+                            <span class="tool-name">Cover Letter</span>
+                            <span class="tool-usage">76% users</span>
+                        </div>
+                        <div class="popular-tool">
+                            <span class="tool-rank">3</span>
+                            <span class="tool-name">Interview Prep</span>
+                            <span class="tool-usage">62% users</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Help & Support -->
+                <div class="sidebar-card">
+                    <div class="card-header">
+                        <h3 class="card-title">Need Help?</h3>
+                    </div>
+                    <div class="help-content">
+                        <p>Get the most out of your toolkit with our guides and tutorials.</p>
+                        <div class="help-links">
+                            <a href="#" class="help-link">📖 User Guide</a>
+                            <a href="#" class="help-link">🎥 Video Tutorials</a>
+                            <a href="#" class="help-link">💬 Live Chat</a>
+                            <a href="#" class="help-link">📧 Email Support</a>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+        </section>
     </main>
+
     <footer>
         <p>&copy; 2025 JobBridge. All rights reserved.</p>
     </footer>
-</body>
-<style>
-.toolkit-cards {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 2rem;
-    justify-content: center;
-    margin-top: 2.5rem;
-}
-.tool-card {
-    background: #fff;
-    border-radius: 1.2rem;
-    box-shadow: 0 2px 12px rgba(17,24,39,0.09);
-    display: flex;
-    align-items: center;
-    gap: 1.5rem;
-    padding: 2rem 2.2rem;
-    min-width: 320px;
-    max-width: 400px;
-    cursor: pointer;
-    transition: box-shadow 0.25s, transform 0.25s;
-    animation: popIn 0.7s cubic-bezier(.68,-0.55,.27,1.55);
-}
-.tool-card:hover {
-    box-shadow: 0 8px 32px rgba(59,130,246,0.13);
-    transform: translateY(-6px) scale(1.03);
-}
-.tool-icon {
-    width: 64px;
-    height: 64px;
-    border-radius: 1rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 2.2rem;
-    color: #fff;
-    box-shadow: 0 2px 8px rgba(59,130,246,0.10);
-    flex-shrink: 0;
-    transition: background 0.2s;
-}
-.tool-content h3 {
-    margin: 0 0 0.5rem 0;
-    font-size: 1.15rem;
-    font-weight: 700;
-    color: #111827;
-}
-.tool-content p {
-    margin: 0;
-    color: #6B7280;
-    font-size: 1rem;
-}
-@keyframes popIn {
-    0% { opacity: 0; transform: scale(0.85) translateY(30px); }
-    100% { opacity: 1; transform: scale(1) translateY(0); }
-}
-@media (max-width: 900px) {
-    .toolkit-cards {
-        flex-direction: column;
-        align-items: center;
-    }
-    .tool-card {
-        min-width: 90vw;
-        max-width: 98vw;
-    }
-}
-</style>
+
+    <script src="scripts/animations.js"></script>
+    <script src="scripts/theme.js"></script>
+    <script>
+        // Initialize counter animations for toolkit page
+        document.addEventListener('DOMContentLoaded', () => {
+            if (window.JobBridgeAnimations) {
+                const animations = new JobBridgeAnimations();
+                animations.initCounters();
+            }
+        });
+    </script>
 </body>
 </html>
