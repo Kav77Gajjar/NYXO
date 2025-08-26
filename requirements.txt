@@ -1,0 +1,32 @@
+# Core Django Dependencies
+Django
+djangorestframework
+djangorestframework-simplejwt
+django-cors-headers
+python-decouple
+Pillow
+
+# Development Dependencies (Swagger/OpenAPI)
+drf-yasg
+
+# Production Database Support
+dj-database-url
+psycopg2-binary
+
+# Production Server
+gunicorn
+whitenoise
+
+# Security & Performance
+django-ratelimit
+django-environ
+
+# Caching (optional)
+redis
+django-redis
+
+# Monitoring & Logging
+sentry-sdk
+
+# Additional Security
+django-security
