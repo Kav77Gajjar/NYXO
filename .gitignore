@@ -10,7 +10,8 @@
 
 
 connect.txt
-
+.gitignore
+deploy.sh
 # Django
 __pycache__/
 *.py[cod]
