@@ -50,6 +50,9 @@ function Profile({ userEmail }) {
     }
   })
 
+  const [skillInput, setSkillInput] = useState('')
+  const [showSuggestions, setShowSuggestions] = useState(false)
+  const [filteredSuggestions, setFilteredSuggestions] = useState([])
   const [isEditing, setIsEditing] = useState({
     personal: false,
     experience: false,
@@ -57,6 +60,74 @@ function Profile({ userEmail }) {
     skills: false,
     preferences: false
   })
+
+  // Technical skills suggestions
+  const technicalSkills = [
+    'React', 'Vue.js', 'Angular', 'JavaScript', 'TypeScript', 'Python', 'Java', 'C++', 'C#', 'PHP',
+    'Node.js', 'Express.js', 'Django', 'Flask', 'Spring Boot', 'Ruby on Rails', 'Laravel', 'ASP.NET',
+    'HTML', 'CSS', 'SASS', 'SCSS', 'Tailwind CSS', 'Bootstrap', 'Material-UI', 'Chakra UI',
+    'MongoDB', 'PostgreSQL', 'MySQL', 'Redis', 'Firebase', 'SQLite', 'Oracle', 'SQL Server',
+    'AWS', 'Azure', 'Google Cloud', 'Docker', 'Kubernetes', 'Jenkins', 'Git', 'GitHub', 'GitLab',
+    'Linux', 'Ubuntu', 'Windows Server', 'Apache', 'Nginx', 'REST APIs', 'GraphQL', 'WebSockets',
+    'React Native', 'Flutter', 'Ionic', 'Xamarin', 'Swift', 'Kotlin', 'Objective-C',
+    'Machine Learning', 'AI', 'Data Science', 'TensorFlow', 'PyTorch', 'Pandas', 'NumPy', 'Scikit-learn',
+    'Cybersecurity', 'Penetration Testing', 'Network Security', 'Cryptography', 'Blockchain', 'Web3',
+    'DevOps', 'CI/CD', 'Terraform', 'Ansible', 'Monitoring', 'Logging', 'Microservices', 'Serverless'
+  ]
+
+  // Soft skills suggestions
+  const softSkills = [
+    'Communication', 'Leadership', 'Teamwork', 'Problem Solving', 'Critical Thinking', 'Creativity',
+    'Adaptability', 'Time Management', 'Organization', 'Attention to Detail', 'Work Ethic', 'Reliability',
+    'Emotional Intelligence', 'Conflict Resolution', 'Negotiation', 'Public Speaking', 'Presentation Skills',
+    'Customer Service', 'Mentoring', 'Coaching', 'Project Management', 'Agile Methodology', 'Scrum',
+    'Collaboration', 'Cross-functional Teams', 'Remote Work', 'Cultural Awareness', 'Diversity & Inclusion',
+    'Continuous Learning', 'Self-motivation', 'Resilience', 'Stress Management', 'Decision Making',
+    'Strategic Planning', 'Risk Management', 'Quality Assurance', 'Process Improvement', 'Innovation',
+    'Analytical Thinking', 'Research Skills', 'Data Analysis', 'Reporting', 'Documentation',
+    'Client Relations', 'Stakeholder Management', 'Budget Management', 'Resource Allocation'
+  ]
+
+  const allSkills = [...technicalSkills, ...softSkills]
+
+  const handleSkillInputChange = (e) => {
+    const value = e.target.value
+    setSkillInput(value)
+    
+    if (value.length > 0) {
+      const filtered = allSkills.filter(skill => 
+        skill.toLowerCase().includes(value.toLowerCase()) &&
+        !profileData.skills.includes(skill)
+      )
+      setFilteredSuggestions(filtered.slice(0, 8)) // Limit to 8 suggestions
+      setShowSuggestions(true)
+    } else {
+      setShowSuggestions(false)
+    }
+  }
+
+  const addSkill = (skillName) => {
+    const skillToAdd = skillName || skillInput.trim()
+    if (skillToAdd && !profileData.skills.includes(skillToAdd)) {
+      setProfileData(prev => ({
+        ...prev,
+        skills: [...prev.skills, skillToAdd]
+      }))
+      setSkillInput('')
+      setShowSuggestions(false)
+    }
+  }
+
+  const removeSkill = (skillToRemove) => {
+    setProfileData(prev => ({
+      ...prev,
+      skills: prev.skills.filter(skill => skill !== skillToRemove)
+    }))
+  }
+
+  const selectSuggestion = (skill) => {
+    addSkill(skill)
+  }
 
   const toggleEdit = (section) => {
     setIsEditing(prev => ({
@@ -311,20 +382,81 @@ function Profile({ userEmail }) {
       <div className="skills-container">
         {isEditing.skills ? (
           <div className="skills-edit">
-            <textarea 
-              className="skills-textarea"
-              value={profileData.skills.join(', ')}
-              placeholder="Enter skills separated by commas"
-            />
-            <button className="add-skill-btn">+ Add Skill</button>
+            <div className="skill-input-container">
+              <div className="skill-input-wrapper">
+                <input
+                  type="text"
+                  value={skillInput}
+                  onChange={handleSkillInputChange}
+                  placeholder="Type a skill name..."
+                  className="skill-input"
+                  onKeyPress={(e) => {
+                    if (e.key === 'Enter') {
+                      e.preventDefault()
+                      addSkill()
+                    }
+                  }}
+                />
+                <button 
+                  className="add-skill-btn"
+                  onClick={() => addSkill()}
+                  disabled={!skillInput.trim()}
+                >
+                  Add Skill
+                </button>
+              </div>
+              
+              {showSuggestions && filteredSuggestions.length > 0 && (
+                <div className="suggestions-dropdown">
+                  <div className="suggestions-header">
+                    <span>Suggested Skills</span>
+                  </div>
+                  {filteredSuggestions.map((skill, index) => (
+                    <div 
+                      key={index}
+                      className="suggestion-item"
+                      onClick={() => selectSuggestion(skill)}
+                    >
+                      {skill}
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            <div className="added-skills">
+              <h4>Added Skills ({profileData.skills.length})</h4>
+              <div className="skills-grid">
+                {profileData.skills.map((skill, index) => (
+                  <span key={index} className="skill-tag editable">
+                    {skill}
+                    <button 
+                      className="remove-skill-btn"
+                      onClick={() => removeSkill(skill)}
+                      title="Remove skill"
+                    >
+                      ×
+                    </button>
+                  </span>
+                ))}
+                {profileData.skills.length === 0 && (
+                  <p className="no-skills">No skills added yet. Start typing to add skills!</p>
+                )}
+              </div>
+            </div>
           </div>
         ) : (
-          <div className="skills-grid">
-            {profileData.skills.map((skill, index) => (
-              <span key={index} className="skill-tag">
-                {skill}
-              </span>
-            ))}
+          <div className="skills-display">
+            <div className="skills-grid">
+              {profileData.skills.map((skill, index) => (
+                <span key={index} className="skill-tag">
+                  {skill}
+                </span>
+              ))}
+              {profileData.skills.length === 0 && (
+                <p className="no-skills">No skills added yet.</p>
+              )}
+            </div>
           </div>
         )}
       </div>

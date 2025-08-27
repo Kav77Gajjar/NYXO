@@ -7,8 +7,7 @@ function AuthPage({ onBackToHome, onLogin }) {
     name: '',
     username: '',
     email: '',
-    password: '',
-    confirmPassword: ''
+    password: ''
   })
   const [errors, setErrors] = useState({})
 
@@ -31,7 +30,7 @@ function AuthPage({ onBackToHome, onLogin }) {
     const newErrors = {}
 
     if (!formData.name.trim()) {
-      newErrors.name = 'Name is required'
+      newErrors.name = 'Full name is required'
     }
 
     if (!formData.username.trim()) {
@@ -43,19 +42,13 @@ function AuthPage({ onBackToHome, onLogin }) {
     if (!formData.email.trim()) {
       newErrors.email = 'Email is required'
     } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      newErrors.email = 'Email is invalid'
+      newErrors.email = 'Please enter a valid email'
     }
 
     if (!formData.password) {
       newErrors.password = 'Password is required'
     } else if (formData.password.length < 6) {
       newErrors.password = 'Password must be at least 6 characters'
-    }
-
-    if (!formData.confirmPassword) {
-      newErrors.confirmPassword = 'Please confirm your password'
-    } else if (formData.password !== formData.confirmPassword) {
-      newErrors.confirmPassword = 'Passwords do not match'
     }
 
     return newErrors
@@ -67,7 +60,7 @@ function AuthPage({ onBackToHome, onLogin }) {
     if (!formData.email.trim()) {
       newErrors.email = 'Email is required'
     } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      newErrors.email = 'Email is invalid'
+      newErrors.email = 'Please enter a valid email'
     }
 
     if (!formData.password) {
@@ -90,246 +83,148 @@ function AuthPage({ onBackToHome, onLogin }) {
     // Handle successful form submission
     if (isSignUp) {
       console.log('Sign up data:', formData)
-      alert('Sign up successful! Welcome to Job-Bridge!')
-      // Call onLogin to redirect to dashboard
-      onLogin()
+      alert('Account created successfully! Welcome to Job-Bridge!')
     } else {
       console.log('Login data:', { email: formData.email, password: formData.password })
       alert('Login successful! Welcome back!')
-      // Call onLogin to redirect to dashboard
-      onLogin()
     }
+    
+    onLogin()
     
     // Reset form
     setFormData({
       name: '',
       username: '',
       email: '',
-      password: '',
-      confirmPassword: ''
+      password: ''
     })
     setErrors({})
   }
 
-  const switchForm = (toSignUp) => {
-    setIsSignUp(toSignUp)
+  const switchToLogin = () => {
+    setIsSignUp(false)
     setFormData({
       name: '',
       username: '',
       email: '',
-      password: '',
-      confirmPassword: ''
+      password: ''
     })
     setErrors({})
   }
 
-  const handleForgotPassword = () => {
-    if (!formData.email.trim()) {
-      alert('Please enter your email address first')
-      return
-    }
-    alert(`Password reset link has been sent to ${formData.email}`)
+  const switchToSignUp = () => {
+    setIsSignUp(true)
+    setFormData({
+      name: '',
+      username: '',
+      email: '',
+      password: ''
+    })
+    setErrors({})
   }
 
   return (
     <div className="auth-page">
       <div className="auth-container">
         <div className="auth-header">
-          <button className="back-btn" onClick={onBackToHome}>
-            ← Back to Home
-          </button>
-          <h1>Welcome to Job-Bridge</h1>
-          <p>Join thousands of job seekers finding their dream careers</p>
+          <h1>{isSignUp ? 'Create Account' : 'Welcome Back'}</h1>
+          <p>{isSignUp ? 'Join Job-Bridge and start your career journey' : 'Sign in to continue your job search'}</p>
         </div>
 
-        <div className="auth-form-container">
-          {/* Form Toggle Buttons */}
-          <div className="form-toggle">
-            <button 
-              className={`toggle-btn ${isSignUp ? 'active' : ''}`}
-              onClick={() => switchForm(true)}
-            >
-              Sign Up
-            </button>
-            <button 
-              className={`toggle-btn ${!isSignUp ? 'active' : ''}`}
-              onClick={() => switchForm(false)}
-            >
-              Login
-            </button>
+        <form className="auth-form" onSubmit={handleSubmit}>
+          {/* Sign Up Fields */}
+          {isSignUp && (
+            <>
+              <div className="form-group">
+                <label htmlFor="name">Full Name</label>
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleInputChange}
+                  placeholder="Enter your full name"
+                  className={errors.name ? 'error' : ''}
+                />
+                {errors.name && <span className="error-message">{errors.name}</span>}
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="username">Username</label>
+                <input
+                  type="text"
+                  id="username"
+                  name="username"
+                  value={formData.username}
+                  onChange={handleInputChange}
+                  placeholder="Choose a username"
+                  className={errors.username ? 'error' : ''}
+                />
+                {errors.username && <span className="error-message">{errors.username}</span>}
+              </div>
+            </>
+          )}
+
+          {/* Email Field (both forms) */}
+          <div className="form-group">
+            <label htmlFor="email">Email</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              value={formData.email}
+              onChange={handleInputChange}
+              placeholder="Enter your email"
+              className={errors.email ? 'error' : ''}
+            />
+            {errors.email && <span className="error-message">{errors.email}</span>}
           </div>
 
-          {/* Form */}
-          <form className="auth-form" onSubmit={handleSubmit}>
-            <div className="form-header">
-              <h2>{isSignUp ? 'Create Your Account' : 'Welcome Back'}</h2>
+          {/* Password Field (both forms) */}
+          <div className="form-group">
+            <label htmlFor="password">Password</label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              value={formData.password}
+              onChange={handleInputChange}
+              placeholder={isSignUp ? "Create a password" : "Enter your password"}
+              className={errors.password ? 'error' : ''}
+            />
+            {errors.password && <span className="error-message">{errors.password}</span>}
+          </div>
+
+          <button type="submit" className="submit-btn">
+            {isSignUp ? 'Create Account' : 'Sign In'}
+          </button>
+
+          <div className="form-footer">
+            {isSignUp ? (
               <p>
-                {isSignUp 
-                  ? 'Fill in your details to get started with job hunting' 
-                  : 'Sign in to continue your job search journey'
-                }
-              </p>
-            </div>
-
-            {/* Sign Up Fields */}
-            {isSignUp && (
-              <>
-                <div className="form-group">
-                  <label htmlFor="name">
-                    Full Name <span className="required">*</span>
-                  </label>
-                  <input
-                    type="text"
-                    id="name"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleInputChange}
-                    placeholder="Enter your full name"
-                    className={errors.name ? 'error' : ''}
-                  />
-                  {errors.name && <span className="error-message">{errors.name}</span>}
-                </div>
-
-                <div className="form-group">
-                  <label htmlFor="username">
-                    Username <span className="required">*</span>
-                  </label>
-                  <input
-                    type="text"
-                    id="username"
-                    name="username"
-                    value={formData.username}
-                    onChange={handleInputChange}
-                    placeholder="Choose a unique username"
-                    className={errors.username ? 'error' : ''}
-                  />
-                  {errors.username && <span className="error-message">{errors.username}</span>}
-                </div>
-              </>
-            )}
-
-            {/* Email Field (both forms) */}
-            <div className="form-group">
-              <label htmlFor="email">
-                Email Address <span className="required">*</span>
-              </label>
-              <input
-                type="email"
-                id="email"
-                name="email"
-                value={formData.email}
-                onChange={handleInputChange}
-                placeholder="Enter your email address"
-                className={errors.email ? 'error' : ''}
-              />
-              {errors.email && <span className="error-message">{errors.email}</span>}
-            </div>
-
-            {/* Password Field (both forms) */}
-            <div className="form-group">
-              <label htmlFor="password">
-                Password <span className="required">*</span>
-              </label>
-              <input
-                type="password"
-                id="password"
-                name="password"
-                value={formData.password}
-                onChange={handleInputChange}
-                placeholder="Enter your password"
-                className={errors.password ? 'error' : ''}
-              />
-              {errors.password && <span className="error-message">{errors.password}</span>}
-            </div>
-
-            {/* Confirm Password (Sign Up only) */}
-            {isSignUp && (
-              <div className="form-group">
-                <label htmlFor="confirmPassword">
-                  Confirm Password <span className="required">*</span>
-                </label>
-                <input
-                  type="password"
-                  id="confirmPassword"
-                  name="confirmPassword"
-                  value={formData.confirmPassword}
-                  onChange={handleInputChange}
-                  placeholder="Confirm your password"
-                  className={errors.confirmPassword ? 'error' : ''}
-                />
-                {errors.confirmPassword && <span className="error-message">{errors.confirmPassword}</span>}
-              </div>
-            )}
-
-            {/* Forgot Password Link (Login only) */}
-            {!isSignUp && (
-              <div className="forgot-password">
+                Already have an account?{' '}
                 <button 
                   type="button" 
-                  className="forgot-link"
-                  onClick={handleForgotPassword}
+                  className="link-btn"
+                  onClick={switchToLogin}
                 >
-                  Forgot your password?
+                  Sign in here
                 </button>
-              </div>
+              </p>
+            ) : (
+              <p>
+                Don't have an account?{' '}
+                <button 
+                  type="button" 
+                  className="link-btn"
+                  onClick={switchToSignUp}
+                >
+                  Create one here
+                </button>
+              </p>
             )}
-
-            {/* Submit Button */}
-            <button type="submit" className="submit-btn">
-              {isSignUp ? 'Create Account' : 'Sign In'}
-            </button>
-
-            {/* Additional Links */}
-            <div className="form-footer">
-              {isSignUp ? (
-                <p>
-                  Already have an account?{' '}
-                  <button 
-                    type="button" 
-                    className="link-btn"
-                    onClick={() => switchForm(false)}
-                  >
-                    Sign in here
-                  </button>
-                </p>
-              ) : (
-                <p>
-                  Don't have an account?{' '}
-                  <button 
-                    type="button" 
-                    className="link-btn"
-                    onClick={() => switchForm(true)}
-                  >
-                    Sign up here
-                  </button>
-                </p>
-              )}
-            </div>
-          </form>
-        </div>
-
-        {/* Features Preview */}
-        <div className="auth-features">
-          <h3>What you'll get with Job-Bridge:</h3>
-          <div className="features-grid">
-            <div className="feature-item">
-              <span className="feature-icon">🔍</span>
-              <span>Smart Job Discovery</span>
-            </div>
-            <div className="feature-item">
-              <span className="feature-icon">📝</span>
-              <span>Profile-Based Matching</span>
-            </div>
-            <div className="feature-item">
-              <span className="feature-icon">⚡</span>
-              <span>Real-Time Updates</span>
-            </div>
-            <div className="feature-item">
-              <span className="feature-icon">🎯</span>
-              <span>Personalized Recommendations</span>
-            </div>
           </div>
-        </div>
+        </form>
       </div>
     </div>
   )
