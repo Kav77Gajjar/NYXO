@@ -1,0 +1,250 @@
+/* Toolkit Layout */
+.toolkit {
+  color: #333;
+  min-height: 100vh;
+  background: #f8f9fa;
+  padding: 2rem;
+  width: 100%;
+}
+
+.toolkit-header {
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  padding: 3rem 2rem;
+  margin-bottom: 3rem;
+  text-align: center;
+  border: 1px solid #e9ecef;
+}
+
+.toolkit-header h1 {
+  font-size: 2.8rem;
+  margin-bottom: 1rem;
+  color: #667eea;
+  font-weight: 700;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.toolkit-header p {
+  font-size: 1.3rem;
+  color: #6c757d;
+  margin: 0;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Remove old layout styles that might conflict */
+.toolkit-container,
+.toolkit-sidebar,
+.toolkit-main,
+.toolkit-layout {
+  display: none !important;
+}
+
+/* Toolkit Cards Container */
+.toolkit-cards-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.tools-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.tool-card {
+  background: white;
+  border: 2px solid #e9ecef;
+  border-radius: 16px;
+  padding: 2rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: left;
+  color: #333;
+  display: flex;
+  align-items: flex-start;
+  gap: 1.5rem;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.tool-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 5px;
+  height: 100%;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  transform: scaleY(0);
+  transition: transform 0.3s ease;
+}
+
+.tool-card:hover {
+  background: #ffffff;
+  border-color: #667eea;
+  transform: translateY(-5px);
+  box-shadow: 0 12px 35px rgba(102, 126, 234, 0.25);
+}
+
+.tool-card:hover::before {
+  transform: scaleY(1);
+}
+
+.tool-card:active {
+  transform: translateY(-2px);
+}
+
+.tool-card-icon {
+  font-size: 3rem;
+  line-height: 1;
+  min-width: 70px;
+}
+
+.tool-card-content {
+  flex: 1;
+}
+
+.tool-card-content h3 {
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin: 0 0 0.75rem 0;
+  line-height: 1.3;
+  color: #333;
+}
+
+.tool-card-content p {
+  margin: 0 0 1rem 0;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #6c757d;
+}
+
+.tool-category {
+  display: inline-block;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 0.4rem 1rem;
+  border-radius: 25px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.feature-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(79, 172, 254, 0.4);
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+  .toolkit {
+    padding: 1.5rem;
+  }
+  
+  .tools-grid {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+}
+
+@media (max-width: 1024px) {
+  .toolkit-header h1 {
+    font-size: 2.4rem;
+  }
+  
+  .toolkit-header p {
+    font-size: 1.1rem;
+  }
+  
+  .tools-grid {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+  }
+  
+  .tool-card {
+    padding: 1.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .toolkit {
+    padding: 1rem;
+  }
+  
+  .toolkit-header {
+    padding: 2rem 1.5rem;
+    margin-bottom: 2rem;
+  }
+  
+  .toolkit-header h1 {
+    font-size: 2rem;
+  }
+  
+  .tools-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .tool-card {
+    padding: 1.25rem;
+    flex-direction: column;
+    text-align: center;
+    gap: 1rem;
+  }
+  
+  .tool-card-icon {
+    font-size: 2.5rem;
+    min-width: auto;
+  }
+  
+  .tool-card-content h3 {
+    font-size: 1.2rem;
+  }
+  
+  .tool-card-content p {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .toolkit-header {
+    padding: 1.5rem 1rem;
+  }
+  
+  .toolkit-header h1 {
+    font-size: 1.8rem;
+  }
+  
+  .toolkit-header p {
+    font-size: 1rem;
+  }
+  
+  .tool-card {
+    padding: 1rem;
+  }
+  
+  .tool-card-icon {
+    font-size: 2rem;
+  }
+  
+  .tool-card-content h3 {
+    font-size: 1.1rem;
+  }
+  
+  .tool-card-content p {
+    font-size: 0.85rem;
+  }
+  
+  .tool-category {
+    font-size: 0.75rem;
+    padding: 0.3rem 0.8rem;
+  }
+}
+
