@@ -181,6 +181,16 @@
   border-color: #cbd5e1;
 }
 
+.activity-card.clickable {
+  cursor: pointer;
+}
+
+.activity-card.clickable:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+  border-color: #667eea;
+}
+
 .activity-header {
   display: flex;
   align-items: center;

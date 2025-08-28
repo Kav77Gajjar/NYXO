@@ -3,6 +3,8 @@ import './Dashboard.css'
 import Toolkit from './Toolkit'
 import JobController from './JobController'
 import Profile from './Profile'
+import JobMatches from './JobMatches'
+import JobApplications from './JobApplications'
 
 function Dashboard({ onLogout, userEmail }) {
   const [currentPage, setCurrentPage] = useState('dashboard')
@@ -30,6 +32,18 @@ function Dashboard({ onLogout, userEmail }) {
             onClick={() => handlePageChange('dashboard')}
           >
             Dashboard
+          </button>
+          <button 
+            className={`dashboard-nav-link ${currentPage === 'jobmatches' ? 'active' : ''}`}
+            onClick={() => handlePageChange('jobmatches')}
+          >
+            Job Matches
+          </button>
+          <button 
+            className={`dashboard-nav-link ${currentPage === 'applications' ? 'active' : ''}`}
+            onClick={() => handlePageChange('applications')}
+          >
+            Applications
           </button>
           <button 
             className={`dashboard-nav-link ${currentPage === 'toolkit' ? 'active' : ''}`}
@@ -67,16 +81,20 @@ function Dashboard({ onLogout, userEmail }) {
   )
 
   const renderDashboardHome = () => {
-    // Extract username from email
-    const username = userEmail ? userEmail.split('@')[0] : 'User'
+    // Extract username from email - get the part before @ and capitalize first letter
+    const getUsername = () => {
+      if (!userEmail) return 'Professional'
+      const username = userEmail.split('@')[0]
+      return username.charAt(0).toUpperCase() + username.slice(1)
+    }
     
     return (
       <div className="dashboard-home">
         {/* Personal Welcome Section */}
         <div className="welcome-section">
           <div className="welcome-content">
-            <h1>Hello, {username}! 👋</h1>
-            <p>Welcome back to your career journey. Here's what's happening with your job search.</p>
+            <h1>Hello, {getUsername()}! 👋</h1>
+            <p>Ready to accelerate your career? Here's your personalized job search dashboard.</p>
           </div>
           <div className="welcome-date">
             <span>Today, {new Date().toLocaleDateString('en-US', { 
@@ -101,7 +119,10 @@ function Dashboard({ onLogout, userEmail }) {
               <div className="activity-trend positive">+12 this week</div>
             </div>
             
-            <div className="activity-card">
+            <div 
+              className="activity-card clickable"
+              onClick={() => setCurrentPage('applications')}
+            >
               <div className="activity-header">
                 <div className="activity-icon job-applied">📝</div>
                 <div className="activity-title">Applications Sent</div>
@@ -110,7 +131,10 @@ function Dashboard({ onLogout, userEmail }) {
               <div className="activity-trend positive">+3 this week</div>
             </div>
             
-            <div className="activity-card">
+            <div 
+              className="activity-card clickable"
+              onClick={() => setCurrentPage('jobmatches')}
+            >
               <div className="activity-header">
                 <div className="activity-icon job-matched">✨</div>
                 <div className="activity-title">Job Matches</div>
@@ -230,6 +254,10 @@ function Dashboard({ onLogout, userEmail }) {
 
   const renderCurrentPage = () => {
     switch (currentPage) {
+      case 'jobmatches':
+        return <JobMatches userEmail={userEmail} />
+      case 'applications':
+        return <JobApplications userEmail={userEmail} />
       case 'toolkit':
         return <Toolkit />
       case 'jobcontroller':
