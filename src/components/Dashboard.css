@@ -8,13 +8,17 @@
 
 /* Dashboard Navigation */
 .dashboard-navbar {
-  background: white;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  border-bottom: 1px solid #e2e8f0;
-  position: sticky;
-  top: 0;
+  background: rgba(255, 255, 255, 0.8);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 16px;
+  position: fixed;
+  top: 10px;
+  left: 15px;
+  right: 15px;
   z-index: 1000;
-  width: 100%;
+  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
 }
 
 .dashboard-nav-container {
@@ -66,22 +70,6 @@
   font-weight: 600;
 }
 
-.dashboard-logout-btn {
-  background: #ef4444;
-  color: white;
-  border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 8px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  margin-left: 1rem;
-}
-
-.dashboard-logout-btn:hover {
-  background: #dc2626;
-}
-
 /* Mobile Menu Toggle */
 .dashboard-nav-toggle {
   display: none;
@@ -103,6 +91,7 @@
   width: 100%;
   padding: 2rem;
   min-height: calc(100vh - 70px);
+  margin-top: 90px; /* Account for floating navbar height + spacing */
 }
 
 /* Dashboard Home */
@@ -535,6 +524,12 @@
 }
 
 @media (max-width: 768px) {
+  .dashboard-navbar {
+    left: 10px;
+    right: 10px;
+    border-radius: 12px;
+  }
+  
   .dashboard-nav-container {
     padding: 0 1rem;
   }
@@ -545,14 +540,18 @@
   
   .dashboard-nav-menu {
     position: fixed;
-    top: 70px;
-    left: 0;
-    right: 0;
-    background: white;
+    top: 90px; /* Adjusted for island navbar */
+    left: 10px;
+    right: 10px;
+    background: rgba(255, 255, 255, 0.8);
+    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
     flex-direction: column;
     align-items: stretch;
     gap: 0;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
     transform: translateY(-100%);
     transition: transform 0.3s ease;
     z-index: 999;
@@ -575,13 +574,9 @@
     margin: 0;
   }
   
-  .dashboard-logout-btn {
-    margin: 1rem 1.5rem;
-    text-align: center;
-  }
-  
   .dashboard-main {
     padding: 1rem;
+    margin-top: 100px; /* Increased for mobile island navbar */
   }
   
   .welcome-section {
@@ -629,8 +624,15 @@
 }
 
 @media (max-width: 480px) {
+  .dashboard-navbar {
+    left: 5px;
+    right: 5px;
+    border-radius: 10px;
+  }
+  
   .dashboard-main {
     padding: 0.75rem;
+    margin-top: 110px; /* Even more space for smaller screens */
   }
   
   .welcome-section {

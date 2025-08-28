@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import './Profile.css'
+import { enableSettings } from './Settings'
 
 function Profile({ userEmail }) {
   const [activeSection, setActiveSection] = useState('personal')
@@ -537,6 +538,25 @@ function Profile({ userEmail }) {
               ))}
             </div>
           )}
+        </div>
+        
+        {/* Settings Button Control */}
+        <div className="preference-item">
+          <label>Settings Button</label>
+          <div className="settings-control">
+            <button 
+              className="enable-settings-btn"
+              onClick={() => {
+                enableSettings()
+                alert('Settings button has been enabled!')
+              }}
+            >
+              🔧 Enable Settings Button
+            </button>
+            <p className="settings-note">
+              If you disabled the settings button, click here to re-enable it.
+            </p>
+          </div>
         </div>
       </div>
     </div>

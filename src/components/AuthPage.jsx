@@ -89,7 +89,7 @@ function AuthPage({ onBackToHome, onLogin }) {
       alert('Login successful! Welcome back!')
     }
     
-    onLogin()
+    onLogin(formData.email)
     
     // Reset form
     setFormData({

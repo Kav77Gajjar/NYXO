@@ -5,10 +5,12 @@ import JobController from './JobController'
 import Profile from './Profile'
 import JobMatches from './JobMatches'
 import JobApplications from './JobApplications'
+import { useTranslation } from '../contexts/TranslationContext'
 
 function Dashboard({ onLogout, userEmail }) {
   const [currentPage, setCurrentPage] = useState('dashboard')
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const { t } = useTranslation()
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen)
@@ -31,43 +33,37 @@ function Dashboard({ onLogout, userEmail }) {
             className={`dashboard-nav-link ${currentPage === 'dashboard' ? 'active' : ''}`}
             onClick={() => handlePageChange('dashboard')}
           >
-            Dashboard
+            {t('dashboard')}
           </button>
           <button 
             className={`dashboard-nav-link ${currentPage === 'jobmatches' ? 'active' : ''}`}
             onClick={() => handlePageChange('jobmatches')}
           >
-            Job Matches
+            {t('jobMatches')}
           </button>
           <button 
             className={`dashboard-nav-link ${currentPage === 'applications' ? 'active' : ''}`}
             onClick={() => handlePageChange('applications')}
           >
-            Applications
+            {t('applications')}
           </button>
           <button 
             className={`dashboard-nav-link ${currentPage === 'toolkit' ? 'active' : ''}`}
             onClick={() => handlePageChange('toolkit')}
           >
-            Toolkit
+            {t('toolkit')}
           </button>
           <button 
             className={`dashboard-nav-link ${currentPage === 'jobcontroller' ? 'active' : ''}`}
             onClick={() => handlePageChange('jobcontroller')}
           >
-            Job Controller
+            {t('jobController')}
           </button>
           <button 
             className={`dashboard-nav-link ${currentPage === 'profile' ? 'active' : ''}`}
             onClick={() => handlePageChange('profile')}
           >
-            Profile
-          </button>
-          <button 
-            className="dashboard-logout-btn"
-            onClick={onLogout}
-          >
-            Logout
+            {t('profile')}
           </button>
         </div>
         
@@ -93,11 +89,11 @@ function Dashboard({ onLogout, userEmail }) {
         {/* Personal Welcome Section */}
         <div className="welcome-section">
           <div className="welcome-content">
-            <h1>Hello, {getUsername()}! 👋</h1>
-            <p>Ready to accelerate your career? Here's your personalized job search dashboard.</p>
+            <h1>{t('hello')}, {getUsername()}! 👋</h1>
+            <p>{t('ready')}</p>
           </div>
           <div className="welcome-date">
-            <span>Today, {new Date().toLocaleDateString('en-US', { 
+            <span>{t('today')}, {new Date().toLocaleDateString('en-US', { 
               weekday: 'long', 
               year: 'numeric', 
               month: 'long', 
@@ -108,15 +104,15 @@ function Dashboard({ onLogout, userEmail }) {
 
         {/* Activity Overview */}
         <div className="activity-overview">
-          <h2>Your Activity</h2>
+          <h2>{t('yourActivity')}</h2>
           <div className="activity-grid">
             <div className="activity-card">
               <div className="activity-header">
                 <div className="activity-icon job-searched">🔍</div>
-                <div className="activity-title">Jobs Searched</div>
+                <div className="activity-title">{t('jobsSearched')}</div>
               </div>
               <div className="activity-number">127</div>
-              <div className="activity-trend positive">+12 this week</div>
+              <div className="activity-trend positive">+12 {t('thisWeek')}</div>
             </div>
             
             <div 
@@ -125,10 +121,10 @@ function Dashboard({ onLogout, userEmail }) {
             >
               <div className="activity-header">
                 <div className="activity-icon job-applied">📝</div>
-                <div className="activity-title">Applications Sent</div>
+                <div className="activity-title">{t('applicationsSent')}</div>
               </div>
               <div className="activity-number">18</div>
-              <div className="activity-trend positive">+3 this week</div>
+              <div className="activity-trend positive">+3 {t('thisWeek')}</div>
             </div>
             
             <div 
@@ -137,19 +133,19 @@ function Dashboard({ onLogout, userEmail }) {
             >
               <div className="activity-header">
                 <div className="activity-icon job-matched">✨</div>
-                <div className="activity-title">Job Matches</div>
+                <div className="activity-title">{t('jobMatches')}</div>
               </div>
               <div className="activity-number">34</div>
-              <div className="activity-trend positive">+7 new matches</div>
+              <div className="activity-trend positive">+7 {t('newMatches')}</div>
             </div>
             
             <div className="activity-card">
               <div className="activity-header">
                 <div className="activity-icon interviews">🎯</div>
-                <div className="activity-title">Interviews</div>
+                <div className="activity-title">{t('interviews')}</div>
               </div>
               <div className="activity-number">5</div>
-              <div className="activity-trend neutral">2 upcoming</div>
+              <div className="activity-trend neutral">2 {t('upcoming')}</div>
             </div>
           </div>
         </div>
