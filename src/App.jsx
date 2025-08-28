@@ -2,7 +2,7 @@ import { useState } from 'react'
 import './App.css'
 import AuthPage from './components/AuthPage'
 import Dashboard from './components/Dashboard'
-import Settings from './components/Settings'
+// import Settings from './components/Settings' // Temporarily disabled
 import { TranslationProvider } from './contexts/TranslationContext'
 
 function App() {
@@ -30,7 +30,7 @@ function App() {
   return (
     <TranslationProvider>
       <div className="App">
-        <Settings />
+        {/* <Settings /> */} {/* Temporarily disabled */}
         {currentPage === 'auth' ? (
           <AuthPage 
             onBackToHome={() => setCurrentPage('auth')} 

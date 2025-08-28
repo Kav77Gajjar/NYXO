@@ -35,18 +35,7 @@ function Dashboard({ onLogout, userEmail }) {
           >
             {t('dashboard')}
           </button>
-          <button 
-            className={`dashboard-nav-link ${currentPage === 'jobmatches' ? 'active' : ''}`}
-            onClick={() => handlePageChange('jobmatches')}
-          >
-            {t('jobMatches')}
-          </button>
-          <button 
-            className={`dashboard-nav-link ${currentPage === 'applications' ? 'active' : ''}`}
-            onClick={() => handlePageChange('applications')}
-          >
-            {t('applications')}
-          </button>
+          
           <button 
             className={`dashboard-nav-link ${currentPage === 'toolkit' ? 'active' : ''}`}
             onClick={() => handlePageChange('toolkit')}
@@ -250,10 +239,6 @@ function Dashboard({ onLogout, userEmail }) {
 
   const renderCurrentPage = () => {
     switch (currentPage) {
-      case 'jobmatches':
-        return <JobMatches userEmail={userEmail} />
-      case 'applications':
-        return <JobApplications userEmail={userEmail} />
       case 'toolkit':
         return <Toolkit />
       case 'jobcontroller':
