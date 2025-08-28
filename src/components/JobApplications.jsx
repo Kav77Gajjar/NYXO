@@ -2,8 +2,7 @@ import { useState } from 'react'
 import './JobApplications.css'
 
 function JobApplications({ userEmail }) {
-  const [filterStatus, setFilterStatus] = useState('all')
-  const [sortBy, setSortBy] = useState('date')
+  const [sortBy, setSortBy] = useState('company-az')
 
   // Mock data for job applications
   const jobApplications = [
@@ -204,44 +203,21 @@ function JobApplications({ userEmail }) {
     return diffDays === 1 ? '1 day ago' : `${diffDays} days ago`
   }
 
-  // Filter applications based on status
-  const filteredApplications = jobApplications.filter(app => {
-    if (filterStatus === 'all') return true
-    return app.status === filterStatus
-  })
-
   // Sort applications
-  const sortedApplications = [...filteredApplications].sort((a, b) => {
+  const sortedApplications = [...jobApplications].sort((a, b) => {
     switch (sortBy) {
+      case 'company-az':
+        return a.company.localeCompare(b.company)
+      case 'company-za':
+        return b.company.localeCompare(a.company)
       case 'date':
         return new Date(b.appliedDate) - new Date(a.appliedDate)
-      case 'company':
-        return a.company.localeCompare(b.company)
-      case 'status':
-        return a.status.localeCompare(b.status)
-      case 'position':
-        return a.position.localeCompare(b.position)
+      case 'date-old':
+        return new Date(a.appliedDate) - new Date(b.appliedDate)
       default:
-        return 0
+        return a.company.localeCompare(b.company)
     }
   })
-
-  const getStatusCounts = () => {
-    const counts = {
-      all: jobApplications.length,
-      under_review: 0,
-      interview_scheduled: 0,
-      offer_received: 0,
-      rejected: 0,
-      withdrawn: 0
-    }
-    
-    jobApplications.forEach(app => {
-      counts[app.status]++
-    })
-    
-    return counts
-  }
 
   const getTimeBasedCounts = () => {
     const now = new Date()
@@ -261,7 +237,6 @@ function JobApplications({ userEmail }) {
     return { thisWeek, thisMonth }
   }
 
-  const statusCounts = getStatusCounts()
   const timeCounts = getTimeBasedCounts()
 
   return (
@@ -286,23 +261,6 @@ function JobApplications({ userEmail }) {
       </div>
 
       <div className="applications-controls">
-        <div className="filter-section">
-          <label htmlFor="status-filter">Filter by Status:</label>
-          <select 
-            id="status-filter"
-            value={filterStatus} 
-            onChange={(e) => setFilterStatus(e.target.value)}
-            className="filter-select"
-          >
-            <option value="all">All Applications ({statusCounts.all})</option>
-            <option value="under_review">Under Review ({statusCounts.under_review})</option>
-            <option value="interview_scheduled">Interview Scheduled ({statusCounts.interview_scheduled})</option>
-            <option value="offer_received">Offer Received ({statusCounts.offer_received})</option>
-            <option value="rejected">Rejected ({statusCounts.rejected})</option>
-            <option value="withdrawn">Withdrawn ({statusCounts.withdrawn})</option>
-          </select>
-        </div>
-
         <div className="sort-section">
           <label htmlFor="sort-by">Sort by:</label>
           <select 
@@ -311,10 +269,10 @@ function JobApplications({ userEmail }) {
             onChange={(e) => setSortBy(e.target.value)}
             className="sort-select"
           >
-            <option value="date">Application Date</option>
-            <option value="company">Company Name</option>
-            <option value="position">Position</option>
-            <option value="status">Status</option>
+            <option value="company-az">Company Name (A-Z)</option>
+            <option value="company-za">Company Name (Z-A)</option>
+            <option value="date">Application Date (Newest First)</option>
+            <option value="date-old">Application Date (Oldest First)</option>
           </select>
         </div>
       </div>

@@ -156,6 +156,17 @@ input, select, textarea {
   }
 }
 
+/* Global override: force all text to black across the entire site */
+/* This will set all rendered text to black; links/buttons will also become black. */
+html, body, #root, .App {
+  color: #000 !important;
+}
+
+/* Ensure all descendants inherit black text color */
+body, body * {
+  color: #000 !important;
+}
+
 /* Print styles */
 @media print {
   * {

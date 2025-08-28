@@ -165,26 +165,22 @@
   border: 1px solid #e2e8f0;
   margin-bottom: 2rem;
   display: flex;
-  gap: 2rem;
+  justify-content: center;
   align-items: center;
-  flex-wrap: wrap;
 }
 
-.filter-section,
 .sort-section {
   display: flex;
   align-items: center;
   gap: 0.75rem;
 }
 
-.filter-section label,
 .sort-section label {
   font-weight: 500;
   color: #374151;
   font-size: 0.875rem;
 }
 
-.filter-select,
 .sort-select {
   padding: 0.5rem 1rem;
   border: 1px solid #d1d5db;
@@ -194,14 +190,13 @@
   font-size: 0.875rem;
   cursor: pointer;
   transition: border-color 0.2s ease;
+  min-width: 200px;
 }
 
-.filter-select:hover,
 .sort-select:hover {
   border-color: #3b82f6;
 }
 
-.filter-select:focus,
 .sort-select:focus {
   outline: none;
   border-color: #3b82f6;
