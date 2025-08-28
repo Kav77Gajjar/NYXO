@@ -15,6 +15,11 @@
   gap: 2rem;
 }
 
+.header-content {
+  flex: 1;
+  min-width: 300px;
+}
+
 .header-content h1 {
   font-size: 2.5rem;
   font-weight: 700;
@@ -30,31 +35,125 @@
 
 .applications-stats {
   display: flex;
-  gap: 1rem;
-  flex-wrap: wrap;
+  gap: 1.5rem;
+  flex-shrink: 0;
 }
 
 .stat-card {
-  background: white;
-  padding: 1.5rem;
-  border-radius: 12px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  border: 1px solid #e2e8f0;
+  background: linear-gradient(135deg, #ffffff 0%, #fafbfc 100%);
+  padding: 2rem;
+  border-radius: 20px;
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.06),
+    0 4px 16px rgba(0, 0, 0, 0.04),
+    0 0 0 1px rgba(255, 255, 255, 0.05) inset;
+  border: 1px solid #e8ecf4;
   text-align: center;
-  min-width: 120px;
+  flex: 1;
+  min-width: 280px;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  animation: slideInUp 0.6s ease-out;
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(60px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.stat-card.primary {
+  animation-delay: 0.1s;
+}
+
+.stat-card.secondary {
+  animation-delay: 0.2s;
+}
+
+.stat-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  border-radius: 20px 20px 0 0;
+  transition: all 0.3s ease;
+}
+
+.stat-card.primary::before {
+  background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+}
+
+.stat-card.secondary::before {
+  background: linear-gradient(90deg, #10b981 0%, #059669 100%);
+}
+
+.stat-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 
+    0 20px 60px rgba(0, 0, 0, 0.12),
+    0 8px 24px rgba(0, 0, 0, 0.08),
+    0 0 0 1px rgba(255, 255, 255, 0.1) inset;
 }
 
 .stat-number {
-  font-size: 2rem;
-  font-weight: 700;
-  color: #3b82f6;
-  margin-bottom: 0.5rem;
+  font-size: 3rem;
+  font-weight: 800;
+  margin-bottom: 0.75rem;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  animation: fadeInUp 0.8s ease-out;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.stat-card.primary .stat-number {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation-delay: 0.1s;
+}
+
+.stat-card.secondary .stat-number {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation-delay: 0.3s;
 }
 
 .stat-label {
-  font-size: 0.875rem;
+  font-size: 1.1rem;
+  color: #1e293b;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  letter-spacing: -0.01em;
+}
+
+.stat-description {
+  font-size: 0.9rem;
   color: #64748b;
   font-weight: 500;
+  opacity: 0.8;
 }
 
 /* Controls Section */
@@ -116,177 +215,205 @@
   gap: 1.5rem;
 }
 
+/* Application Cards */
 .application-card {
-  background: white;
-  border-radius: 12px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  border: 1px solid #e2e8f0;
+  background: rgba(255, 255, 255, 0.1);
+  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 16px;
+  padding: 0;
   overflow: hidden;
-  transition: all 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  min-height: 200px;
 }
 
 .application-card:hover {
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  transform: translateY(-1px);
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+  border-color: rgba(255, 255, 255, 0.3);
 }
 
-.application-header {
-  padding: 1.5rem;
+.card-main-content {
+  padding: 20px;
+  flex: 1;
+  min-height: 0;
+}
+
+.card-header {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  border-bottom: 1px solid #f1f5f9;
+  margin-bottom: 16px;
 }
 
 .company-info {
   display: flex;
-  gap: 1rem;
+  align-items: center;
+  gap: 12px;
   flex: 1;
 }
 
 .company-logo {
-  font-size: 2.5rem;
-  width: 60px;
-  height: 60px;
+  font-size: 32px;
+  width: 48px;
+  height: 48px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #f8fafc;
+  background: rgba(255, 255, 255, 0.1);
   border-radius: 12px;
-  border: 1px solid #e2e8f0;
-}
-
-.company-details {
-  flex: 1;
-}
-
-.position-title {
-  font-size: 1.25rem;
-  font-weight: 600;
-  color: #1e293b;
-  margin: 0 0 0.5rem 0;
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
 }
 
 .company-name {
-  font-size: 1rem;
-  color: #3b82f6;
-  font-weight: 500;
-  margin-bottom: 0.5rem;
+  font-size: 20px;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0;
+  line-height: 1.2;
 }
 
-.application-meta {
-  display: flex;
-  gap: 1rem;
-  font-size: 0.875rem;
-  color: #64748b;
+.job-type-badge {
+  flex-shrink: 0;
 }
 
-.application-meta span {
-  display: flex;
-  align-items: center;
-  gap: 0.25rem;
-}
-
-.application-status {
-  display: flex;
-  align-items: flex-start;
-}
-
-.status-badge {
-  padding: 0.5rem 1rem;
-  border-radius: 20px;
+.job-type {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
-  font-size: 0.75rem;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 12px;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
 
-/* Application Body */
-.application-body {
-  padding: 0 1.5rem 1.5rem 1.5rem;
-}
-
-.application-details {
+.card-details {
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: 12px;
 }
 
-.detail-row {
+.applied-date {
   display: flex;
-  gap: 1rem;
-  align-items: flex-start;
+  align-items: center;
+  gap: 8px;
 }
 
-.detail-label {
+.applied-date .label {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 14px;
   font-weight: 500;
-  color: #374151;
-  min-width: 120px;
-  font-size: 0.875rem;
 }
 
-.detail-value {
-  color: #64748b;
-  font-size: 0.875rem;
-  flex: 1;
+.applied-date .date {
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 600;
 }
 
-/* Application Actions */
-.application-actions {
-  padding: 1rem 1.5rem;
-  background: #f8fafc;
-  border-top: 1px solid #f1f5f9;
+.position-title h4 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #ffffff;
+  margin: 0;
+  line-height: 1.3;
+}
+
+.location-salary {
   display: flex;
-  gap: 0.75rem;
+  justify-content: space-between;
+  align-items: center;
   flex-wrap: wrap;
+  gap: 12px;
 }
 
-.action-btn {
-  padding: 0.5rem 1rem;
-  border-radius: 6px;
-  font-size: 0.875rem;
+.location {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 14px;
   font-weight: 500;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  border: 1px solid transparent;
 }
 
-.action-btn.primary {
-  background: #3b82f6;
-  color: white;
-  border-color: #3b82f6;
+.salary {
+  color: #10b981;
+  font-size: 14px;
+  font-weight: 700;
 }
 
-.action-btn.primary:hover {
-  background: #2563eb;
-  border-color: #2563eb;
+.card-footer {
+  background: rgba(0, 0, 0, 0.2);
+  padding: 22px 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  min-height: 30%;
 }
 
-.action-btn.secondary {
-  background: white;
-  color: #374151;
-  border-color: #d1d5db;
+.website-info {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  width: 100%;
 }
 
-.action-btn.secondary:hover {
-  background: #f9fafb;
-  border-color: #9ca3af;
+.website-logo {
+  font-size: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.action-btn.success {
-  background: #10b981;
-  color: white;
-  border-color: #10b981;
+.application-source {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 16px;
+  font-weight: 600;
+  text-align: center;
 }
 
-.action-btn.success:hover {
-  background: #059669;
-  border-color: #059669;
-}
-
-.action-btn:hover {
-  transform: translateY(-1px);
+/* Responsive Design for Application Cards */
+@media (max-width: 768px) {
+  .card-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  
+  .company-info {
+    width: 100%;
+  }
+  
+  .job-type-badge {
+    align-self: flex-start;
+  }
+  
+  .location-salary {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  
+  .card-footer {
+    padding: 18px 15px;
+  }
+  
+  .website-info {
+    gap: 8px;
+  }
+  
+  .application-source {
+    font-size: 14px;
+  }
+  
+  .website-logo {
+    font-size: 20px;
+  }
 }
 
 /* No Applications State */
@@ -325,6 +452,12 @@
   .applications-header {
     flex-direction: column;
     gap: 1.5rem;
+    text-align: center;
+  }
+
+  .header-content {
+    min-width: auto;
+    flex: none;
   }
 
   .header-content h1 {
@@ -332,13 +465,21 @@
   }
 
   .applications-stats {
-    width: 100%;
-    justify-content: space-between;
+    justify-content: center;
+    gap: 1rem;
   }
 
   .stat-card {
-    flex: 1;
-    min-width: auto;
+    min-width: 100%;
+    padding: 1.5rem;
+  }
+
+  .stat-number {
+    font-size: 2.5rem;
+  }
+
+  .stat-label {
+    font-size: 1rem;
   }
 
   .applications-controls {

@@ -111,6 +111,7 @@ function Dashboard({ onLogout, userEmail }) {
               <div className="activity-header">
                 <div className="activity-icon job-applied">📝</div>
                 <div className="activity-title">{t('applicationsSent')}</div>
+                <div className="activity-arrow">→</div>
               </div>
               <div className="activity-number">18</div>
               <div className="activity-trend positive">+3 {t('thisWeek')}</div>
@@ -123,69 +124,69 @@ function Dashboard({ onLogout, userEmail }) {
               <div className="activity-header">
                 <div className="activity-icon job-matched">✨</div>
                 <div className="activity-title">{t('jobMatches')}</div>
+                <div className="activity-arrow">→</div>
               </div>
               <div className="activity-number">34</div>
               <div className="activity-trend positive">+7 {t('newMatches')}</div>
             </div>
-            
-            <div className="activity-card">
-              <div className="activity-header">
-                <div className="activity-icon interviews">🎯</div>
-                <div className="activity-title">{t('interviews')}</div>
-              </div>
-              <div className="activity-number">5</div>
-              <div className="activity-trend neutral">2 {t('upcoming')}</div>
-            </div>
           </div>
         </div>
 
-        {/* Recent Activities */}
-        <div className="recent-activities">
-          <div className="section-header">
-            <h2>Recent Activities</h2>
-            <button className="view-all-btn">View All</button>
+        {/* Recent Activities & Notifications */}
+        <div className="notifications-card">
+          <div className="notification-header">
+            <div className="notification-title">
+              <div className="notification-icon">🔔</div>
+              <h2>Recent Activities & Notifications</h2>
+              <div className="notification-count">4</div>
+            </div>
+            <button className="mark-all-read-btn">Mark All Read</button>
           </div>
-          <div className="activities-list">
-            <div className="activity-item">
-              <div className="activity-badge applied">Applied</div>
-              <div className="activity-details">
-                <div className="activity-main">Applied to Senior Frontend Developer at TechFlow</div>
-                <div className="activity-meta">2 hours ago • Remote Position</div>
+          <div className="notifications-list">
+            <div className="notification-item unread">
+              <div className="notification-indicator"></div>
+              <div className="notification-badge applied">Applied</div>
+              <div className="notification-details">
+                <div className="notification-main">Applied to Senior Frontend Developer at TechFlow</div>
+                <div className="notification-meta">2 hours ago • Remote Position</div>
               </div>
-              <div className="activity-action">
+              <div className="notification-action">
                 <button className="track-btn">Track</button>
               </div>
             </div>
             
-            <div className="activity-item">
-              <div className="activity-badge matched">Matched</div>
-              <div className="activity-details">
-                <div className="activity-main">New match: React Developer at Innovation Labs</div>
-                <div className="activity-meta">5 hours ago • 95% Match Score</div>
+            <div className="notification-item unread">
+              <div className="notification-indicator"></div>
+              <div className="notification-badge matched">Matched</div>
+              <div className="notification-details">
+                <div className="notification-main">New match: React Developer at Innovation Labs</div>
+                <div className="notification-meta">5 hours ago • 95% Match Score</div>
               </div>
-              <div className="activity-action">
+              <div className="notification-action">
                 <button className="apply-btn">Apply Now</button>
               </div>
             </div>
             
-            <div className="activity-item">
-              <div className="activity-badge interview">Interview</div>
-              <div className="activity-details">
-                <div className="activity-main">Interview scheduled with DesignCorp</div>
-                <div className="activity-meta">Tomorrow 2:00 PM • Video Call</div>
+            <div className="notification-item">
+              <div className="notification-indicator"></div>
+              <div className="notification-badge interview">Interview</div>
+              <div className="notification-details">
+                <div className="notification-main">Interview scheduled with DesignCorp</div>
+                <div className="notification-meta">Tomorrow 2:00 PM • Video Call</div>
               </div>
-              <div className="activity-action">
+              <div className="notification-action">
                 <button className="prepare-btn">Prepare</button>
               </div>
             </div>
             
-            <div className="activity-item">
-              <div className="activity-badge searched">Searched</div>
-              <div className="activity-details">
-                <div className="activity-main">Searched "Frontend Developer" in San Francisco</div>
-                <div className="activity-meta">1 day ago • 23 results found</div>
+            <div className="notification-item">
+              <div className="notification-indicator"></div>
+              <div className="notification-badge searched">Searched</div>
+              <div className="notification-details">
+                <div className="notification-main">Searched "Frontend Developer" in San Francisco</div>
+                <div className="notification-meta">1 day ago • 23 results found</div>
               </div>
-              <div className="activity-action">
+              <div className="notification-action">
                 <button className="view-btn">View Results</button>
               </div>
             </div>
@@ -243,6 +244,10 @@ function Dashboard({ onLogout, userEmail }) {
         return <Toolkit />
       case 'jobcontroller':
         return <JobController />
+      case 'jobmatches':
+        return <JobMatches />
+      case 'applications':
+        return <JobApplications />
       case 'profile':
         return <Profile userEmail={userEmail} />
       default:

@@ -14,6 +14,7 @@ function JobApplications({ userEmail }) {
       appliedDate: "2025-08-27",
       status: "under_review",
       location: "Remote",
+      jobType: "Full-time",
       salary: "$95,000 - $120,000",
       applicationMethod: "Company Website",
       notes: "Applied through their careers page. HR confirmed receipt.",
@@ -27,6 +28,7 @@ function JobApplications({ userEmail }) {
       appliedDate: "2025-08-25",
       status: "interview_scheduled",
       location: "San Francisco, CA",
+      jobType: "Remote",
       salary: "$85,000 - $110,000",
       applicationMethod: "LinkedIn",
       notes: "Recruiter reached out. Technical interview scheduled for tomorrow.",
@@ -40,6 +42,7 @@ function JobApplications({ userEmail }) {
       appliedDate: "2025-08-24",
       status: "rejected",
       location: "New York, NY",
+      jobType: "Hybrid",
       salary: "$100,000 - $130,000",
       applicationMethod: "Job Board",
       notes: "Position filled internally. Encouraged to apply for future openings.",
@@ -53,6 +56,7 @@ function JobApplications({ userEmail }) {
       appliedDate: "2025-08-23",
       status: "under_review",
       location: "Austin, TX",
+      jobType: "On-site",
       salary: "$70,000 - $90,000",
       applicationMethod: "AngelList",
       notes: "Early-stage startup. Direct application to CTO.",
@@ -66,6 +70,7 @@ function JobApplications({ userEmail }) {
       appliedDate: "2025-08-22",
       status: "offer_received",
       location: "Seattle, WA",
+      jobType: "Remote",
       salary: "$88,000 - $105,000",
       applicationMethod: "Referral",
       notes: "Referred by former colleague. Offer received pending decision.",
@@ -79,6 +84,7 @@ function JobApplications({ userEmail }) {
       appliedDate: "2025-08-20",
       status: "under_review",
       location: "Denver, CO",
+      jobType: "Hybrid",
       salary: "$80,000 - $100,000",
       applicationMethod: "Company Website",
       notes: "Applied for cloud infrastructure role. Waiting for response.",
@@ -92,6 +98,7 @@ function JobApplications({ userEmail }) {
       appliedDate: "2025-08-18",
       status: "rejected",
       location: "Boston, MA",
+      jobType: "On-site",
       salary: "$90,000 - $115,000",
       applicationMethod: "Recruiter",
       notes: "Not a good culture fit according to feedback.",
@@ -105,6 +112,7 @@ function JobApplications({ userEmail }) {
       appliedDate: "2025-08-16",
       status: "interview_scheduled",
       location: "Los Angeles, CA",
+      jobType: "Part-time",
       salary: "$105,000 - $135,000",
       applicationMethod: "LinkedIn",
       notes: "Second round interview next week. Technical round completed.",
@@ -118,6 +126,7 @@ function JobApplications({ userEmail }) {
       appliedDate: "2025-08-15",
       status: "under_review",
       location: "Chicago, IL",
+      jobType: "Remote",
       salary: "$95,000 - $125,000",
       applicationMethod: "Job Board",
       notes: "AI/ML focused company. Very interested in the role.",
@@ -131,6 +140,7 @@ function JobApplications({ userEmail }) {
       appliedDate: "2025-08-14",
       status: "withdrawn",
       location: "Miami, FL",
+      jobType: "Contract",
       salary: "$65,000 - $85,000",
       applicationMethod: "Company Website",
       notes: "Withdrew application due to salary mismatch.",
@@ -158,6 +168,22 @@ function JobApplications({ userEmail }) {
       case 'rejected': return 'Rejected'
       case 'withdrawn': return 'Withdrawn'
       default: return 'Unknown'
+    }
+  }
+
+  const getWebsiteLogo = (applicationMethod) => {
+    switch (applicationMethod.toLowerCase()) {
+      case 'linkedin': return '💼'
+      case 'indeed': return '🔍'
+      case 'glassdoor': return '🏢'
+      case 'company website': return '🌐'
+      case 'job board': return '📋'
+      case 'referral': return '👥'
+      case 'recruiter': return '🤝'
+      case 'angel.co': return '👼'
+      case 'stackoverflow': return '💻'
+      case 'github jobs': return '🐙'
+      default: return '🌐'
     }
   }
 
@@ -217,7 +243,26 @@ function JobApplications({ userEmail }) {
     return counts
   }
 
+  const getTimeBasedCounts = () => {
+    const now = new Date()
+    const oneWeekAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000)
+    const oneMonthAgo = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000)
+    
+    const thisWeek = jobApplications.filter(app => {
+      const appDate = new Date(app.appliedDate)
+      return appDate >= oneWeekAgo
+    }).length
+    
+    const thisMonth = jobApplications.filter(app => {
+      const appDate = new Date(app.appliedDate)
+      return appDate >= oneMonthAgo
+    }).length
+    
+    return { thisWeek, thisMonth }
+  }
+
   const statusCounts = getStatusCounts()
+  const timeCounts = getTimeBasedCounts()
 
   return (
     <div className="job-applications">
@@ -227,21 +272,15 @@ function JobApplications({ userEmail }) {
           <p>Track all your job applications and their current status</p>
         </div>
         <div className="applications-stats">
-          <div className="stat-card">
+          <div className="stat-card primary">
             <div className="stat-number">{jobApplications.length}</div>
-            <div className="stat-label">Total Applications</div>
+            <div className="stat-label">Total Applications Sent</div>
+            <div className="stat-description">All time applications</div>
           </div>
-          <div className="stat-card">
-            <div className="stat-number">{statusCounts.under_review}</div>
-            <div className="stat-label">Under Review</div>
-          </div>
-          <div className="stat-card">
-            <div className="stat-number">{statusCounts.interview_scheduled}</div>
-            <div className="stat-label">Interviews</div>
-          </div>
-          <div className="stat-card">
-            <div className="stat-number">{statusCounts.offer_received}</div>
-            <div className="stat-label">Offers</div>
+          <div className="stat-card secondary">
+            <div className="stat-number">{timeCounts.thisMonth}</div>
+            <div className="stat-label">Applications This Month</div>
+            <div className="stat-description">Last 30 days activity</div>
           </div>
         </div>
       </div>
@@ -290,62 +329,37 @@ function JobApplications({ userEmail }) {
         ) : (
           sortedApplications.map(application => (
             <div key={application.id} className="application-card">
-              <div className="application-header">
-                <div className="company-info">
-                  <div className="company-logo">{application.companyLogo}</div>
-                  <div className="company-details">
-                    <h3 className="position-title">{application.position}</h3>
-                    <div className="company-name">{application.company}</div>
-                    <div className="application-meta">
-                      <span className="location">{application.location}</span>
-                      <span className="salary">{application.salary}</span>
-                    </div>
+              <div className="card-main-content">
+                <div className="card-header">
+                  <div className="company-info">
+                    <span className="company-logo">{application.companyLogo}</span>
+                    <h3 className="company-name">{application.company}</h3>
+                  </div>
+                  <div className="job-type-badge">
+                    <span className="job-type">{application.jobType}</span>
                   </div>
                 </div>
-                <div className="application-status">
-                  <div 
-                    className="status-badge"
-                    style={{ backgroundColor: getStatusColor(application.status) }}
-                  >
-                    {getStatusText(application.status)}
+                
+                <div className="card-details">
+                  <div className="applied-date">
+                    <span className="label">Applied:</span>
+                    <span className="date">{formatDate(application.appliedDate)} ({getDaysAgo(application.appliedDate)})</span>
                   </div>
-                </div>
-              </div>
-
-              <div className="application-body">
-                <div className="application-details">
-                  <div className="detail-row">
-                    <span className="detail-label">Applied:</span>
-                    <span className="detail-value">
-                      {formatDate(application.appliedDate)} ({getDaysAgo(application.appliedDate)})
-                    </span>
+                  <div className="position-title">
+                    <h4>{application.position}</h4>
                   </div>
-                  <div className="detail-row">
-                    <span className="detail-label">Method:</span>
-                    <span className="detail-value">{application.applicationMethod}</span>
+                  <div className="location-salary">
+                    <span className="location">{application.location}</span>
+                    <span className="salary">{application.salary}</span>
                   </div>
-                  <div className="detail-row">
-                    <span className="detail-label">Response Time:</span>
-                    <span className="detail-value">{application.responseTime}</span>
-                  </div>
-                  {application.notes && (
-                    <div className="detail-row">
-                      <span className="detail-label">Notes:</span>
-                      <span className="detail-value">{application.notes}</span>
-                    </div>
-                  )}
                 </div>
               </div>
-
-              <div className="application-actions">
-                <button className="action-btn secondary">View Details</button>
-                <button className="action-btn primary">Follow Up</button>
-                {application.status === 'under_review' && (
-                  <button className="action-btn">Withdraw</button>
-                )}
-                {application.status === 'offer_received' && (
-                  <button className="action-btn success">Accept Offer</button>
-                )}
+              
+              <div className="card-footer">
+                <div className="website-info">
+                  <span className="website-logo">{getWebsiteLogo(application.applicationMethod)}</span>
+                  <span className="application-source">via {application.company}</span>
+                </div>
               </div>
             </div>
           ))
