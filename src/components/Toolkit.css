@@ -7,34 +7,6 @@
   width: 100%;
 }
 
-.toolkit-header {
-  background: white;
-  border-radius: 16px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-  padding: 3rem 2rem;
-  margin-bottom: 3rem;
-  text-align: center;
-  border: 1px solid #e9ecef;
-}
-
-.toolkit-header h1 {
-  font-size: 2.8rem;
-  margin-bottom: 1rem;
-  color: #667eea;
-  font-weight: 700;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.toolkit-header p {
-  font-size: 1.3rem;
-  color: #6c757d;
-  margin: 0;
-  max-width: 600px;
-  margin: 0 auto;
-}
 
 /* Remove old layout styles that might conflict */
 .toolkit-container,
@@ -155,14 +127,6 @@
 }
 
 @media (max-width: 1024px) {
-  .toolkit-header h1 {
-    font-size: 2.4rem;
-  }
-  
-  .toolkit-header p {
-    font-size: 1.1rem;
-  }
-  
   .tools-grid {
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 1.5rem;
@@ -177,16 +141,6 @@
   .toolkit {
     padding: 1rem;
   }
-  
-  .toolkit-header {
-    padding: 2rem 1.5rem;
-    margin-bottom: 2rem;
-  }
-  
-  .toolkit-header h1 {
-    font-size: 2rem;
-  }
-  
   .tools-grid {
     grid-template-columns: 1fr;
     gap: 1rem;
@@ -214,18 +168,6 @@
 }
 
 @media (max-width: 480px) {
-  .toolkit-header {
-    padding: 1.5rem 1rem;
-  }
-  
-  .toolkit-header h1 {
-    font-size: 1.8rem;
-  }
-  
-  .toolkit-header p {
-    font-size: 1rem;
-  }
-  
   .tool-card {
     padding: 1rem;
   }

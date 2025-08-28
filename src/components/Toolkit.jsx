@@ -1,6 +1,11 @@
+import { useState } from 'react'
 import './Toolkit.css'
 
-function Toolkit() {
+function Toolkit({ activeCategory = 'all', setActiveCategory }) {
+  // Remove local state if props are provided  
+  const [localActiveCategory, setLocalActiveCategory] = useState('all')
+  const currentActiveCategory = activeCategory || localActiveCategory
+  const currentSetActiveCategory = setActiveCategory || setLocalActiveCategory
   const tools = [
     {
       id: 'resume-builder',
@@ -47,16 +52,16 @@ function Toolkit() {
     alert(`Navigating to ${toolId} page`)
   }
 
+  // Filter tools based on active category
+  const filteredTools = currentActiveCategory === 'all' 
+    ? tools 
+    : tools.filter(tool => tool.category.toLowerCase() === currentActiveCategory.toLowerCase())
+
   return (
     <div className="toolkit">
-      <div className="toolkit-header">
-        <h1>🔧 Career Toolkit</h1>
-        <p>Professional tools to accelerate your job search and career growth</p>
-      </div>
-
       <div className="toolkit-cards-container">
         <div className="tools-grid">
-          {tools.map(tool => (
+          {filteredTools.map(tool => (
             <button
               key={tool.id}
               className="tool-card"

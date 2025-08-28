@@ -2,8 +2,12 @@ import { useState } from 'react'
 import './Profile.css'
 import { enableSettings } from './Settings'
 
-function Profile({ userEmail }) {
-  const [activeSection, setActiveSection] = useState('personal')
+function Profile({ userEmail, activeSection = 'personal', setActiveSection }) {
+  // Remove local state if props are provided
+  const [localActiveSection, setLocalActiveSection] = useState('personal')
+  const currentActiveSection = activeSection || localActiveSection
+  const currentSetActiveSection = setActiveSection || setLocalActiveSection
+  
   const [profileData, setProfileData] = useState({
     personalInfo: {
       fullName: 'John Doe',
@@ -564,50 +568,12 @@ function Profile({ userEmail }) {
 
   return (
     <div className="profile">
-      <div className="profile-header">
-        <h1>👤 My Profile</h1>
-        <p>Manage your professional information and job preferences</p>
-      </div>
-
-      <div className="profile-navigation">
-        <button 
-          className={`profile-nav-btn ${activeSection === 'personal' ? 'active' : ''}`}
-          onClick={() => setActiveSection('personal')}
-        >
-          Personal Info
-        </button>
-        <button 
-          className={`profile-nav-btn ${activeSection === 'experience' ? 'active' : ''}`}
-          onClick={() => setActiveSection('experience')}
-        >
-          Experience
-        </button>
-        <button 
-          className={`profile-nav-btn ${activeSection === 'education' ? 'active' : ''}`}
-          onClick={() => setActiveSection('education')}
-        >
-          Education
-        </button>
-        <button 
-          className={`profile-nav-btn ${activeSection === 'skills' ? 'active' : ''}`}
-          onClick={() => setActiveSection('skills')}
-        >
-          Skills
-        </button>
-        <button 
-          className={`profile-nav-btn ${activeSection === 'preferences' ? 'active' : ''}`}
-          onClick={() => setActiveSection('preferences')}
-        >
-          Preferences
-        </button>
-      </div>
-
       <div className="profile-content">
-        {activeSection === 'personal' && renderPersonalInfo()}
-        {activeSection === 'experience' && renderExperience()}
-        {activeSection === 'education' && renderEducation()}
-        {activeSection === 'skills' && renderSkills()}
-        {activeSection === 'preferences' && renderPreferences()}
+        {currentActiveSection === 'personal' && renderPersonalInfo()}
+        {currentActiveSection === 'experience' && renderExperience()}
+        {currentActiveSection === 'education' && renderEducation()}
+        {currentActiveSection === 'skills' && renderSkills()}
+        {currentActiveSection === 'preferences' && renderPreferences()}
       </div>
     </div>
   )

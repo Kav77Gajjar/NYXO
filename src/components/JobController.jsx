@@ -1,52 +1,11 @@
 import { useState } from 'react'
 import './JobController.css'
 
-function JobController() {
-  const [activeTab, setActiveTab] = useState('applications')
-  const [filterStatus, setFilterStatus] = useState('all')
-
-  const mockApplications = [
-    {
-      id: 1,
-      company: 'TechCorp Inc.',
-      position: 'Frontend Developer',
-      status: 'interview',
-      appliedDate: '2025-08-20',
-      salary: '$75,000 - $90,000',
-      location: 'San Francisco, CA',
-      type: 'Full-time'
-    },
-    {
-      id: 2,
-      company: 'StartupXYZ',
-      position: 'React Developer',
-      status: 'pending',
-      appliedDate: '2025-08-18',
-      salary: '$70,000 - $85,000',
-      location: 'Remote',
-      type: 'Full-time'
-    },
-    {
-      id: 3,
-      company: 'BigTech Corp',
-      position: 'Software Engineer',
-      status: 'rejected',
-      appliedDate: '2025-08-15',
-      salary: '$95,000 - $120,000',
-      location: 'Seattle, WA',
-      type: 'Full-time'
-    },
-    {
-      id: 4,
-      company: 'InnovateLab',
-      position: 'Full Stack Developer',
-      status: 'accepted',
-      appliedDate: '2025-08-10',
-      salary: '$80,000 - $100,000',
-      location: 'Austin, TX',
-      type: 'Full-time'
-    }
-  ]
+function JobController({ activeTab = 'search', setActiveTab }) {
+  // Remove local state if props are provided
+  const [localActiveTab, setLocalActiveTab] = useState('search')
+  const currentActiveTab = activeTab || localActiveTab
+  const currentSetActiveTab = setActiveTab || setLocalActiveTab
 
   const mockSavedJobs = [
     {
@@ -80,78 +39,6 @@ function JobController() {
       match: '92%'
     }
   ]
-
-  const getStatusColor = (status) => {
-    switch (status) {
-      case 'pending': return '#ffa726'
-      case 'interview': return '#42a5f5'
-      case 'accepted': return '#66bb6a'
-      case 'rejected': return '#ef5350'
-      default: return '#9e9e9e'
-    }
-  }
-
-  const getStatusText = (status) => {
-    switch (status) {
-      case 'pending': return 'Under Review'
-      case 'interview': return 'Interview Scheduled'
-      case 'accepted': return 'Offer Received'
-      case 'rejected': return 'Not Selected'
-      default: return status
-    }
-  }
-
-  const filteredApplications = filterStatus === 'all' 
-    ? mockApplications 
-    : mockApplications.filter(app => app.status === filterStatus)
-
-  const renderApplications = () => (
-    <div className="applications-section">
-      <div className="section-header">
-        <h2>📋 My Applications</h2>
-        <div className="filter-controls">
-          <select 
-            value={filterStatus} 
-            onChange={(e) => setFilterStatus(e.target.value)}
-            className="status-filter"
-          >
-            <option value="all">All Status</option>
-            <option value="pending">Under Review</option>
-            <option value="interview">Interview</option>
-            <option value="accepted">Accepted</option>
-            <option value="rejected">Rejected</option>
-          </select>
-        </div>
-      </div>
-
-      <div className="applications-grid">
-        {filteredApplications.map(application => (
-          <div key={application.id} className="application-card">
-            <div className="application-header">
-              <h3>{application.position}</h3>
-              <span 
-                className="status-badge" 
-                style={{ backgroundColor: getStatusColor(application.status) }}
-              >
-                {getStatusText(application.status)}
-              </span>
-            </div>
-            <div className="application-details">
-              <p className="company">{application.company}</p>
-              <p className="location">📍 {application.location}</p>
-              <p className="salary">💰 {application.salary}</p>
-              <p className="applied-date">📅 Applied: {application.appliedDate}</p>
-            </div>
-            <div className="application-actions">
-              <button className="action-btn view-btn">View Details</button>
-              <button className="action-btn follow-btn">Follow Up</button>
-              <button className="action-btn withdraw-btn">Withdraw</button>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  )
 
   const renderSavedJobs = () => (
     <div className="saved-jobs-section">
@@ -244,78 +131,58 @@ function JobController() {
 
       <div className="analytics-grid">
         <div className="metric-card">
-          <h3>Application Success Rate</h3>
-          <div className="metric-value">23%</div>
-          <p>4 out of 17 applications received responses</p>
+          <h3>Jobs Searched</h3>
+          <div className="metric-value">128</div>
+          <p>Total job search queries made</p>
         </div>
         <div className="metric-card">
-          <h3>Average Response Time</h3>
-          <div className="metric-value">5 days</div>
-          <p>Companies typically respond within a week</p>
+          <h3>Jobs Applied</h3>
+          <div className="metric-value">46</div>
+          <p>Applications submitted from your account</p>
         </div>
         <div className="metric-card">
-          <h3>Interview Conversion</h3>
-          <div className="metric-value">75%</div>
-          <p>3 out of 4 interviews led to next round</p>
-        </div>
-        <div className="metric-card">
-          <h3>Most Active Platforms</h3>
+          <h3>Most Applied Platform</h3>
           <div className="metric-value">LinkedIn</div>
-          <p>60% of your applications come from LinkedIn</p>
+          <p>Platform with the highest number of applications</p>
+        </div>
+        <div className="metric-card">
+          <h3>Active Time</h3>
+          <div className="metric-value">3h 12m</div>
+          <p>Time spent actively searching / applying</p>
         </div>
       </div>
 
-      <div className="recommendation-card">
-        <h3>💡 Recommendations</h3>
-        <ul>
-          <li>Consider expanding your search to include remote positions</li>
-          <li>Your profile shows strong React skills - target React-focused roles</li>
-          <li>Follow up on pending applications after 1 week</li>
-          <li>Consider networking events in the San Francisco tech scene</li>
-        </ul>
-      </div>
+  {/* Recommendations removed per UX update */}
     </div>
   )
 
   return (
     <div className="job-controller">
-      <div className="job-controller-header">
-        <h1>🎮 Job Controller</h1>
-        <p>Manage your job applications and search progress</p>
-      </div>
-
-      <div className="tab-navigation">
+      <div className="tab-navigation" style={{ display: 'none' }}>
         <button 
-          className={`tab-btn ${activeTab === 'applications' ? 'active' : ''}`}
-          onClick={() => setActiveTab('applications')}
-        >
-          📋 Applications
-        </button>
-        <button 
-          className={`tab-btn ${activeTab === 'saved' ? 'active' : ''}`}
-          onClick={() => setActiveTab('saved')}
-        >
-          💾 Saved Jobs
-        </button>
-        <button 
-          className={`tab-btn ${activeTab === 'search' ? 'active' : ''}`}
-          onClick={() => setActiveTab('search')}
+          className={`tab-btn ${currentActiveTab === 'search' ? 'active' : ''}`}
+          onClick={() => currentSetActiveTab('search')}
         >
           🔍 Job Search
         </button>
         <button 
-          className={`tab-btn ${activeTab === 'analytics' ? 'active' : ''}`}
-          onClick={() => setActiveTab('analytics')}
+          className={`tab-btn ${currentActiveTab === 'saved' ? 'active' : ''}`}
+          onClick={() => currentSetActiveTab('saved')}
+        >
+          💾 Saved Jobs
+        </button>
+        <button 
+          className={`tab-btn ${currentActiveTab === 'analytics' ? 'active' : ''}`}
+          onClick={() => currentSetActiveTab('analytics')}
         >
           📊 Analytics
         </button>
       </div>
 
       <div className="tab-content">
-        {activeTab === 'applications' && renderApplications()}
-        {activeTab === 'saved' && renderSavedJobs()}
-        {activeTab === 'search' && renderJobSearch()}
-        {activeTab === 'analytics' && renderAnalytics()}
+        {currentActiveTab === 'search' && renderJobSearch()}
+        {currentActiveTab === 'saved' && renderSavedJobs()}
+        {currentActiveTab === 'analytics' && renderAnalytics()}
       </div>
     </div>
   )

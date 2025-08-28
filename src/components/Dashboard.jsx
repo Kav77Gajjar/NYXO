@@ -10,6 +10,9 @@ import { useTranslation } from '../contexts/TranslationContext'
 function Dashboard({ onLogout, userEmail }) {
   const [currentPage, setCurrentPage] = useState('dashboard')
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const [profileActiveSection, setProfileActiveSection] = useState('personal')
+  const [jobControllerActiveTab, setJobControllerActiveTab] = useState('search')
+  const [toolkitActiveCategory, setToolkitActiveCategory] = useState('all')
   const { t } = useTranslation()
 
   const toggleMobileMenu = () => {
@@ -22,7 +25,7 @@ function Dashboard({ onLogout, userEmail }) {
   }
 
   const renderDashboardNavigation = () => (
-    <nav className="dashboard-navbar">
+    <nav className={`dashboard-navbar ${(currentPage === 'profile' || currentPage === 'jobcontroller' || currentPage === 'toolkit') ? 'with-subnav' : ''}`}>
       <div className="dashboard-nav-container">
         <div className="dashboard-nav-logo">
           <h2>Job-Bridge</h2>
@@ -62,6 +65,105 @@ function Dashboard({ onLogout, userEmail }) {
           <span className="bar"></span>
         </div>
       </div>
+      
+      {currentPage === 'profile' && (
+        <div className="profile-subnav">
+          <div className="profile-subnav-container">
+            <button 
+              className={`profile-nav-btn ${profileActiveSection === 'personal' ? 'active' : ''}`}
+              onClick={() => setProfileActiveSection('personal')}
+            >
+              Personal Info
+            </button>
+            <button 
+              className={`profile-nav-btn ${profileActiveSection === 'experience' ? 'active' : ''}`}
+              onClick={() => setProfileActiveSection('experience')}
+            >
+              Experience
+            </button>
+            <button 
+              className={`profile-nav-btn ${profileActiveSection === 'education' ? 'active' : ''}`}
+              onClick={() => setProfileActiveSection('education')}
+            >
+              Education
+            </button>
+            <button 
+              className={`profile-nav-btn ${profileActiveSection === 'skills' ? 'active' : ''}`}
+              onClick={() => setProfileActiveSection('skills')}
+            >
+              Skills
+            </button>
+            <button 
+              className={`profile-nav-btn ${profileActiveSection === 'preferences' ? 'active' : ''}`}
+              onClick={() => setProfileActiveSection('preferences')}
+            >
+              Preferences
+            </button>
+          </div>
+        </div>
+      )}
+      
+      {currentPage === 'jobcontroller' && (
+        <div className="profile-subnav">
+          <div className="profile-subnav-container">
+            <button 
+              className={`profile-nav-btn ${jobControllerActiveTab === 'search' ? 'active' : ''}`}
+              onClick={() => setJobControllerActiveTab('search')}
+            >
+              🔍 Job Search
+            </button>
+            <button 
+              className={`profile-nav-btn ${jobControllerActiveTab === 'saved' ? 'active' : ''}`}
+              onClick={() => setJobControllerActiveTab('saved')}
+            >
+              💾 Saved Jobs
+            </button>
+            <button 
+              className={`profile-nav-btn ${jobControllerActiveTab === 'analytics' ? 'active' : ''}`}
+              onClick={() => setJobControllerActiveTab('analytics')}
+            >
+              📊 Analytics
+            </button>
+          </div>
+        </div>
+      )}
+      
+      {currentPage === 'toolkit' && (
+        <div className="profile-subnav">
+          <div className="profile-subnav-container">
+            <button 
+              className={`profile-nav-btn ${toolkitActiveCategory === 'all' ? 'active' : ''}`}
+              onClick={() => setToolkitActiveCategory('all')}
+            >
+              🔧 All Tools
+            </button>
+            <button 
+              className={`profile-nav-btn ${toolkitActiveCategory === 'documents' ? 'active' : ''}`}
+              onClick={() => setToolkitActiveCategory('documents')}
+            >
+              📄 Documents
+            </button>
+            <button 
+              className={`profile-nav-btn ${toolkitActiveCategory === 'preparation' ? 'active' : ''}`}
+              onClick={() => setToolkitActiveCategory('preparation')}
+            >
+              🎤 Preparation
+            </button>
+            <button 
+              className={`profile-nav-btn ${toolkitActiveCategory === 'skills' ? 'active' : ''}`}
+              onClick={() => setToolkitActiveCategory('skills')}
+            >
+              🎯 Skills
+            </button>
+            <button 
+              className={`profile-nav-btn ${toolkitActiveCategory === 'research' ? 'active' : ''}`}
+              onClick={() => setToolkitActiveCategory('research')}
+            >
+              💰 Research
+            </button>
+          </div>
+        </div>
+      )}
     </nav>
   )
 
@@ -241,15 +343,25 @@ function Dashboard({ onLogout, userEmail }) {
   const renderCurrentPage = () => {
     switch (currentPage) {
       case 'toolkit':
-        return <Toolkit />
+        return <Toolkit 
+          activeCategory={toolkitActiveCategory}
+          setActiveCategory={setToolkitActiveCategory}
+        />
       case 'jobcontroller':
-        return <JobController />
+        return <JobController 
+          activeTab={jobControllerActiveTab}
+          setActiveTab={setJobControllerActiveTab}
+        />
       case 'jobmatches':
         return <JobMatches />
       case 'applications':
         return <JobApplications />
       case 'profile':
-        return <Profile userEmail={userEmail} />
+        return <Profile 
+          userEmail={userEmail} 
+          activeSection={profileActiveSection}
+          setActiveSection={setProfileActiveSection}
+        />
       default:
         return renderDashboardHome()
     }
@@ -258,7 +370,7 @@ function Dashboard({ onLogout, userEmail }) {
   return (
     <div className="dashboard">
       {renderDashboardNavigation()}
-      <main className="dashboard-main">
+      <main className={`dashboard-main ${(currentPage === 'profile' || currentPage === 'jobcontroller' || currentPage === 'toolkit') ? 'with-subnav' : ''}`}>
         {renderCurrentPage()}
       </main>
     </div>
