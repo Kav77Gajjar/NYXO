@@ -1,10 +1,11 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import './Dashboard.css'
 import Toolkit from './Toolkit'
 import JobController from './JobController'
 import Profile from './Profile'
 import JobMatches from './JobMatches'
 import JobApplications from './JobApplications'
+import ResumeTemplates from './ResumeTemplates'
 import { useTranslation } from '../contexts/TranslationContext'
 
 function Dashboard({ onLogout, userEmail }) {
@@ -14,6 +15,21 @@ function Dashboard({ onLogout, userEmail }) {
   const [jobControllerActiveTab, setJobControllerActiveTab] = useState('search')
   const [toolkitActiveCategory, setToolkitActiveCategory] = useState('all')
   const { t } = useTranslation()
+  
+  // Listen for custom navigation events from child components
+  useEffect(() => {
+    const handleCustomNavigation = (event) => {
+      if (event.detail && event.detail.page) {
+        setCurrentPage(event.detail.page);
+      }
+    };
+    
+    window.addEventListener('navigate', handleCustomNavigation);
+    
+    return () => {
+      window.removeEventListener('navigate', handleCustomNavigation);
+    };
+  }, []);
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen)
@@ -287,7 +303,7 @@ function Dashboard({ onLogout, userEmail }) {
           </div>
         </div>
 
-        {/* Recent Activities & Notifications */}
+        {/*
         <div className="notifications-card">
           <div className="notification-header">
             <div className="notification-title">
@@ -347,6 +363,7 @@ function Dashboard({ onLogout, userEmail }) {
             </div>
           </div>
         </div>
+        */}
 
         {/* Quick Actions */}
         <div className="quick-actions">
@@ -415,6 +432,8 @@ function Dashboard({ onLogout, userEmail }) {
           activeSection={profileActiveSection}
           setActiveSection={setProfileActiveSection}
         />
+      case 'resume-templates':
+        return <ResumeTemplates />
       default:
         return renderDashboardHome()
     }

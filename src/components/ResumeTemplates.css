@@ -1,0 +1,184 @@
+/* Resume Templates Layout */
+.resume-templates {
+  color: #333;
+  min-height: 100vh;
+  background: #f8f9fa;
+  padding: 90px 2rem 2rem 2rem; /* Reduced padding to match navbar height */
+  display: block;
+  width: 100%;
+}
+
+/* Top bar with back button */
+.resume-templates .top-bar {
+  display: flex;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.resume-templates .back-btn {
+  background: transparent;
+  border: 1px solid rgba(0,0,0,0.06);
+  color: #333;
+  padding: 0.5rem 0.75rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  margin-right: 1rem;
+}
+
+.resume-templates .back-btn:hover {
+  background: rgba(0,0,0,0.03);
+  transform: translateY(-1px);
+}
+
+.resume-templates .top-bar h1 {
+  margin: 0;
+  font-size: 1.8rem;
+  font-weight: 700;
+}
+
+/* Templates Header */
+.templates-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.templates-header h1 {
+  font-size: 2.5rem;
+  margin: 0 0 1rem 0;
+  color: #333;
+  font-weight: 700;
+}
+
+.templates-header p {
+  font-size: 1.1rem;
+  color: #666;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Templates Grid - 4 cards per row */
+.templates-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Template Cards - Vertical Rectangle */
+.template-card {
+  background: white;
+  border-radius: 12px;
+  border-top: 4px solid #667eea; /* Default color, will be overridden */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  transition: all 0.3s ease;
+  height: 400px; /* Fixed height for vertical rectangle */
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+}
+
+.template-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+}
+
+.template-preview {
+  height: 220px;
+  background: rgba(102, 126, 234, 0.1); /* Default light blue background */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.template-icon {
+  font-size: 5rem;
+  opacity: 0.8;
+}
+
+.template-info {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  position: relative;
+}
+
+.template-info h3 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.template-info p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #666;
+  line-height: 1.5;
+  flex: 1; /* Push button to bottom */
+}
+
+.use-template-btn {
+  background: #667eea; /* Default color, will be overridden */
+  color: white;
+  border: none;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 1rem;
+  transition: all 0.2s ease;
+}
+
+.use-template-btn:hover {
+  filter: brightness(1.1);
+  transform: translateY(-2px);
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+  .templates-grid {
+    grid-template-columns: repeat(3, 1fr);
+    padding: 0 1rem;
+  }
+}
+
+@media (max-width: 992px) {
+  .templates-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .templates-header h1 {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .resume-templates {
+    padding: 80px 1rem 2rem 1rem;
+  }
+  
+  .templates-header h1 {
+    font-size: 1.8rem;
+  }
+  
+  .templates-header p {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .templates-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .template-card {
+    height: 380px; /* Slightly shorter for mobile */
+  }
+  
+  .template-preview {
+    height: 180px;
+  }
+}

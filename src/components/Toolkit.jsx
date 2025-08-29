@@ -45,11 +45,22 @@ function Toolkit({ activeCategory = 'all', setActiveCategory }) {
   ]
 
   const handleToolClick = (toolId) => {
-    // Navigate to specific tool page
     console.log(`Navigating to ${toolId}`)
-    // In a real app, you would use React Router here
-    // For now, we'll just log the navigation
-    alert(`Navigating to ${toolId} page`)
+    
+    // Temporary navigation solution based on current app structure
+    if (toolId === 'resume-builder') {
+      // Since the app uses state-based navigation instead of React Router,
+      // we'll use a custom event to notify parent components
+      const event = new CustomEvent('navigate', { 
+        detail: { 
+          page: 'resume-templates'
+        } 
+      })
+      window.dispatchEvent(event)
+    } else {
+      // For other tools, we'll use the default behavior for now
+      alert(`Navigating to ${toolId} page`)
+    }
   }
 
   // Filter tools based on active category
