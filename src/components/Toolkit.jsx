@@ -59,22 +59,69 @@ function Toolkit({ activeCategory = 'all', setActiveCategory }) {
 
   return (
     <div className="toolkit">
-      <div className="toolkit-cards-container">
-        <div className="tools-grid">
-          {filteredTools.map(tool => (
-            <button
-              key={tool.id}
-              className="tool-card"
-              onClick={() => handleToolClick(tool.id)}
-            >
-              <div className="tool-card-icon">{tool.icon}</div>
-              <div className="tool-card-content">
-                <h3>{tool.name}</h3>
-                <p>{tool.description}</p>
-                <span className="tool-category">{tool.category}</span>
-              </div>
-            </button>
-          ))}
+      {/* Left Sidebar Navigation */}
+      <div className="toolkit-sidebar">
+        <div className="sidebar-header">
+          <h2>🛠️ Toolkit</h2>
+        </div>
+        <nav className="sidebar-nav">
+          <button 
+            className={`sidebar-nav-item ${currentActiveCategory === 'all' ? 'active' : ''}`}
+            onClick={() => currentSetActiveCategory('all')}
+          >
+            <span className="nav-icon">🔧</span>
+            All Tools
+          </button>
+          <button 
+            className={`sidebar-nav-item ${currentActiveCategory === 'documents' ? 'active' : ''}`}
+            onClick={() => currentSetActiveCategory('documents')}
+          >
+            <span className="nav-icon">📄</span>
+            Documents
+          </button>
+          <button 
+            className={`sidebar-nav-item ${currentActiveCategory === 'preparation' ? 'active' : ''}`}
+            onClick={() => currentSetActiveCategory('preparation')}
+          >
+            <span className="nav-icon">🎤</span>
+            Preparation
+          </button>
+          <button 
+            className={`sidebar-nav-item ${currentActiveCategory === 'skills' ? 'active' : ''}`}
+            onClick={() => currentSetActiveCategory('skills')}
+          >
+            <span className="nav-icon">🎯</span>
+            Skills
+          </button>
+          <button 
+            className={`sidebar-nav-item ${currentActiveCategory === 'research' ? 'active' : ''}`}
+            onClick={() => currentSetActiveCategory('research')}
+          >
+            <span className="nav-icon">💰</span>
+            Research
+          </button>
+        </nav>
+      </div>
+
+      {/* Main Content Area */}
+      <div className="toolkit-content">
+        <div className="toolkit-cards-container">
+          <div className="tools-grid">
+            {filteredTools.map(tool => (
+              <button
+                key={tool.id}
+                className="tool-card"
+                onClick={() => handleToolClick(tool.id)}
+              >
+                <div className="tool-card-icon">{tool.icon}</div>
+                <div className="tool-card-content">
+                  <h3>{tool.name}</h3>
+                  <p>{tool.description}</p>
+                  <span className="tool-category">{tool.category}</span>
+                </div>
+              </button>
+            ))}
+          </div>
         </div>
       </div>
     </div>

@@ -568,6 +568,51 @@ function Profile({ userEmail, activeSection = 'personal', setActiveSection }) {
 
   return (
     <div className="profile">
+      {/* Left Sidebar Navigation */}
+      <div className="profile-sidebar">
+        <div className="sidebar-header">
+          <h2>👤 Profile</h2>
+        </div>
+        <nav className="sidebar-nav">
+          <button 
+            className={`sidebar-nav-item ${currentActiveSection === 'personal' ? 'active' : ''}`}
+            onClick={() => currentSetActiveSection('personal')}
+          >
+            <span className="nav-icon">📝</span>
+            Personal Info
+          </button>
+          <button 
+            className={`sidebar-nav-item ${currentActiveSection === 'experience' ? 'active' : ''}`}
+            onClick={() => currentSetActiveSection('experience')}
+          >
+            <span className="nav-icon">💼</span>
+            Experience
+          </button>
+          <button 
+            className={`sidebar-nav-item ${currentActiveSection === 'education' ? 'active' : ''}`}
+            onClick={() => currentSetActiveSection('education')}
+          >
+            <span className="nav-icon">🎓</span>
+            Education
+          </button>
+          <button 
+            className={`sidebar-nav-item ${currentActiveSection === 'skills' ? 'active' : ''}`}
+            onClick={() => currentSetActiveSection('skills')}
+          >
+            <span className="nav-icon">⚡</span>
+            Skills
+          </button>
+          <button 
+            className={`sidebar-nav-item ${currentActiveSection === 'preferences' ? 'active' : ''}`}
+            onClick={() => currentSetActiveSection('preferences')}
+          >
+            <span className="nav-icon">⚙️</span>
+            Preferences
+          </button>
+        </nav>
+      </div>
+
+      {/* Main Content Area */}
       <div className="profile-content">
         {currentActiveSection === 'personal' && renderPersonalInfo()}
         {currentActiveSection === 'experience' && renderExperience()}

@@ -24,7 +24,7 @@
 
 .dashboard-navbar.with-subnav {
   height: auto;
-  min-height: 130px;
+  min-height: 70px; /* Same height as regular navbar */
 }
 
 .dashboard-nav-container {
@@ -93,6 +93,116 @@
   border-radius: 2px;
 }
 
+/* Hamburger Animation */
+.dashboard-nav-toggle.active .bar:nth-child(1) {
+  transform: translateY(8px) rotate(45deg);
+}
+
+.dashboard-nav-toggle.active .bar:nth-child(2) {
+  opacity: 0;
+}
+
+.dashboard-nav-toggle.active .bar:nth-child(3) {
+  transform: translateY(-8px) rotate(-45deg);
+}
+
+/* Mobile Sub-navigation */
+.mobile-subnav {
+  background: #f8fafc;
+  border-left: 3px solid #667eea;
+  margin: 0.5rem 0;
+  padding: 0.5rem 0;
+  border-radius: 0 8px 8px 0;
+  display: none; /* Hide on desktop - shown only on mobile via media query */
+}
+
+.mobile-subnav-header {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #667eea;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 0.5rem 1.5rem;
+  margin-bottom: 0.25rem;
+}
+
+.mobile-subnav-btn {
+  width: 100%;
+  background: none;
+  border: none;
+  color: #64748b;
+  text-decoration: none;
+  font-weight: 500;
+  padding: 0.75rem 2rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 0.9rem;
+  text-align: left;
+  border-radius: 0;
+}
+
+.mobile-subnav-btn:hover {
+  background: rgba(102, 126, 234, 0.1);
+  color: #334155;
+}
+
+.mobile-subnav-btn.active {
+  background: #667eea;
+  color: white !important;
+  font-weight: 600;
+}
+
+/* Navigation Separator */
+.nav-separator {
+  height: 1px;
+  background: #e2e8f0;
+  margin: 1rem 0;
+}
+
+/* Logout Button Styling */
+.logout-btn {
+  color: #dc2626 !important;
+  font-weight: 600;
+  border-top: 1px solid #fee2e2;
+  margin-top: 0.5rem;
+  padding-top: 1rem !important;
+}
+
+.logout-btn:hover {
+  background: #fef2f2 !important;
+  color: #b91c1c !important;
+}
+
+/* Mobile Menu Overlay */
+.mobile-menu-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 998;
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .mobile-menu-overlay {
+    display: block;
+  }
+}
+
+/* Sidebar navigation moved to individual components */
+
+/* Hide desktop subnav on mobile */
+.desktop-only {
+  display: block;
+}
+
+/* Hide mobile subnav on desktop by default */
+.mobile-subnav {
+  display: none;
+}
+
 /* Profile Sub Navigation */
 .profile-subnav {
   border-top: 1px solid rgba(255, 255, 255, 0.1);
@@ -138,8 +248,18 @@
 
 /* Mobile Responsive */
 @media (max-width: 768px) {
+  /* Hide desktop sub-navigation on mobile */
+  .desktop-only {
+    display: none !important;
+  }
+  
+  /* Show mobile sub-navigation only on mobile */
+  .mobile-subnav {
+    display: block;
+  }
+  
   .dashboard-navbar.with-subnav {
-    min-height: 150px;
+    min-height: 70px; /* Reduced since subnav is now in hamburger menu */
   }
   
   .profile-subnav-container {
@@ -153,20 +273,20 @@
   }
   
   .dashboard-main.with-subnav {
-    margin-top: 180px; /* Increased margin for mobile with wrapping subnav */
+    margin-top: 100px; /* Reduced margin since no overlapping subnav */
   }
 }
 
 .dashboard-main {
   width: 100%;
-  padding: 2rem;
+  padding: 0; /* Remove padding to let components handle their own spacing */
   min-height: calc(100vh - 70px);
   margin-top: 90px; /* Account for floating navbar height + spacing */
   transition: margin-top 0.3s ease;
 }
 
 .dashboard-main.with-subnav {
-  margin-top: 150px; /* Increased margin for extended navbar with subnav */
+  margin-top: 90px; /* Keep consistent - subnav is now positioned better */
 }
 
 /* Dashboard Home */
