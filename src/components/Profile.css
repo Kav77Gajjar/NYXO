@@ -165,15 +165,53 @@
 }
 
 .remove-btn {
-  background: linear-gradient(135deg, #ff6b6b 0%, #ee5a52 100%);
+  background: linear-gradient(135deg, #ff6b6b 0%, #ee5a52 100%) !important;
+  border: none !important;
+  color: white !important;
+  padding: 0.25rem 0.75rem !important;
+  border-radius: 4px !important;
+  font-weight: 600 !important;
+  cursor: pointer !important;
+  transition: all 0.3s ease !important;
+  font-size: 0.8rem !important;
+  z-index: 1000 !important;
+  position: relative !important;
+}
+
+.remove-btn-education {
+  background: #dc3545;
   border: none;
   color: white;
-  padding: 0.25rem 0.75rem;
+  padding: 6px 12px;
   border-radius: 4px;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.3s ease;
   font-size: 0.8rem;
+  transition: background 0.3s ease;
+  margin-left: 10px;
+}
+
+.remove-btn-education:hover {
+  background: #c82333;
+  transform: translateY(-1px);
+}
+
+.remove-btn-experience {
+  background: #dc3545;
+  border: none;
+  color: white;
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 0.8rem;
+  transition: background 0.3s ease;
+  margin-left: 10px;
+}
+
+.remove-btn-experience:hover {
+  background: #c82333;
+  transform: translateY(-1px);
 }
 
 .remove-btn:hover {
@@ -190,9 +228,10 @@
 
 .info-field {
   background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: none;
   border-radius: 8px;
   padding: 1rem;
+  transition: all 0.3s ease;
 }
 
 .info-field label {
@@ -201,6 +240,13 @@
   margin-bottom: 0.5rem;
   color: rgba(255, 255, 255, 0.9);
   font-size: 0.9rem;
+}
+
+.optional-label {
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.8rem;
+  font-style: italic;
 }
 
 .info-field p {
@@ -215,12 +261,45 @@
 .edit-select {
   width: 100%;
   background: rgba(255, 255, 255, 0.2);
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  border: 2px solid rgba(102, 126, 234, 0.5);
   border-radius: 6px;
   padding: 0.75rem;
   color: white;
   font-size: 1rem;
   margin-bottom: 0.5rem;
+  transition: all 0.3s ease;
+}
+
+.edit-input:focus,
+.edit-textarea:focus,
+.edit-select:focus {
+  outline: none;
+  border-color: rgba(102, 126, 234, 0.8);
+  background: rgba(255, 255, 255, 0.25);
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
+}
+
+/* Error states for inputs */
+.edit-input.error,
+.edit-textarea.error,
+.edit-select.error {
+  border-color: #ff6b6b;
+  background: rgba(255, 107, 107, 0.1);
+}
+
+.edit-input.error:focus,
+.edit-textarea.error:focus,
+.edit-select.error:focus {
+  border-color: #ff5252;
+  box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.2);
+}
+
+.error-message {
+  color: #ff6b6b;
+  font-size: 0.8rem;
+  margin-top: 0.25rem;
+  display: block;
+  font-weight: 500;
 }
 
 .edit-input::placeholder,
@@ -298,7 +377,7 @@
 .company,
 .school {
   font-weight: 600;
-  color: #4facfe;
+  color: #4facfe !important;
   font-size: 1.1rem;
 }
 
@@ -336,43 +415,37 @@
   border-radius: 20px;
   font-size: 0.9rem;
   font-weight: 500;
-  transition: all 0.3s ease;
-}
-
-.skill-tag:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(79, 172, 254, 0.4);
+  transition: none;
 }
 
 .skill-tag.editable {
   position: relative;
-  padding-right: 2rem;
+  padding-right: 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: 2px solid transparent;
+}
+
+.skill-tag.editable:hover {
+  background: linear-gradient(135deg, #ff6b6b 0%, #ee5a52 100%);
+  border-color: #dc2626;
+  transform: scale(1.02);
 }
 
 .remove-skill-btn {
-  background: none;
-  border: none;
-  color: white;
-  font-size: 1.2rem;
-  font-weight: bold;
-  cursor: pointer;
-  position: absolute;
-  right: 0.5rem;
-  top: 50%;
-  transform: translateY(-50%);
-  padding: 0;
-  width: 1rem;
-  height: 1rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  transition: all 0.2s ease;
+  display: none;
 }
 
-.remove-skill-btn:hover {
-  background: rgba(255, 255, 255, 0.2);
-  transform: translateY(-50%) scale(1.2);
+.edit-skills-instruction {
+  color: #6b7280;
+  font-size: 0.875rem;
+  margin-bottom: 0.75rem;
+  font-style: italic;
+  text-align: center;
+  padding: 0.5rem;
+  background: rgba(107, 114, 128, 0.1);
+  border-radius: 8px;
+  border-left: 3px solid #6b7280;
 }
 
 .skills-edit {
@@ -395,13 +468,24 @@
 
 .skill-input {
   flex: 1;
-  background: rgba(255, 255, 255, 0.2);
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.9);
+  border: 2px solid #4facfe;
   border-radius: 8px;
   padding: 0.75rem 1rem;
-  color: white;
+  color: #333;
   font-size: 1rem;
   transition: all 0.3s ease;
+}
+
+.skill-input:focus {
+  outline: none;
+  border-color: #667eea;
+  background: white;
+  box-shadow: 0 0 0 3px rgba(79, 172, 254, 0.2);
+}
+
+.skill-input::placeholder {
+  color: #6b7280;
 }
 
 .skill-input:focus {
@@ -803,6 +887,301 @@
   }
 }
 
+/* Dialog Styles */
+.dialog-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  backdrop-filter: blur(4px);
+}
+
+.dialog {
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  max-width: 500px;
+  width: 90%;
+  max-height: 90vh;
+  overflow-y: auto;
+  animation: dialogSlideIn 0.3s ease-out;
+}
+
+@keyframes dialogSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-30px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.dialog-header {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 1.5rem;
+  border-radius: 16px 16px 0 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.dialog-header h3 {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.dialog-close {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 0.25rem;
+  border-radius: 50%;
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.dialog-close:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: scale(1.1);
+}
+
+.dialog-content {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.dialog-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.dialog-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.dialog-field label {
+  font-weight: 600;
+  color: #333;
+  font-size: 0.9rem;
+}
+
+.dialog-input,
+.dialog-textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border: 2px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  background: #f8fafc;
+}
+
+.dialog-input:focus,
+.dialog-textarea:focus {
+  outline: none;
+  border-color: #667eea;
+  background: white;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.dialog-input.error,
+.dialog-textarea.error {
+  border-color: #ff6b6b;
+  background: rgba(255, 107, 107, 0.05);
+}
+
+.dialog-input.error:focus,
+.dialog-textarea.error:focus {
+  border-color: #ff5252;
+  box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.1);
+}
+
+.dialog-textarea {
+  resize: vertical;
+  min-height: 80px;
+  font-family: inherit;
+}
+
+.dialog-actions {
+  padding: 1rem 1.5rem 1.5rem;
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+  border-top: 1px solid #e2e8f0;
+}
+
+.dialog-btn {
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: none;
+  font-size: 0.9rem;
+}
+
+.dialog-btn.cancel {
+  background: #e2e8f0;
+  color: #64748b;
+}
+
+.dialog-btn.cancel:hover {
+  background: #cbd5e1;
+  transform: translateY(-1px);
+}
+
+.dialog-btn.save {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.dialog-btn.save:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+}
+
+.dialog-btn.save:active {
+  transform: translateY(0);
+}
+
+/* Mobile dialog adjustments */
+@media (max-width: 768px) {
+  .dialog {
+    width: 95%;
+    margin: 1rem;
+  }
+  
+  .dialog-header {
+    padding: 1rem;
+  }
+  
+  .dialog-content {
+    padding: 1rem;
+  }
+  
+  .dialog-actions {
+    padding: 0.75rem 1rem 1rem;
+    flex-direction: column;
+  }
+  
+  .dialog-btn {
+    width: 100%;
+  }
+}
+
+/* Delete Confirmation Dialog Styles */
+.delete-confirmation-dialog {
+  max-width: 500px;
+}
+
+.delete-warning {
+  text-align: center;
+}
+
+.warning-text {
+  font-size: 1.1rem;
+  color: #374151;
+  margin-bottom: 1.5rem;
+  font-weight: 500;
+}
+
+.education-preview {
+  background: #f8fafc;
+  border: 2px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin: 1.5rem 0;
+}
+
+.experience-preview {
+  background: #f8fafc;
+  border: 2px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin: 1.5rem 0;
+}
+
+.education-info,
+.experience-info {
+  text-align: left;
+}
+
+.education-degree,
+.experience-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #1f2937;
+  margin: 0 0 0.5rem 0;
+}
+
+.education-school,
+.experience-company {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #4facfe;
+  margin: 0 0 0.25rem 0;
+}
+
+.education-year,
+.experience-duration {
+  font-size: 0.9rem;
+  color: #6b7280;
+  margin: 0 0 0.25rem 0;
+}
+
+.education-gpa,
+.experience-description {
+  font-size: 0.9rem;
+  color: #6b7280;
+  margin: 0;
+  line-height: 1.4;
+}
+
+.warning-note {
+  font-size: 0.9rem;
+  color: #dc2626;
+  background: #fef2f2;
+  padding: 1rem;
+  border-radius: 6px;
+  border-left: 4px solid #dc2626;
+  margin-top: 1.5rem;
+}
+
+.dialog-btn.delete {
+  background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+  color: white;
+}
+
+.dialog-btn.delete:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(220, 38, 38, 0.4);
+}
+
+.dialog-btn.delete:active {
+  transform: translateY(0);
+}
+
 @media (max-width: 768px) {
   .profile {
     padding: 80px 1rem 1rem 1rem;
@@ -815,5 +1194,237 @@
   .sidebar-nav-item {
     font-size: 0.85rem;
     padding: 0.6rem 0.8rem;
+  }
+}
+
+/* Achievements Styles */
+.achievements-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+.achievement-card {
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 1.5rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.achievement-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  border-color: #4facfe;
+}
+
+.achievement-image {
+  margin-bottom: 1rem;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.achievement-image img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+}
+
+.achievement-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 0.75rem;
+}
+
+.achievement-header h4 {
+  margin: 0;
+  color: #1e293b;
+  font-size: 1.125rem;
+  font-weight: 600;
+  flex: 1;
+  margin-right: 0.5rem;
+}
+
+.achievement-category {
+  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  color: white;
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.achievement-description {
+  color: #64748b;
+  margin: 0 0 0.75rem 0;
+  line-height: 1.5;
+}
+
+.achievement-date {
+  color: #94a3b8;
+  font-size: 0.875rem;
+  margin: 0 0 0.75rem 0;
+  font-weight: 500;
+}
+
+.achievement-actions {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.achievement-actions .remove-btn {
+  background: #ef4444;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.achievement-actions .remove-btn:hover {
+  background: #dc2626;
+  transform: scale(1.02);
+}
+
+.no-achievements {
+  text-align: center;
+  color: #64748b;
+  font-style: italic;
+  padding: 3rem 1rem;
+  grid-column: 1 / -1;
+}
+
+.no-achievements p:first-child {
+  font-size: 1.125rem;
+  margin-bottom: 0.5rem;
+}
+
+.no-achievements p:last-child {
+  color: #94a3b8;
+  font-size: 0.875rem;
+}
+
+/* Achievement Dialog Styles */
+.dialog-select {
+  width: 100%;
+  padding: 0.75rem;
+  border: 2px solid #cbd5e1;
+  border-radius: 8px;
+  background: white;
+  color: #1e293b !important;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+  background-position: right 0.5rem center;
+  background-repeat: no-repeat;
+  background-size: 1.5em 1.5em;
+  padding-right: 2.5rem;
+}
+
+.dialog-select:focus {
+  outline: none;
+  border-color: #4facfe;
+  box-shadow: 0 0 0 3px rgba(79, 172, 254, 0.1);
+}
+
+.dialog-select:hover {
+  border-color: #94a3b8;
+}
+
+.dialog-btn.primary {
+  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%) !important;
+  color: white !important;
+  border: none !important;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.dialog-btn.primary:hover {
+  background: linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%) !important;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(79, 172, 254, 0.4);
+}
+
+/* General Dialog Input Styling */
+.dialog-input,
+.dialog-textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border: 2px solid #cbd5e1;
+  border-radius: 8px;
+  background: white;
+  color: #1e293b !important;
+  font-size: 0.875rem;
+  transition: all 0.2s ease;
+}
+
+.dialog-input:focus,
+.dialog-textarea:focus {
+  outline: none;
+  border-color: #4facfe;
+  box-shadow: 0 0 0 3px rgba(79, 172, 254, 0.1);
+}
+
+.dialog-input::placeholder,
+.dialog-textarea::placeholder {
+  color: #9ca3af !important;
+}
+
+.dialog-file-input {
+  width: 100%;
+  padding: 0.75rem;
+  border: 2px dashed #cbd5e1;
+  border-radius: 8px;
+  background: #f8fafc;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.dialog-file-input:hover {
+  border-color: #4facfe;
+  background: #f0f9ff;
+}
+
+.image-preview {
+  margin-top: 0.75rem;
+  border-radius: 8px;
+  overflow: hidden;
+  max-height: 200px;
+}
+
+.image-preview img {
+  width: 100%;
+  height: auto;
+  max-height: 200px;
+  object-fit: cover;
+}
+
+/* Responsive Design for Achievements */
+@media (max-width: 768px) {
+  .achievements-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .achievement-card {
+    padding: 1rem;
+  }
+  
+  .achievement-header {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .achievement-category {
+    align-self: flex-start;
   }
 }
