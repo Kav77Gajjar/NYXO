@@ -180,16 +180,12 @@ function Dashboard({ onLogout, userEmail }) {
         {/* Personal Welcome Section */}
         <div className="welcome-section">
           <div className="welcome-content">
-            <h1>{t('hello')}, {getUsername()}! 👋</h1>
-            <p>{t('ready')}</p>
+            <h1>Hello, {getUsername()}! 👋</h1>
+            <p>Ready to accelerate your career? Here's your personalized job search dashboard.</p>
           </div>
-          <div className="welcome-date">
-            <span>{t('today')}, {new Date().toLocaleDateString('en-US', { 
-              weekday: 'long', 
-              year: 'numeric', 
-              month: 'long', 
-              day: 'numeric' 
-            })}</span>
+          <div className="welcome-actions">
+            <button className="action-button">Create Resume</button>
+            <button className="action-button">Find Jobs</button>
           </div>
         </div>
 
@@ -234,62 +230,44 @@ function Dashboard({ onLogout, userEmail }) {
           </div>
         </div>
 
-        {/* Recent Activities & Notifications */}
-        <div className="notifications-card">
-          <div className="notification-header">
-            <div className="notification-title">
-              <div className="notification-icon">🔔</div>
-              <h2>Recent Activities & Notifications</h2>
-              <div className="notification-count">4</div>
+        {/* Recent Activities */}
+        <div className="activities-card">
+          <div className="activities-header">
+            <div className="activities-title">
+              <div className="activities-icon">�</div>
+              <h2>Recent Activities</h2>
             </div>
-            <button className="mark-all-read-btn">Mark All Read</button>
           </div>
-          <div className="notifications-list">
-            <div className="notification-item unread">
-              <div className="notification-indicator"></div>
-              <div className="notification-badge applied">Applied</div>
-              <div className="notification-details">
-                <div className="notification-main">Applied to Senior Frontend Developer at TechFlow</div>
-                <div className="notification-meta">2 hours ago • Remote Position</div>
-              </div>
-              <div className="notification-action">
-                <button className="track-btn">Track</button>
+          <div className="activities-list">
+            <div className="activity-item">
+              <div className="activity-badge applied">Applied</div>
+              <div className="activity-details">
+                <div className="activity-main">Applied to Senior Frontend Developer at TechFlow</div>
+                <div className="activity-meta">2 hours ago • Remote Position</div>
               </div>
             </div>
             
-            <div className="notification-item unread">
-              <div className="notification-indicator"></div>
-              <div className="notification-badge matched">Matched</div>
-              <div className="notification-details">
-                <div className="notification-main">New match: React Developer at Innovation Labs</div>
-                <div className="notification-meta">5 hours ago • 95% Match Score</div>
-              </div>
-              <div className="notification-action">
-                <button className="apply-btn">Apply Now</button>
+            <div className="activity-item">
+              <div className="activity-badge searched">Searched</div>
+              <div className="activity-details">
+                <div className="activity-main">Searched "React Developer" jobs</div>
+                <div className="activity-meta">4 hours ago • 47 results found</div>
               </div>
             </div>
             
-            <div className="notification-item">
-              <div className="notification-indicator"></div>
-              <div className="notification-badge interview">Interview</div>
-              <div className="notification-details">
-                <div className="notification-main">Interview scheduled with DesignCorp</div>
-                <div className="notification-meta">Tomorrow 2:00 PM • Video Call</div>
-              </div>
-              <div className="notification-action">
-                <button className="prepare-btn">Prepare</button>
+            <div className="activity-item">
+              <div className="activity-badge applied">Applied</div>
+              <div className="activity-details">
+                <div className="activity-main">Applied to Full Stack Developer at StartupCorp</div>
+                <div className="activity-meta">Yesterday • Full-time Position</div>
               </div>
             </div>
             
-            <div className="notification-item">
-              <div className="notification-indicator"></div>
-              <div className="notification-badge searched">Searched</div>
-              <div className="notification-details">
-                <div className="notification-main">Searched "Frontend Developer" in San Francisco</div>
-                <div className="notification-meta">1 day ago • 23 results found</div>
-              </div>
-              <div className="notification-action">
-                <button className="view-btn">View Results</button>
+            <div className="activity-item">
+              <div className="activity-badge searched">Searched</div>
+              <div className="activity-details">
+                <div className="activity-main">Searched "Frontend Developer" in San Francisco</div>
+                <div className="activity-meta">2 days ago • 23 results found</div>
               </div>
             </div>
           </div>
