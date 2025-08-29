@@ -4,117 +4,36 @@
   min-height: 100vh;
   background: #f8f9fa;
   padding: 90px 2rem 2rem 2rem; /* Reduced padding to match navbar height */
-  display: flex;
-  gap: 2rem;
+  display: block; /* Single column since sidebar removed */
 }
 
-/* Left Sidebar Navigation */
-.jobcontroller-sidebar {
-  width: 280px;
-  min-width: 280px;
-  background: white;
-  border-radius: 16px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-  border: 1px solid rgba(0, 0, 0, 0.05);
-  height: fit-content;
-  position: sticky;
-  top: 90px; /* Adjusted to match reduced navbar height */
-  overflow: hidden;
-  flex-shrink: 0; /* Prevent sidebar from shrinking */
-}
-
-.sidebar-header {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-  padding: 1.5rem;
-  text-align: center;
-}
-
-.sidebar-header h2 {
-  margin: 0;
-  font-size: 1.2rem;
-  font-weight: 600;
-  letter-spacing: 0.5px;
-}
-
-.sidebar-nav {
-  padding: 1rem 0;
-}
-
-.sidebar-nav-item {
-  width: 100%;
-  background: transparent;
-  border: none;
-  color: #475569;
-  text-decoration: none;
-  font-weight: 500;
-  padding: 1rem 1.5rem;
-  cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  font-size: 0.9rem;
+/* Top bar with back button */
+.top-bar {
   display: flex;
   align-items: center;
-  gap: 1rem;
-  position: relative;
-  overflow: hidden;
-  text-align: left;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  margin-bottom: 1rem;
 }
 
-.sidebar-nav-item:last-child {
-  border-bottom: none;
-}
-
-.sidebar-nav-item::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  width: 4px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  transform: scaleY(0);
-  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.sidebar-nav-item:hover {
-  background: linear-gradient(90deg, rgba(102, 126, 234, 0.1), transparent);
-  color: #667eea;
-  transform: translateX(8px);
-}
-
-.sidebar-nav-item:hover::before {
-  transform: scaleY(1);
-}
-
-.sidebar-nav-item.active {
-  background: linear-gradient(90deg, rgba(102, 126, 234, 0.15), rgba(102, 126, 234, 0.05));
-  color: #667eea !important;
+.back-btn {
+  background: transparent;
+  border: 1px solid rgba(0,0,0,0.06);
+  color: #333;
+  padding: 0.5rem 0.75rem;
+  border-radius: 8px;
+  cursor: pointer;
   font-weight: 600;
-  transform: translateX(12px);
 }
 
-.sidebar-nav-item.active::before {
-  transform: scaleY(1);
+.back-btn:hover {
+  background: rgba(0,0,0,0.03);
+  transform: translateY(-1px);
 }
 
-.nav-icon {
-  font-size: 1.1rem;
-  opacity: 0.8;
-  transition: all 0.3s ease;
-  min-width: 24px;
-}
-
-.sidebar-nav-item:hover .nav-icon,
-.sidebar-nav-item.active .nav-icon {
-  opacity: 1;
-  transform: scale(1.1);
-}
+/* Sidebar removed: related styles deleted */
 
 /* Main Content Area */
 .jobcontroller-content {
-  flex: 1;
-  min-width: 0; /* Allow content to shrink if needed */
+  width: 100%;
 }
 
 /* Tab Navigation */
@@ -454,9 +373,93 @@
   white-space: nowrap;
 }
 
-.search-btn:hover {
+.search-btn:hover,
+.compound-btn .compound-main:hover {
   transform: translateY(-2px);
   box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+}
+
+/* Liked jobs square button that matches the height of .search-btn */
+.liked-btn {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border: none;
+  color: white;
+  padding: 1rem; /* square: equal vertical and horizontal padding */
+  border-radius: 10px; /* slight rounding to match UI */
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px; /* fixed to roughly match search-btn height */
+  height: 48px; /* ensure same visual height as search-btn */
+}
+
+.compound-btn .compound-side .heart-icon {
+  font-size: 1.1rem;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.compound-btn .compound-side:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Compound button container: single shaped button with internal divider */
+.compound-btn {
+  display: inline-flex;
+  align-items: stretch;
+  background: transparent;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: none;
+  height: 48px; /* Match height with search button */
+}
+
+.compound-btn .compound-main,
+.compound-btn .compound-side {
+  border: none;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 12px 18px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  height: 100%; /* Make both buttons fill the container height */
+}
+
+.compound-btn .compound-main {
+  font-weight: 600;
+  min-width: 160px;
+  border-radius: 10px 0 0 10px; /* rounded corners only on left side */
+}
+
+.compound-btn .compound-side {
+  width: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Divider between main and side */
+.compound-btn .compound-side {
+  /* make the side button transparent and add a solid black border */
+  background: transparent; 
+  border-left: 1px solid #000;
+  border: 1px solid #000;
+  border-left: 1px solid #000;
+  box-sizing: border-box; /* ensure width includes border */
+  border-radius: 0 10px 10px 0; /* rounded corners only on right side */
+}
+
+.compound-btn button:focus {
+  outline: 2px solid rgba(0,0,0,0.35);
+  outline-offset: 2px;
 }
 
 .filter-options {

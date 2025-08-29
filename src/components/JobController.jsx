@@ -89,7 +89,23 @@ function JobController({ activeTab = 'search', setActiveTab }) {
             placeholder="Location"
             className="location-input"
           />
-          <button className="search-btn">Search Jobs</button>
+          {/* Compound action button: Search + Liked (divider) */}
+          <div className="compound-btn" role="group" aria-label="Search and liked actions">
+            <button
+              className="search-btn compound-main"
+              onClick={() => {/* trigger search - placeholder */}}
+            >
+              Search Jobs
+            </button>
+            <button
+              className="liked-btn compound-side"
+              aria-label="Liked Jobs"
+              title="Liked Jobs"
+              onClick={() => currentSetActiveTab('saved')}
+            >
+              <span className="heart-icon" aria-hidden="true">❤</span>
+            </button>
+          </div>
         </div>
 
         <div className="filter-options">
@@ -158,38 +174,20 @@ function JobController({ activeTab = 'search', setActiveTab }) {
 
   return (
     <div className="job-controller">
-      {/* Left Sidebar Navigation */}
-      <div className="jobcontroller-sidebar">
-        <div className="sidebar-header">
-          <h2>🎯 Job Control</h2>
-        </div>
-        <nav className="sidebar-nav">
-          <button 
-            className={`sidebar-nav-item ${currentActiveTab === 'search' ? 'active' : ''}`}
-            onClick={() => currentSetActiveTab('search')}
-          >
-            <span className="nav-icon">🔍</span>
-            Job Search
-          </button>
-          <button 
-            className={`sidebar-nav-item ${currentActiveTab === 'saved' ? 'active' : ''}`}
-            onClick={() => currentSetActiveTab('saved')}
-          >
-            <span className="nav-icon">💾</span>
-            Saved Jobs
-          </button>
-          <button 
-            className={`sidebar-nav-item ${currentActiveTab === 'analytics' ? 'active' : ''}`}
-            onClick={() => currentSetActiveTab('analytics')}
-          >
-            <span className="nav-icon">📊</span>
-            Analytics
-          </button>
-        </nav>
-      </div>
 
-      {/* Main Content Area */}
+      {/* Main Content Area (left sub-nav removed) */}
       <div className="jobcontroller-content">
+        {/* Top bar with Back button */}
+        <div className="top-bar">
+          <button
+            className="back-btn"
+            onClick={() => window.history.back()}
+            aria-label="Go back"
+            title="Go back"
+          >
+            ← Back
+          </button>
+        </div>
         <div className="tab-navigation" style={{ display: 'none' }}>
           <button 
             className={`tab-btn ${currentActiveTab === 'search' ? 'active' : ''}`}
