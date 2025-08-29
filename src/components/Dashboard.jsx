@@ -198,15 +198,6 @@ function Dashboard({ onLogout, userEmail }) {
                 </button>
               </div>
             )}
-            
-            <div className="nav-separator"></div>
-            
-            <button 
-              className="dashboard-nav-link logout-btn"
-              onClick={onLogout}
-            >
-              Logout
-            </button>
           </div>
           
           <div className={`dashboard-nav-toggle ${isMobileMenuOpen ? 'active' : ''}`} onClick={toggleMobileMenu}>
