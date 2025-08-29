@@ -25,146 +25,208 @@ function Dashboard({ onLogout, userEmail }) {
   }
 
   const renderDashboardNavigation = () => (
-    <nav className={`dashboard-navbar ${(currentPage === 'profile' || currentPage === 'jobcontroller' || currentPage === 'toolkit') ? 'with-subnav' : ''}`}>
-      <div className="dashboard-nav-container">
-        <div className="dashboard-nav-logo">
-          <h2>Job-Bridge</h2>
-        </div>
-        
-        <div className={`dashboard-nav-menu ${isMobileMenuOpen ? 'active' : ''}`}>
-          <button 
-            className={`dashboard-nav-link ${currentPage === 'dashboard' ? 'active' : ''}`}
-            onClick={() => handlePageChange('dashboard')}
-          >
-            {t('dashboard')}
-          </button>
+    <>
+      <nav className={`dashboard-navbar ${(currentPage === 'profile' || currentPage === 'jobcontroller' || currentPage === 'toolkit') ? 'with-subnav' : ''}`}>
+        <div className="dashboard-nav-container">
+          <div className="dashboard-nav-logo">
+            <h2>Job-Bridge</h2>
+          </div>
           
-          <button 
-            className={`dashboard-nav-link ${currentPage === 'toolkit' ? 'active' : ''}`}
-            onClick={() => handlePageChange('toolkit')}
-          >
-            {t('toolkit')}
-          </button>
-          <button 
-            className={`dashboard-nav-link ${currentPage === 'jobcontroller' ? 'active' : ''}`}
-            onClick={() => handlePageChange('jobcontroller')}
-          >
-            {t('jobController')}
-          </button>
-          <button 
-            className={`dashboard-nav-link ${currentPage === 'profile' ? 'active' : ''}`}
-            onClick={() => handlePageChange('profile')}
-          >
-            {t('profile')}
-          </button>
+          <div className={`dashboard-nav-menu ${isMobileMenuOpen ? 'active' : ''}`}>
+            <button 
+              className={`dashboard-nav-link ${currentPage === 'dashboard' ? 'active' : ''}`}
+              onClick={() => handlePageChange('dashboard')}
+            >
+              {t('dashboard')}
+            </button>
+            
+            <button 
+              className={`dashboard-nav-link ${currentPage === 'toolkit' ? 'active' : ''}`}
+              onClick={() => handlePageChange('toolkit')}
+            >
+              {t('toolkit')}
+            </button>
+            
+            {/* Mobile Toolkit Sub-navigation */}
+            {currentPage === 'toolkit' && (
+              <div className="mobile-subnav">
+                <div className="mobile-subnav-header">Toolkit Categories</div>
+                <button 
+                  className={`mobile-subnav-btn ${toolkitActiveCategory === 'all' ? 'active' : ''}`}
+                  onClick={() => {
+                    setToolkitActiveCategory('all')
+                    setIsMobileMenuOpen(false)
+                  }}
+                >
+                  🔧 All Tools
+                </button>
+                <button 
+                  className={`mobile-subnav-btn ${toolkitActiveCategory === 'documents' ? 'active' : ''}`}
+                  onClick={() => {
+                    setToolkitActiveCategory('documents')
+                    setIsMobileMenuOpen(false)
+                  }}
+                >
+                  📄 Documents
+                </button>
+                <button 
+                  className={`mobile-subnav-btn ${toolkitActiveCategory === 'preparation' ? 'active' : ''}`}
+                  onClick={() => {
+                    setToolkitActiveCategory('preparation')
+                    setIsMobileMenuOpen(false)
+                  }}
+                >
+                  🎤 Preparation
+                </button>
+                <button 
+                  className={`mobile-subnav-btn ${toolkitActiveCategory === 'skills' ? 'active' : ''}`}
+                  onClick={() => {
+                    setToolkitActiveCategory('skills')
+                    setIsMobileMenuOpen(false)
+                  }}
+                >
+                  🎯 Skills
+                </button>
+                <button 
+                  className={`mobile-subnav-btn ${toolkitActiveCategory === 'research' ? 'active' : ''}`}
+                  onClick={() => {
+                    setToolkitActiveCategory('research')
+                    setIsMobileMenuOpen(false)
+                  }}
+                >
+                  💰 Research
+                </button>
+              </div>
+            )}
+            
+            <button 
+              className={`dashboard-nav-link ${currentPage === 'jobcontroller' ? 'active' : ''}`}
+              onClick={() => handlePageChange('jobcontroller')}
+            >
+              {t('jobController')}
+            </button>
+            
+            {/* Mobile Job Controller Sub-navigation */}
+            {currentPage === 'jobcontroller' && (
+              <div className="mobile-subnav">
+                <div className="mobile-subnav-header">Job Controller</div>
+                <button 
+                  className={`mobile-subnav-btn ${jobControllerActiveTab === 'search' ? 'active' : ''}`}
+                  onClick={() => {
+                    setJobControllerActiveTab('search')
+                    setIsMobileMenuOpen(false)
+                  }}
+                >
+                  🔍 Job Search
+                </button>
+                <button 
+                  className={`mobile-subnav-btn ${jobControllerActiveTab === 'saved' ? 'active' : ''}`}
+                  onClick={() => {
+                    setJobControllerActiveTab('saved')
+                    setIsMobileMenuOpen(false)
+                  }}
+                >
+                  💾 Saved Jobs
+                </button>
+                <button 
+                  className={`mobile-subnav-btn ${jobControllerActiveTab === 'analytics' ? 'active' : ''}`}
+                  onClick={() => {
+                    setJobControllerActiveTab('analytics')
+                    setIsMobileMenuOpen(false)
+                  }}
+                >
+                  📊 Analytics
+                </button>
+              </div>
+            )}
+            
+            <button 
+              className={`dashboard-nav-link ${currentPage === 'profile' ? 'active' : ''}`}
+              onClick={() => handlePageChange('profile')}
+            >
+              {t('profile')}
+            </button>
+            
+            {/* Mobile Profile Sub-navigation */}
+            {currentPage === 'profile' && (
+              <div className="mobile-subnav">
+                <div className="mobile-subnav-header">Profile Sections</div>
+                <button 
+                  className={`mobile-subnav-btn ${profileActiveSection === 'personal' ? 'active' : ''}`}
+                  onClick={() => {
+                    setProfileActiveSection('personal')
+                    setIsMobileMenuOpen(false)
+                  }}
+                >
+                  👤 Personal Info
+                </button>
+                <button 
+                  className={`mobile-subnav-btn ${profileActiveSection === 'experience' ? 'active' : ''}`}
+                  onClick={() => {
+                    setProfileActiveSection('experience')
+                    setIsMobileMenuOpen(false)
+                  }}
+                >
+                  💼 Experience
+                </button>
+                <button 
+                  className={`mobile-subnav-btn ${profileActiveSection === 'education' ? 'active' : ''}`}
+                  onClick={() => {
+                    setProfileActiveSection('education')
+                    setIsMobileMenuOpen(false)
+                  }}
+                >
+                  🎓 Education
+                </button>
+                <button 
+                  className={`mobile-subnav-btn ${profileActiveSection === 'skills' ? 'active' : ''}`}
+                  onClick={() => {
+                    setProfileActiveSection('skills')
+                    setIsMobileMenuOpen(false)
+                  }}
+                >
+                  🎯 Skills
+                </button>
+                <button 
+                  className={`mobile-subnav-btn ${profileActiveSection === 'preferences' ? 'active' : ''}`}
+                  onClick={() => {
+                    setProfileActiveSection('preferences')
+                    setIsMobileMenuOpen(false)
+                  }}
+                >
+                  ⚙️ Preferences
+                </button>
+              </div>
+            )}
+            
+            <div className="nav-separator"></div>
+            
+            <button 
+              className="dashboard-nav-link logout-btn"
+              onClick={onLogout}
+            >
+              Logout
+            </button>
+          </div>
+          
+          <div className={`dashboard-nav-toggle ${isMobileMenuOpen ? 'active' : ''}`} onClick={toggleMobileMenu}>
+            <span className="bar"></span>
+            <span className="bar"></span>
+            <span className="bar"></span>
+          </div>
         </div>
         
-        <div className="dashboard-nav-toggle" onClick={toggleMobileMenu}>
-          <span className="bar"></span>
-          <span className="bar"></span>
-          <span className="bar"></span>
-        </div>
-      </div>
+        {/* Left Vertical Sidebar Sub-navigation - Inside content area */}
+      </nav>
       
-      {currentPage === 'profile' && (
-        <div className="profile-subnav">
-          <div className="profile-subnav-container">
-            <button 
-              className={`profile-nav-btn ${profileActiveSection === 'personal' ? 'active' : ''}`}
-              onClick={() => setProfileActiveSection('personal')}
-            >
-              Personal Info
-            </button>
-            <button 
-              className={`profile-nav-btn ${profileActiveSection === 'experience' ? 'active' : ''}`}
-              onClick={() => setProfileActiveSection('experience')}
-            >
-              Experience
-            </button>
-            <button 
-              className={`profile-nav-btn ${profileActiveSection === 'education' ? 'active' : ''}`}
-              onClick={() => setProfileActiveSection('education')}
-            >
-              Education
-            </button>
-            <button 
-              className={`profile-nav-btn ${profileActiveSection === 'skills' ? 'active' : ''}`}
-              onClick={() => setProfileActiveSection('skills')}
-            >
-              Skills
-            </button>
-            <button 
-              className={`profile-nav-btn ${profileActiveSection === 'preferences' ? 'active' : ''}`}
-              onClick={() => setProfileActiveSection('preferences')}
-            >
-              Preferences
-            </button>
-          </div>
-        </div>
+      {/* Mobile Menu Overlay */}
+      {isMobileMenuOpen && (
+        <div 
+          className="mobile-menu-overlay" 
+          onClick={() => setIsMobileMenuOpen(false)}
+        />
       )}
-      
-      {currentPage === 'jobcontroller' && (
-        <div className="profile-subnav">
-          <div className="profile-subnav-container">
-            <button 
-              className={`profile-nav-btn ${jobControllerActiveTab === 'search' ? 'active' : ''}`}
-              onClick={() => setJobControllerActiveTab('search')}
-            >
-              🔍 Job Search
-            </button>
-            <button 
-              className={`profile-nav-btn ${jobControllerActiveTab === 'saved' ? 'active' : ''}`}
-              onClick={() => setJobControllerActiveTab('saved')}
-            >
-              💾 Saved Jobs
-            </button>
-            <button 
-              className={`profile-nav-btn ${jobControllerActiveTab === 'analytics' ? 'active' : ''}`}
-              onClick={() => setJobControllerActiveTab('analytics')}
-            >
-              📊 Analytics
-            </button>
-          </div>
-        </div>
-      )}
-      
-      {currentPage === 'toolkit' && (
-        <div className="profile-subnav">
-          <div className="profile-subnav-container">
-            <button 
-              className={`profile-nav-btn ${toolkitActiveCategory === 'all' ? 'active' : ''}`}
-              onClick={() => setToolkitActiveCategory('all')}
-            >
-              🔧 All Tools
-            </button>
-            <button 
-              className={`profile-nav-btn ${toolkitActiveCategory === 'documents' ? 'active' : ''}`}
-              onClick={() => setToolkitActiveCategory('documents')}
-            >
-              📄 Documents
-            </button>
-            <button 
-              className={`profile-nav-btn ${toolkitActiveCategory === 'preparation' ? 'active' : ''}`}
-              onClick={() => setToolkitActiveCategory('preparation')}
-            >
-              🎤 Preparation
-            </button>
-            <button 
-              className={`profile-nav-btn ${toolkitActiveCategory === 'skills' ? 'active' : ''}`}
-              onClick={() => setToolkitActiveCategory('skills')}
-            >
-              🎯 Skills
-            </button>
-            <button 
-              className={`profile-nav-btn ${toolkitActiveCategory === 'research' ? 'active' : ''}`}
-              onClick={() => setToolkitActiveCategory('research')}
-            >
-              💰 Research
-            </button>
-          </div>
-        </div>
-      )}
-    </nav>
+    </>
   )
 
   const renderDashboardHome = () => {
@@ -370,6 +432,7 @@ function Dashboard({ onLogout, userEmail }) {
   return (
     <div className="dashboard">
       {renderDashboardNavigation()}
+      
       <main className={`dashboard-main ${(currentPage === 'profile' || currentPage === 'jobcontroller' || currentPage === 'toolkit') ? 'with-subnav' : ''}`}>
         {renderCurrentPage()}
       </main>

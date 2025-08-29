@@ -158,31 +158,64 @@ function JobController({ activeTab = 'search', setActiveTab }) {
 
   return (
     <div className="job-controller">
-      <div className="tab-navigation" style={{ display: 'none' }}>
-        <button 
-          className={`tab-btn ${currentActiveTab === 'search' ? 'active' : ''}`}
-          onClick={() => currentSetActiveTab('search')}
-        >
-          🔍 Job Search
-        </button>
-        <button 
-          className={`tab-btn ${currentActiveTab === 'saved' ? 'active' : ''}`}
-          onClick={() => currentSetActiveTab('saved')}
-        >
-          💾 Saved Jobs
-        </button>
-        <button 
-          className={`tab-btn ${currentActiveTab === 'analytics' ? 'active' : ''}`}
-          onClick={() => currentSetActiveTab('analytics')}
-        >
-          📊 Analytics
-        </button>
+      {/* Left Sidebar Navigation */}
+      <div className="jobcontroller-sidebar">
+        <div className="sidebar-header">
+          <h2>🎯 Job Control</h2>
+        </div>
+        <nav className="sidebar-nav">
+          <button 
+            className={`sidebar-nav-item ${currentActiveTab === 'search' ? 'active' : ''}`}
+            onClick={() => currentSetActiveTab('search')}
+          >
+            <span className="nav-icon">🔍</span>
+            Job Search
+          </button>
+          <button 
+            className={`sidebar-nav-item ${currentActiveTab === 'saved' ? 'active' : ''}`}
+            onClick={() => currentSetActiveTab('saved')}
+          >
+            <span className="nav-icon">💾</span>
+            Saved Jobs
+          </button>
+          <button 
+            className={`sidebar-nav-item ${currentActiveTab === 'analytics' ? 'active' : ''}`}
+            onClick={() => currentSetActiveTab('analytics')}
+          >
+            <span className="nav-icon">📊</span>
+            Analytics
+          </button>
+        </nav>
       </div>
 
-      <div className="tab-content">
-        {currentActiveTab === 'search' && renderJobSearch()}
-        {currentActiveTab === 'saved' && renderSavedJobs()}
-        {currentActiveTab === 'analytics' && renderAnalytics()}
+      {/* Main Content Area */}
+      <div className="jobcontroller-content">
+        <div className="tab-navigation" style={{ display: 'none' }}>
+          <button 
+            className={`tab-btn ${currentActiveTab === 'search' ? 'active' : ''}`}
+            onClick={() => currentSetActiveTab('search')}
+          >
+            🔍 Job Search
+          </button>
+          <button 
+            className={`tab-btn ${currentActiveTab === 'saved' ? 'active' : ''}`}
+            onClick={() => currentSetActiveTab('saved')}
+          >
+            💾 Saved Jobs
+          </button>
+          <button 
+            className={`tab-btn ${currentActiveTab === 'analytics' ? 'active' : ''}`}
+            onClick={() => currentSetActiveTab('analytics')}
+          >
+            📊 Analytics
+          </button>
+        </div>
+
+        <div className="tab-content">
+          {currentActiveTab === 'search' && renderJobSearch()}
+          {currentActiveTab === 'saved' && renderSavedJobs()}
+          {currentActiveTab === 'analytics' && renderAnalytics()}
+        </div>
       </div>
     </div>
   )
