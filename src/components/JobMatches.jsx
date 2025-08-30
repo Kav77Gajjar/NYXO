@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import './JobMatches.css'
 
-function JobMatches({ userEmail }) {
+function JobMatches({ userEmail, onNavigateBack }) {
   const [filter, setFilter] = useState('all')
   const [sortBy, setSortBy] = useState('match')
 
