@@ -44,9 +44,7 @@ function Dashboard({ onLogout, userEmail }) {
     <>
       <nav className={`dashboard-navbar ${(currentPage === 'profile' || currentPage === 'jobcontroller' || currentPage === 'toolkit') ? 'with-subnav' : ''}`}>
         <div className="dashboard-nav-container">
-          <div className="dashboard-nav-logo">
-            <h2>Job-Bridge</h2>
-          </div>
+          {/* brand logo removed */}
           
           <div className={`dashboard-nav-menu ${isMobileMenuOpen ? 'active' : ''}`}>
             <button 

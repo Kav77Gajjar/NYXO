@@ -16,7 +16,8 @@ function Profile({ userEmail, activeSection = 'personal', setActiveSection }) {
       location: 'San Francisco, CA',
       linkedin: 'linkedin.com/in/johndoe',
       github: 'github.com/johndoe',
-      website: 'johndoe.dev'
+  website: 'johndoe.dev',
+  aboutMe: '' // optional large field for resume/profile
     },
     experience: [
       {
@@ -74,9 +75,27 @@ function Profile({ userEmail, activeSection = 'personal', setActiveSection }) {
     personal: false,
     experience: false,
     education: false,
-    skills: false,
+  skills: false,
+  otherSkills: false,
     achievements: false
   })
+
+  // Additional 'Other Skills' list (renders below main Skills)
+  const [otherSkills, setOtherSkills] = useState([
+    'Figma', 'Photoshop', 'Illustrator'
+  ])
+
+  const [otherSkillInput, setOtherSkillInput] = useState('')
+
+  const addOtherSkill = (skill) => {
+    const s = (skill || '').trim()
+    if (!s) return
+    setOtherSkills(prev => (prev.includes(s) ? prev : [...prev, s]))
+  }
+
+  const removeOtherSkill = (skillToRemove) => {
+    setOtherSkills(prev => prev.filter(s => s !== skillToRemove))
+  }
 
   const [fieldErrors, setFieldErrors] = useState({})
 
@@ -865,6 +884,30 @@ function Profile({ userEmail, activeSection = 'personal', setActiveSection }) {
           )}
         </div>
       </div>
+
+      {/* About Me - optional large field for resume/profile (moved to end) */}
+      <div className="about-me-field">
+        <label>About Me <span className="optional-label">(Optional)</span></label>
+        {isEditing.personal ? (
+          <textarea
+            className="edit-textarea about-me-input"
+            value={profileData.personalInfo.aboutMe}
+            onChange={(e) => handlePersonalInfoChange('aboutMe', e.target.value)}
+            placeholder="Write a short summary about yourself for your resume..."
+            rows={8}
+          />
+        ) : (
+          <p className="about-me-text">
+            {profileData.personalInfo.aboutMe ? (
+              profileData.personalInfo.aboutMe.split('\n').map((line, idx) => (
+                <span key={idx}>{line}<br/></span>
+              ))
+            ) : (
+              <em>Add an About Me summary for your resume (optional)</em>
+            )}
+          </p>
+        )}
+      </div>
     </div>
   )
 
@@ -1036,7 +1079,7 @@ function Profile({ userEmail, activeSection = 'personal', setActiveSection }) {
       </div>
 
       <div className="skills-container">
-        {isEditing.skills ? (
+  {isEditing.skills ? (
           <div className="skills-edit">
             <div className="skill-input-container">
               <div className="skill-input-wrapper">
@@ -1121,6 +1164,98 @@ function Profile({ userEmail, activeSection = 'personal', setActiveSection }) {
               ))}
               {profileData.skills.length === 0 && (
                 <p className="no-skills">No skills added yet.</p>
+              )}
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  )
+
+  const renderOtherSkills = () => (
+    <div className="profile-section">
+      <div className="section-header">
+        <h3>✨ Other Skills</h3>
+        <button 
+          className="edit-btn"
+          onClick={() => toggleEdit('otherSkills')}
+        >
+          {isEditing.otherSkills ? 'Save' : 'Edit'}
+        </button>
+      </div>
+
+      <div className="skills-container">
+        {isEditing.otherSkills ? (
+          <div className="skills-edit">
+            <div className="skill-input-container">
+              <div className="skill-input-wrapper">
+                <input
+                  type="text"
+                  value={otherSkillInput}
+                  onChange={(e) => setOtherSkillInput(e.target.value)}
+                  placeholder="Type an other skill..."
+                  className="skill-input"
+                  onKeyPress={(e) => {
+                    if (e.key === 'Enter') {
+                      e.preventDefault()
+                      if (otherSkillInput.trim()) {
+                        addOtherSkill(otherSkillInput.trim())
+                        setOtherSkillInput('')
+                      }
+                    }
+                  }}
+                />
+                <button 
+                  className="add-skill-btn"
+                  onClick={() => {
+                    if (otherSkillInput.trim()) {
+                      addOtherSkill(otherSkillInput.trim())
+                      setOtherSkillInput('')
+                    }
+                  }}
+                  disabled={!otherSkillInput.trim()}
+                >
+                  Add Skill
+                </button>
+              </div>
+            </div>
+
+            <div className="added-skills">
+              <h4>Other Skills ({otherSkills.length})</h4>
+              <div className="skills-grid">
+                {otherSkills.map((skill, index) => (
+                  <span 
+                    key={index} 
+                    className="skill-tag editable"
+                    onClick={() => removeOtherSkill(skill)}
+                    title="Click to remove this skill"
+                  >
+                    {skill}
+                    <button 
+                      className="remove-skill-btn"
+                      onClick={() => removeOtherSkill(skill)}
+                      title="Remove skill"
+                    >
+                      ×
+                    </button>
+                  </span>
+                ))}
+                {otherSkills.length === 0 && (
+                  <p className="no-skills">No other skills added yet.</p>
+                )}
+              </div>
+            </div>
+          </div>
+        ) : (
+          <div className="skills-display">
+            <div className="skills-grid">
+              {otherSkills.map((skill, index) => (
+                <span key={index} className="skill-tag">
+                  {skill}
+                </span>
+              ))}
+              {otherSkills.length === 0 && (
+                <p className="no-skills">No other skills added yet.</p>
               )}
             </div>
           </div>
@@ -1245,7 +1380,12 @@ function Profile({ userEmail, activeSection = 'personal', setActiveSection }) {
         {currentActiveSection === 'personal' && renderPersonalInfo()}
         {currentActiveSection === 'experience' && renderExperience()}
         {currentActiveSection === 'education' && renderEducation()}
-        {currentActiveSection === 'skills' && renderSkills()}
+          {currentActiveSection === 'skills' && (
+            <>
+              {renderSkills()}
+              {renderOtherSkills()}
+            </>
+          )}
         {currentActiveSection === 'achievements' && renderAchievements()}
       </div>
 

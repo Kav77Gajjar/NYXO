@@ -34,6 +34,7 @@
   padding: 0 2rem;
   display: flex;
   justify-content: space-between;
+  position: relative; /* allow absolute-centering of the nav menu while keeping other controls */
   align-items: center;
   height: 70px;
 }
@@ -50,6 +51,16 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
+}
+
+/* Center the main nav menu visually while preserving left/right controls
+   Uses absolute centering inside the relative container. Falls back to
+   normal flow on small screens. */
+.dashboard-nav-menu {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1010;
 }
 
 .dashboard-nav-link {
@@ -188,6 +199,15 @@
 @media (max-width: 768px) {
   .mobile-menu-overlay {
     display: block;
+  }
+
+  /* On small screens keep the nav menu in document flow to avoid overlap */
+  .dashboard-nav-menu {
+    position: static;
+    transform: none;
+    left: auto;
+    margin: 0;
+    z-index: auto;
   }
 }
 
