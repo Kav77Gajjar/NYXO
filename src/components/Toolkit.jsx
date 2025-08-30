@@ -28,6 +28,7 @@ function Toolkit({ activeCategory = 'all', setActiveCategory }) {
       icon: '🎤',
       category: 'Preparation'
     },
+    /*
     {
       id: 'skill-hub',
       name: 'Skill Hub',
@@ -35,6 +36,8 @@ function Toolkit({ activeCategory = 'all', setActiveCategory }) {
       icon: '🎯',
       category: 'Skills'
     },
+    */
+    /*
     {
       id: 'salary-calculator',
       name: 'Salary Calculator',
@@ -42,6 +45,7 @@ function Toolkit({ activeCategory = 'all', setActiveCategory }) {
       icon: '💰',
       category: 'Research'
     }
+    */
   ]
 
   const handleToolClick = (toolId) => {
@@ -58,6 +62,13 @@ function Toolkit({ activeCategory = 'all', setActiveCategory }) {
       })
       window.dispatchEvent(event)
     } else {
+      if (toolId === 'cover-letter') {
+        const event = new CustomEvent('navigate', {
+          detail: { page: 'cover-letter' }
+        })
+        window.dispatchEvent(event)
+        return
+      }
       // For other tools, we'll use the default behavior for now
       alert(`Navigating to ${toolId} page`)
     }

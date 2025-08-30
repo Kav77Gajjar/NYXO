@@ -6,6 +6,8 @@ import Profile from './Profile'
 import JobMatches from './JobMatches'
 import JobApplications from './JobApplications'
 import ResumeTemplates from './ResumeTemplates'
+import CoverLetterGenerator from './CoverLetterGenerator'
+import CoverLetterTemplates from './CoverLetterTemplates'
 import { useTranslation } from '../contexts/TranslationContext'
 
 function Dashboard({ onLogout, userEmail }) {
@@ -432,6 +434,10 @@ function Dashboard({ onLogout, userEmail }) {
         />
       case 'resume-templates':
         return <ResumeTemplates />
+      case 'cover-letter':
+        return <CoverLetterGenerator />
+      case 'cover-letter-templates':
+        return <CoverLetterTemplates />
       default:
         return renderDashboardHome()
     }
