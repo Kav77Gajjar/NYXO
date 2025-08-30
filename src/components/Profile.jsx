@@ -2,7 +2,7 @@ import { useState } from 'react'
 import './Profile.css'
 import { enableSettings } from './Settings'
 
-function Profile({ userEmail, activeSection = 'personal', setActiveSection }) {
+function Profile({ userEmail, activeSection = 'personal', setActiveSection, onNavigateBack }) {
   // Remove local state if props are provided
   const [localActiveSection, setLocalActiveSection] = useState('personal')
   const currentActiveSection = activeSection || localActiveSection
@@ -1377,6 +1377,45 @@ function Profile({ userEmail, activeSection = 'personal', setActiveSection }) {
 
       {/* Main Content Area */}
       <div className="profile-content">
+        {/* Horizontal Navigation for Medium Screens */}
+        <div className="profile-horizontal-nav">
+          <button
+            className={currentActiveSection === 'personal' ? 'active' : ''}
+            onClick={() => currentSetActiveSection('personal')}
+          >
+            <span className="nav-icon">📝</span>
+            Personal Info
+          </button>
+          <button
+            className={currentActiveSection === 'experience' ? 'active' : ''}
+            onClick={() => currentSetActiveSection('experience')}
+          >
+            <span className="nav-icon">💼</span>
+            Experience
+          </button>
+          <button
+            className={currentActiveSection === 'education' ? 'active' : ''}
+            onClick={() => currentSetActiveSection('education')}
+          >
+            <span className="nav-icon">🎓</span>
+            Education
+          </button>
+          <button
+            className={currentActiveSection === 'skills' ? 'active' : ''}
+            onClick={() => currentSetActiveSection('skills')}
+          >
+            <span className="nav-icon">⚡</span>
+            Skills
+          </button>
+          <button
+            className={currentActiveSection === 'achievements' ? 'active' : ''}
+            onClick={() => currentSetActiveSection('achievements')}
+          >
+            <span className="nav-icon">🏆</span>
+            Achievements
+          </button>
+        </div>
+        
         {currentActiveSection === 'personal' && renderPersonalInfo()}
         {currentActiveSection === 'experience' && renderExperience()}
         {currentActiveSection === 'education' && renderEducation()}

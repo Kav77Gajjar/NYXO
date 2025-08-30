@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import './Toolkit.css'
 
-function Toolkit({ activeCategory = 'all', setActiveCategory }) {
+function Toolkit({ activeCategory = 'all', setActiveCategory, onNavigateBack }) {
   // Remove local state if props are provided  
   const [localActiveCategory, setLocalActiveCategory] = useState('all')
   const currentActiveCategory = activeCategory || localActiveCategory

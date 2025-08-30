@@ -6,6 +6,139 @@
   align-items: center;
   justify-content: center;
   padding: 1rem;
+  position: relative;
+}
+
+/* Welcome Dialog Styles */
+.welcome-dialog-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: fadeIn 0.3s ease-out;
+}
+
+.welcome-dialog {
+  background: white;
+  border-radius: 16px;
+  padding: 2rem;
+  max-width: 400px;
+  width: 90%;
+  text-align: center;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+  animation: slideUp 0.3s ease-out;
+  position: relative;
+  overflow: hidden;
+}
+
+.welcome-close-btn {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: #9ca3af;
+  cursor: pointer;
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+}
+
+.welcome-close-btn:hover {
+  background: #f3f4f6;
+  color: #374151;
+  transform: scale(1.1);
+}
+
+.welcome-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  animation: bounce 0.6s ease-out;
+}
+
+.welcome-dialog h3 {
+  color: #374151;
+  margin: 0 0 1rem 0;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.welcome-dialog p {
+  color: #6b7280;
+  margin: 0 0 1.5rem 0;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.welcome-progress-bar {
+  width: 100%;
+  height: 4px;
+  background: #e5e7eb;
+  border-radius: 2px;
+  overflow: hidden;
+  position: relative;
+}
+
+.welcome-progress-fill {
+  height: 100%;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 2px;
+  animation: progressFill 5s linear forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes bounce {
+  0%, 20%, 53%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40%, 43% {
+    transform: translateY(-10px);
+  }
+  70% {
+    transform: translateY(-5px);
+  }
+  90% {
+    transform: translateY(-2px);
+  }
+}
+
+@keyframes progressFill {
+  from {
+    width: 0%;
+  }
+  to {
+    width: 100%;
+  }
 }
 
 .auth-container {
@@ -177,5 +310,23 @@
 
   .submit-btn {
     padding: 0.8rem;
+  }
+
+  /* Welcome Dialog Mobile Styles */
+  .welcome-dialog {
+    padding: 1.5rem;
+    max-width: 320px;
+  }
+
+  .welcome-icon {
+    font-size: 2.5rem;
+  }
+
+  .welcome-dialog h3 {
+    font-size: 1.25rem;
+  }
+
+  .welcome-dialog p {
+    font-size: 0.9rem;
   }
 }
