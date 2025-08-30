@@ -246,21 +246,7 @@ function Dashboard({ onLogout, userEmail }) {
     
     return (
       <div className="dashboard-home">
-        {/* Personal Welcome Section */}
-        <div className="welcome-section">
-          <div className="welcome-content">
-            <h1>{t('hello')}, {getUsername()}! 👋</h1>
-            <p>{t('ready')}</p>
-          </div>
-          <div className="welcome-date">
-            <span>{t('today')}, {new Date().toLocaleDateString('en-US', { 
-              weekday: 'long', 
-              year: 'numeric', 
-              month: 'long', 
-              day: 'numeric' 
-            })}</span>
-          </div>
-        </div>
+  {/* Welcome section removed per request */}
 
         {/* Activity Overview */}
         <div className="activity-overview">

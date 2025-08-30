@@ -635,17 +635,7 @@
   border-color: var(--border-color);
 }
 
-[data-theme="dark"] .welcome-section {
-  background: linear-gradient(135deg, rgba(30, 41, 59, 0.8), rgba(51, 65, 85, 0.6));
-}
-
-[data-theme="dark"] .welcome-content h1 {
-  color: var(--text-primary);
-}
-
-[data-theme="dark"] .welcome-content p {
-  color: var(--text-secondary);
-}
+/* dark-theme welcome-section rules removed */
 
 /* Font Size System */
 [data-font-size="small"] {
