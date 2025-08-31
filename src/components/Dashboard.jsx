@@ -478,6 +478,8 @@ function Dashboard({ onLogout, userEmail, onNavigate }) {
         />
       case 'resume-templates':
         return <ResumeTemplates />
+      case 'professional-resume-template':
+        return <ProfessionalResumeTemplate />
       case 'cover-letter':
         return <CoverLetterGenerator onNavigateBack={() => setCurrentPage('toolkit')} />
       case 'cover-letter-templates':
