@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import './ResumeTemplates.css'
 
-function ResumeTemplates() {
+function ResumeTemplates({ onNavigateBack }) {
   const [selectedTemplate, setSelectedTemplate] = useState(null)
 
   // Sample resume templates data with SVG preview patterns
@@ -446,7 +446,7 @@ function ResumeTemplates() {
       <div className="top-bar">
         <button
           className="back-btn"
-          onClick={() => window.history.back()}
+          onClick={onNavigateBack || (() => window.history.back())}
           aria-label="Go back"
           title="Go back"
         >

@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import './JobApplications.css'
 
-function JobApplications({ userEmail }) {
+function JobApplications({ userEmail, onNavigateBack }) {
   const [sortBy, setSortBy] = useState('company-az')
 
   // Mock data for job applications

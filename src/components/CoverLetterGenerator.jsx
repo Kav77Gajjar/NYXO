@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import './CoverLetterGenerator.css'
 
-export default function CoverLetterGenerator() {
+export default function CoverLetterGenerator({ onNavigateBack }) {
   const [degree, setDegree] = useState('')
   const [field, setField] = useState('')
   const [experience, setExperience] = useState('no-exp')
@@ -36,6 +36,19 @@ export default function CoverLetterGenerator() {
 
   return (
     <div className="cover-gen">
+      {/* Top bar with Back button */}
+      <div className="top-bar">
+        <button
+          className="back-btn"
+          onClick={onNavigateBack || (() => window.history.back())}
+          aria-label="Go back"
+          title="Go back"
+        >
+          ← Back to Tools
+        </button>
+        <h1>Cover Letter Generator</h1>
+      </div>
+      
       <div className="cover-gen-card">
         <h2>Cover Letter Details</h2>
         <form onSubmit={handleSubmit} className="cover-gen-form">

@@ -1,44 +1,59 @@
 import { useState } from 'react'
 import './JobController.css'
 
-function JobController({ activeTab = 'search', setActiveTab }) {
+function JobController({ activeTab = 'search', setActiveTab, onNavigateBack }) {
   // Remove local state if props are provided
   const [localActiveTab, setLocalActiveTab] = useState('search')
   const currentActiveTab = activeTab || localActiveTab
   const currentSetActiveTab = setActiveTab || setLocalActiveTab
 
-  const mockSavedJobs = [
+  // State to track saved/liked jobs
+  const [savedJobs, setSavedJobs] = useState([
     {
       id: 1,
       company: 'DevCompany',
       position: 'Senior Frontend Developer',
-      salary: '$90,000 - $110,000',
       location: 'New York, NY',
       type: 'Full-time',
       postedDate: '2025-08-25',
-      match: '95%'
+      match: '95%',
+      description: 'Looking for an experienced React developer to join our growing team. Work with modern technologies and build scalable web applications.',
+      source: 'LinkedIn',
+      isLiked: true
     },
     {
       id: 2,
       company: 'WebSolutions',
       position: 'React Native Developer',
-      salary: '$75,000 - $95,000',
       location: 'Los Angeles, CA',
       type: 'Contract',
       postedDate: '2025-08-24',
-      match: '88%'
+      match: '88%',
+      description: 'Build cross-platform mobile applications using React Native. Experience with iOS and Android development preferred.',
+      source: 'Indeed',
+      isLiked: true
     },
     {
       id: 3,
       company: 'TechStartup',
       position: 'JavaScript Developer',
-      salary: '$65,000 - $80,000',
       location: 'Remote',
       type: 'Full-time',
       postedDate: '2025-08-23',
-      match: '92%'
+      match: '92%',
+      description: 'Join our innovative startup building cutting-edge web applications. Strong JavaScript and Node.js skills required.',
+      source: 'Glassdoor',
+      isLiked: true
     }
-  ]
+  ])
+
+  const handleToggleLike = (jobId) => {
+    setSavedJobs(prevJobs => 
+      prevJobs.map(job => 
+        job.id === jobId ? { ...job, isLiked: !job.isLiked } : job
+      ).filter(job => job.isLiked) // Remove jobs that are no longer liked
+    )
+  }
 
   const renderSavedJobs = () => (
     <div className="saved-jobs-section">
@@ -48,22 +63,35 @@ function JobController({ activeTab = 'search', setActiveTab }) {
       </div>
 
       <div className="saved-jobs-grid">
-        {mockSavedJobs.map(job => (
+        {savedJobs.filter(job => job.isLiked).map(job => (
           <div key={job.id} className="saved-job-card">
             <div className="job-header">
-              <h3>{job.position}</h3>
+              <div className="job-title-section">
+                <h3>{job.position}</h3>
+                <button 
+                  className={`heart-btn ${job.isLiked ? 'liked' : ''}`}
+                  onClick={() => handleToggleLike(job.id)}
+                  aria-label={job.isLiked ? 'Remove from saved' : 'Save job'}
+                >
+                  <span className="heart-icon">
+                    {job.isLiked ? '❤️' : '🤍'}
+                  </span>
+                </button>
+              </div>
               <span className="match-score">{job.match} Match</span>
             </div>
             <div className="job-details">
               <p className="company">{job.company}</p>
               <p className="location">📍 {job.location}</p>
-              <p className="salary">💰 {job.salary}</p>
-              <p className="posted-date">📅 Posted: {job.postedDate}</p>
+              <p className="posted-date">� Posted: {job.postedDate}</p>
+              <p className="job-description">{job.description}</p>
             </div>
             <div className="job-actions">
               <button className="action-btn apply-btn">Apply Now</button>
               <button className="action-btn view-btn">View Job</button>
-              <button className="action-btn remove-btn">Remove</button>
+            </div>
+            <div className="job-source">
+              <span className="source-text">via {job.source}</span>
             </div>
           </div>
         ))}
@@ -181,14 +209,27 @@ function JobController({ activeTab = 'search', setActiveTab }) {
         <div className="top-bar">
           <button
             className="back-btn"
-            onClick={() => window.history.back()}
+            onClick={() => {
+              // If user is on 'search' tab, go back to dashboard
+              // If user is on other tabs ('saved' or 'analytics'), go back to 'search' tab
+              if (currentActiveTab === 'search') {
+                if (onNavigateBack) {
+                  onNavigateBack()
+                } else {
+                  window.history.back()
+                }
+              } else {
+                // Go back to search tab
+                currentSetActiveTab('search')
+              }
+            }}
             aria-label="Go back"
             title="Go back"
           >
             ← Back
           </button>
         </div>
-        <div className="tab-navigation" style={{ display: 'none' }}>
+        <div className="tab-navigation">
           <button 
             className={`tab-btn ${currentActiveTab === 'search' ? 'active' : ''}`}
             onClick={() => currentSetActiveTab('search')}

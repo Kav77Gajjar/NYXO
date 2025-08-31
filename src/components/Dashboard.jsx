@@ -445,30 +445,33 @@ function Dashboard({ onLogout, userEmail }) {
         return <Toolkit 
           activeCategory={toolkitActiveCategory}
           setActiveCategory={setToolkitActiveCategory}
+          onNavigateBack={() => setCurrentPage('dashboard')}
         />
       case 'jobcontroller':
         return <JobController 
           activeTab={jobControllerActiveTab}
           setActiveTab={setJobControllerActiveTab}
+          onNavigateBack={() => setCurrentPage('dashboard')}
         />
       case 'jobmatches':
-        return <JobMatches />
+        return <JobMatches onNavigateBack={() => setCurrentPage('dashboard')} />
       case 'applications':
-        return <JobApplications />
+        return <JobApplications onNavigateBack={() => setCurrentPage('dashboard')} />
       case 'profile':
         return <Profile 
           userEmail={userEmail} 
           activeSection={profileActiveSection}
           setActiveSection={setProfileActiveSection}
+          onNavigateBack={() => setCurrentPage('dashboard')}
         />
       case 'resume-templates':
-        return <ResumeTemplates />
+        return <ResumeTemplates onNavigateBack={() => setCurrentPage('toolkit')} />
       case 'professional-resume-template':
         return <ProfessionalResumeTemplate />
       case 'cover-letter':
-        return <CoverLetterGenerator />
+        return <CoverLetterGenerator onNavigateBack={() => setCurrentPage('toolkit')} />
       case 'cover-letter-templates':
-        return <CoverLetterTemplates />
+        return <CoverLetterTemplates onNavigateBack={() => setCurrentPage('toolkit')} />
       default:
         return renderDashboardHome()
     }

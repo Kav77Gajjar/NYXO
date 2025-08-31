@@ -185,6 +185,14 @@ function ProfessionalResumeTemplate() {
     window.print()
   }
 
+  const handleBackToTemplates = () => {
+    // Dispatch custom navigation event to go back to resume templates
+    const event = new CustomEvent('navigate', {
+      detail: { page: 'resume-templates' }
+    });
+    window.dispatchEvent(event);
+  }
+
   return (
     <div className="professional-resume-template">
       {/* Control Panel */}
@@ -192,7 +200,7 @@ function ProfessionalResumeTemplate() {
         <div className="control-buttons">
           <button
             className="back-btn"
-            onClick={() => window.history.back()}
+            onClick={handleBackToTemplates}
             title="Go back to templates"
           >
             ← Back to Templates

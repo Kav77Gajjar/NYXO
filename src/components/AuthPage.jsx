@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import './AuthPage.css'
 
 function AuthPage({ onBackToHome, onLogin }) {
@@ -10,6 +10,22 @@ function AuthPage({ onBackToHome, onLogin }) {
     password: ''
   })
   const [errors, setErrors] = useState({})
+  const [welcomeDialog, setWelcomeDialog] = useState({
+    show: false,
+    message: '',
+    isSignUp: false
+  })
+
+  // Auto-hide welcome dialog after 5 seconds
+  useEffect(() => {
+    if (welcomeDialog.show) {
+      const timer = setTimeout(() => {
+        setWelcomeDialog(prev => ({ ...prev, show: false }))
+      }, 5000)
+      
+      return () => clearTimeout(timer)
+    }
+  }, [welcomeDialog.show])
 
   const handleInputChange = (e) => {
     const { name, value } = e.target
@@ -83,13 +99,24 @@ function AuthPage({ onBackToHome, onLogin }) {
     // Handle successful form submission
     if (isSignUp) {
       console.log('Sign up data:', formData)
-      alert('Account created successfully! Welcome to Job-Bridge!')
+      setWelcomeDialog({
+        show: true,
+        message: `Welcome to Job-Bridge, ${formData.name}! Your account has been created successfully.`,
+        isSignUp: true
+      })
     } else {
       console.log('Login data:', { email: formData.email, password: formData.password })
-      alert('Login successful! Welcome back!')
+      setWelcomeDialog({
+        show: true,
+        message: 'Welcome back! You have been signed in successfully.',
+        isSignUp: false
+      })
     }
     
-    onLogin(formData.email)
+    // Delay the navigation to show the welcome message
+    setTimeout(() => {
+      onLogin(formData.email)
+    }, 1000)
     
     // Reset form
     setFormData({
@@ -125,6 +152,29 @@ function AuthPage({ onBackToHome, onLogin }) {
 
   return (
     <div className="auth-page">
+      {/* Welcome Dialog */}
+      {welcomeDialog.show && (
+        <div className="welcome-dialog-overlay">
+          <div className="welcome-dialog">
+            <button 
+              className="welcome-close-btn"
+              onClick={() => setWelcomeDialog(prev => ({ ...prev, show: false }))}
+              aria-label="Close welcome message"
+            >
+              ×
+            </button>
+            <div className="welcome-icon">
+              {welcomeDialog.isSignUp ? '🎉' : '👋'}
+            </div>
+            <h3>Success!</h3>
+            <p>{welcomeDialog.message}</p>
+            <div className="welcome-progress-bar">
+              <div className="welcome-progress-fill"></div>
+            </div>
+          </div>
+        </div>
+      )}
+      
       <div className="auth-container">
         <div className="auth-header">
           <h1>{isSignUp ? 'Create Account' : 'Welcome Back'}</h1>
