@@ -11,7 +11,7 @@ import CoverLetterGenerator from './CoverLetterGenerator'
 import CoverLetterTemplates from './CoverLetterTemplates'
 import { useTranslation } from '../contexts/TranslationContext'
 
-function Dashboard({ onLogout, userEmail }) {
+function Dashboard({ onLogout, userEmail, onNavigate }) {
   const [currentPage, setCurrentPage] = useState('dashboard')
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [profileActiveSection, setProfileActiveSection] = useState('personal')
@@ -430,6 +430,18 @@ function Dashboard({ onLogout, userEmail }) {
               <div className="action-content">
                 <h3>Job Search</h3>
                 <p>Find new opportunities and track your applications</p>
+              </div>
+              <div className="action-arrow">→</div>
+            </div>
+            
+            <div 
+              className="action-card secondary"
+              onClick={() => onNavigate('sitemap')}
+            >
+              <div className="action-icon">🗺️</div>
+              <div className="action-content">
+                <h3>Site Map</h3>
+                <p>Navigate through all pages and sections of NYXO</p>
               </div>
               <div className="action-arrow">→</div>
             </div>

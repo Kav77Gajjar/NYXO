@@ -2,6 +2,8 @@ import { useState } from 'react'
 import './App.css'
 import AuthPage from './components/AuthPage'
 import Dashboard from './components/Dashboard'
+import Footer from './components/Footer'
+import Sitemap from './components/Sitemap'
 // import Settings from './components/Settings' // Temporarily disabled
 import { TranslationProvider } from './contexts/TranslationContext'
 
@@ -22,6 +24,10 @@ function App() {
     setCurrentPage('auth')
   }
 
+  const handleNavigate = (page) => {
+    setCurrentPage(page)
+  }
+
   // If user is authenticated and not on dashboard, redirect to dashboard
   if (isAuthenticated && currentPage !== 'dashboard') {
     setCurrentPage('dashboard')
@@ -37,8 +43,11 @@ function App() {
             onLogin={handleLogin}
           />
         ) : currentPage === 'dashboard' ? (
-          <Dashboard onLogout={handleLogout} userEmail={userEmail} />
+          <Dashboard onLogout={handleLogout} userEmail={userEmail} onNavigate={handleNavigate} />
+        ) : currentPage === 'sitemap' ? (
+          <Sitemap onNavigate={handleNavigate} />
         ) : null}
+        <Footer onNavigate={handleNavigate} />
       </div>
     </TranslationProvider>
   )
