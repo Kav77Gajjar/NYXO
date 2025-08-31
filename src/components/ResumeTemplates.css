@@ -74,7 +74,7 @@
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
   overflow: hidden;
   transition: all 0.3s ease;
-  height: 400px; /* Fixed height for vertical rectangle */
+  height: 500px; /* Increased height for better proportions */
   display: flex;
   flex-direction: column;
   cursor: pointer;
@@ -86,11 +86,12 @@
 }
 
 .template-preview {
-  height: 220px;
+  height: 60%; /* 60% for preview */
   background: rgba(102, 126, 234, 0.1); /* Default light blue background */
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 8px;
 }
 
 .template-icon {
@@ -99,11 +100,18 @@
 }
 
 .template-info {
-  padding: 1.5rem;
+  height: 40%; /* 40% for info section (25% description + 15% button) */
+  padding: 1rem;
   display: flex;
   flex-direction: column;
-  flex: 1;
   position: relative;
+}
+
+.template-description {
+  height: 62.5%; /* 25/40 = 62.5% of the info section for description */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
 }
 
 .template-info h3 {
@@ -116,8 +124,14 @@
   margin: 0;
   font-size: 0.9rem;
   color: #666;
-  line-height: 1.5;
-  flex: 1; /* Push button to bottom */
+  line-height: 1.4;
+  flex: 1;
+}
+
+.template-button {
+  height: 37.5%; /* 15/40 = 37.5% of the info section for button */
+  display: flex;
+  align-items: center;
 }
 
 .use-template-btn {
@@ -128,8 +142,9 @@
   border-radius: 8px;
   font-weight: 600;
   cursor: pointer;
-  margin-top: 1rem;
   transition: all 0.2s ease;
+  width: 100%;
+  font-size: 1rem;
 }
 
 .use-template-btn:hover {
@@ -175,10 +190,224 @@
   }
   
   .template-card {
-    height: 380px; /* Slightly shorter for mobile */
+    height: 450px; /* Slightly shorter for mobile but still maintaining proportions */
   }
   
   .template-preview {
-    height: 180px;
+    height: 60%; /* Keep the same proportions */
   }
+  
+  .template-info {
+    height: 40%; /* Keep the same proportions */
+  }
+}
+
+/* Professional Resume Preview Styles */
+.professional-preview {
+  width: 100%;
+  height: 100%;
+  background: white;
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  font-family: 'Inter', sans-serif;
+  color: #374151;
+  overflow: hidden;
+  border: 1px solid #e5e7eb;
+  border-radius: 4px;
+  transform: scale(0.85);
+  transform-origin: top left;
+}
+
+.preview-header {
+  margin-bottom: 6px;
+  border-bottom: 1px solid #e5e7eb;
+  padding-bottom: 4px;
+}
+
+.preview-name {
+  font-size: 12px;
+  font-weight: 700;
+  color: #111827;
+  margin-bottom: 2px;
+  letter-spacing: 0.5px;
+}
+
+.preview-title {
+  font-size: 8px;
+  color: #6b7280;
+  margin-bottom: 4px;
+}
+
+.preview-divider {
+  height: 1px;
+  background-color: #e5e7eb;
+  margin: 3px 0;
+}
+
+.preview-contact {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  font-size: 5px;
+  color: #6b7280;
+}
+
+.preview-contact span {
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 1px;
+}
+
+.preview-content {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 8px;
+  flex: 1;
+  overflow: hidden;
+}
+
+.preview-left,
+.preview-right {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.preview-section {
+  margin-bottom: 3px;
+}
+
+.preview-section-title {
+  font-size: 6px;
+  font-weight: 600;
+  color: #111827;
+  margin-bottom: 2px;
+  letter-spacing: 0.3px;
+  border-bottom: 0.5px solid #e5e7eb;
+  padding-bottom: 1px;
+}
+
+.preview-text-content {
+  font-size: 4px;
+  line-height: 1.3;
+  color: #374151;
+  text-align: justify;
+}
+
+.preview-experience {
+  margin-bottom: 4px;
+  padding: 2px 0;
+}
+
+.preview-job-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1px;
+}
+
+.preview-job-title {
+  font-size: 5px;
+  font-weight: 600;
+  color: #111827;
+}
+
+.preview-job-date {
+  font-size: 4px;
+  color: #6b7280;
+  font-weight: 500;
+}
+
+.preview-company {
+  font-size: 4px;
+  color: #6b7280;
+  margin-bottom: 1px;
+  font-style: italic;
+}
+
+.preview-responsibilities {
+  font-size: 4px;
+  line-height: 1.2;
+  color: #374151;
+}
+
+.preview-skills {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.preview-skill {
+  font-size: 4px;
+  font-weight: 500;
+  color: #374151;
+  line-height: 1.3;
+}
+
+.preview-education {
+  margin-bottom: 2px;
+  padding: 1px 0;
+}
+
+.preview-degree {
+  font-size: 4px;
+  font-weight: 600;
+  color: #111827;
+  margin-bottom: 1px;
+}
+
+.preview-school {
+  font-size: 4px;
+  color: #6b7280;
+}
+
+.preview-date {
+  font-size: 3px;
+  color: #9ca3af;
+}
+
+.preview-certifications {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.preview-certification {
+  margin-bottom: 1px;
+}
+
+.preview-cert-name {
+  font-size: 4px;
+  font-weight: 500;
+  color: #111827;
+}
+
+.preview-cert-issuer {
+  font-size: 3px;
+  color: #6b7280;
+}
+
+.preview-languages {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.preview-language {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1px;
+}
+
+.preview-lang-name {
+  font-size: 4px;
+  font-weight: 500;
+  color: #111827;
+}
+
+.preview-lang-level {
+  font-size: 3px;
+  color: #6b7280;
 }

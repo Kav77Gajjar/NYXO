@@ -1,9 +1,24 @@
+/* Make the search icon in the button match the label size and alignment */
+.search-button svg {
+  width: 1.1em;
+  height: 1.1em;
+  min-width: 1em;
+  min-height: 1em;
+  max-width: 1.2em;
+  max-height: 1.2em;
+  color: inherit;
+  stroke: currentColor;
+  vertical-align: middle;
+  margin-right: 8px;
+  display: inline-block;
+}
 /* Dashboard Layout */
 .dashboard {
   width: 100%;
   min-height: 100vh;
   background: #f8fafc;
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  
 }
 
 /* Dashboard Navigation */
@@ -316,9 +331,150 @@
   display: flex;
   flex-direction: column;
   gap: 2rem;
+  padding-bottom: 4rem;
 }
 
 /* Welcome section removed */
+
+/* Search Bar Section */
+.search-bar-section {
+  width: 100%;
+  margin-bottom: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.search-section-label {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin: 0 0 0.5rem 0;
+  text-align: center;
+  letter-spacing: -0.025em;
+  margin-top: 2.5rem;
+  display: block;
+}
+
+.search-section-description {
+  font-size: 1.1rem;
+  color: #64748b;
+  margin: 0 0 1.5rem 0;
+  text-align: center;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+.search-container {
+  display: flex;
+  width: 100%;
+  max-width: 700px;
+  height: 50px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  border: 1px solid #e2e8f0;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  margin: 0 auto;
+}
+@media (max-width: 900px) {
+  .search-container {
+    max-width: 95vw;
+    height: 44px;
+  }
+  .search-input {
+    font-size: 0.95rem;
+    padding: 0 0.75rem;
+  }
+  .search-button {
+    font-size: 0.95rem;
+    padding: 0 0.75rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .search-bar-section {
+    padding: 0 0.5rem;
+  }
+  .search-container {
+    flex-direction: column;
+    height: auto;
+    max-width: 100vw;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+  }
+  .search-input {
+    width: 100%;
+    border-radius: 10px 10px 0 0;
+    font-size: 1rem;
+    padding: 0.75rem 1rem;
+    height: 40px;
+  }
+  .search-button {
+    width: 100%;
+    border-radius: 0 0 10px 10px;
+    font-size: 1rem;
+    padding: 0.75rem 1rem;
+    height: 40px;
+    margin-top: 2px;
+  }
+}
+
+.search-container:hover {
+  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.15);
+  border-color: #cbd5e1;
+}
+
+.search-container:focus-within {
+  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.2);
+  border-color: #667eea;
+}
+
+.search-input {
+  flex: 0 0 85%;
+  width: 85%;
+  height: 100%;
+  border: none !important;
+  outline: none;
+  padding: 0 1.5rem;
+  font-size: 1rem;
+  color: #1e293b;
+  background: transparent;
+}
+
+.search-input::placeholder {
+  color: #94a3b8;
+  font-weight: 400;
+}
+
+.search-button {
+  flex: 0 0 15%;
+  width: 15%;
+  height: 100%;
+  border: none;
+  border-top-right-radius: 0.5rem; /* rounded-r-lg equivalent */
+  border-bottom-right-radius: 0.5rem; /* rounded-r-lg equivalent */
+  background: rgba(0, 0, 0, 0.1); /* 10% dark shade */
+  color: #1e293b;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.search-button:hover {
+  background: transparent;
+  color: #64748b;
+  transform: translateY(-1px);
+}
+
+.search-button:active {
+  transform: translateY(0);
+}
 
 /* Activity Overview */
 .activity-overview {
@@ -1036,6 +1192,20 @@
   
   /* welcome-section removed */
   
+  .search-container {
+    height: 45px;
+  }
+  
+  .search-input {
+  padding: 0 1rem;
+  font-size: 0.95rem;
+  border: none !important;
+  }
+  
+  .search-button {
+    font-size: 0.9rem;
+  }
+  
   .activity-grid {
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
     gap: 1rem;
@@ -1104,6 +1274,29 @@
   
   /* welcome-section removed for mobile */
   
+  .search-container {
+    height: 48px;
+    flex-direction: column;
+  }
+  
+  .search-input {
+  flex: 1;
+  width: 100%;
+  height: 70%;
+  border: none !important;
+  border-radius: 0;
+  padding: 0 1rem;
+  font-size: 0.9rem;
+  }
+  
+  .search-button {
+    flex: 0 0 30%;
+    width: 100%;
+    height: 30%;
+    border-radius: 0;
+    font-size: 0.85rem;
+  }
+  
   .activity-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 1rem;
@@ -1171,6 +1364,20 @@
   .dashboard-main {
     padding: 0.75rem;
     margin-top: 110px; /* Even more space for smaller screens */
+  }
+  
+  .search-container {
+    height: 44px;
+  }
+  
+  .search-input {
+  font-size: 0.85rem;
+  padding: 0 0.75rem;
+  border: none !important;
+  }
+  
+  .search-button {
+    font-size: 0.8rem;
   }
   
   /* welcome-section removed for small screens */

@@ -12,22 +12,121 @@ function ResumeTemplates({ onNavigateBack }) {
       description: 'Clean and minimalist design for corporate roles',
       color: '#4A6FDC',
       previewContent: (
-        <svg width="100%" height="100%" viewBox="0 0 200 280" xmlns="http://www.w3.org/2000/svg">
-          <rect width="200" height="40" fill="#4A6FDC" />
-          <rect y="45" width="60" height="60" fill="#4A6FDC20" />
-          <rect x="70" y="50" width="120" height="10" fill="#4A6FDC40" />
-          <rect x="70" y="70" width="80" height="6" fill="#4A6FDC30" />
-          <rect x="70" y="85" width="100" height="6" fill="#4A6FDC30" />
-          <rect x="10" y="120" width="180" height="1" fill="#4A6FDC40" />
-          <rect x="10" y="135" width="80" height="8" fill="#4A6FDC40" />
-          <rect x="10" y="150" width="180" height="6" fill="#4A6FDC20" />
-          <rect x="10" y="165" width="180" height="6" fill="#4A6FDC20" />
-          <rect x="10" y="180" width="180" height="6" fill="#4A6FDC20" />
-          <rect x="10" y="205" width="80" height="8" fill="#4A6FDC40" />
-          <rect x="10" y="220" width="180" height="6" fill="#4A6FDC20" />
-          <rect x="10" y="235" width="180" height="6" fill="#4A6FDC20" />
-          <rect x="10" y="250" width="180" height="6" fill="#4A6FDC20" />
-        </svg>
+        <div className="professional-preview">
+          <div className="preview-header">
+            <div className="preview-name">JOHN DOE</div>
+            <div className="preview-title">Senior Product Manager</div>
+            <div className="preview-divider"></div>
+            <div className="preview-contact">
+              <span>📧 john.doe@example.com</span>
+              <span>📱 (123) 456-7890</span>
+              <span>📍 San Francisco, CA</span>
+              <span>🔗 linkedin.com/in/johndoe</span>
+            </div>
+          </div>
+          <div className="preview-content">
+            <div className="preview-left">
+              <div className="preview-section">
+                <div className="preview-section-title">PROFESSIONAL SUMMARY</div>
+                <div className="preview-text-content">
+                  Results-driven Product Manager with 8+ years of experience leading cross-functional teams to deliver innovative digital products. Proven track record in market analysis, product strategy, and agile development.
+                </div>
+              </div>
+              <div className="preview-section">
+                <div className="preview-section-title">WORK EXPERIENCE</div>
+                <div className="preview-experience">
+                  <div className="preview-job-header">
+                    <div className="preview-job-title">Senior Product Manager</div>
+                    <div className="preview-job-date">2019 - Present</div>
+                  </div>
+                  <div className="preview-company">TechSolutions Inc., San Francisco, CA</div>
+                  <div className="preview-responsibilities">
+                    • Led product strategy and roadmap for SaaS platform, resulting in 40% increase in user engagement<br/>
+                    • Managed cross-functional team of 12 engineers, designers, and marketers using Agile methodologies<br/>
+                    • Conducted market research and competitive analysis to identify $2M revenue opportunity
+                  </div>
+                </div>
+                <div className="preview-experience">
+                  <div className="preview-job-header">
+                    <div className="preview-job-title">Product Manager</div>
+                    <div className="preview-job-date">2016 - 2019</div>
+                  </div>
+                  <div className="preview-company">Digital Innovations Co., New York, NY</div>
+                  <div className="preview-responsibilities">
+                    • Launched mobile app that acquired 500K users in first 6 months<br/>
+                    • Collaborated with UX team to redesign onboarding flow, reducing drop-off rate by 35%<br/>
+                    • Established product metrics framework to track KPIs and inform roadmap priorities
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="preview-right">
+              <div className="preview-section">
+                <div className="preview-section-title">TECHNICAL SKILLS</div>
+                <div className="preview-skills">
+                  <div className="preview-skill">Product Strategy & Roadmapping</div>
+                  <div className="preview-skill">Market Research & Analysis</div>
+                  <div className="preview-skill">Agile & Scrum Methodologies</div>
+                  <div className="preview-skill">Data Analysis & Metrics</div>
+                  <div className="preview-skill">User Experience Design</div>
+                </div>
+              </div>
+              <div className="preview-section">
+                <div className="preview-section-title">BUSINESS SKILLS</div>
+                <div className="preview-skills">
+                  <div className="preview-skill">Strategic Planning</div>
+                  <div className="preview-skill">Cross-functional Leadership</div>
+                  <div className="preview-skill">Stakeholder Management</div>
+                  <div className="preview-skill">Financial Analysis</div>
+                  <div className="preview-skill">Go-to-Market Strategy</div>
+                </div>
+              </div>
+              <div className="preview-section">
+                <div className="preview-section-title">EDUCATION</div>
+                <div className="preview-education">
+                  <div className="preview-degree">MBA, Business Administration</div>
+                  <div className="preview-school">Stanford University</div>
+                  <div className="preview-date">2014 - 2016</div>
+                </div>
+                <div className="preview-education">
+                  <div className="preview-degree">BS, Computer Science</div>
+                  <div className="preview-school">University of California, Berkeley</div>
+                  <div className="preview-date">2010 - 2014</div>
+                </div>
+              </div>
+              <div className="preview-section">
+                <div className="preview-section-title">CERTIFICATIONS</div>
+                <div className="preview-certifications">
+                  <div className="preview-certification">
+                    <div className="preview-cert-name">Certified Scrum Product Owner</div>
+                    <div className="preview-cert-issuer">Scrum Alliance, 2018</div>
+                  </div>
+                  <div className="preview-certification">
+                    <div className="preview-cert-name">Google Analytics Certification</div>
+                    <div className="preview-cert-issuer">Google, 2017</div>
+                  </div>
+                </div>
+              </div>
+              <div className="preview-section">
+                <div className="preview-section-title">LANGUAGES</div>
+                <div className="preview-languages">
+                  <div className="preview-language">
+                    <span className="preview-lang-name">English</span>
+                    <span className="preview-lang-level">Native</span>
+                  </div>
+                  <div className="preview-language">
+                    <span className="preview-lang-name">Spanish</span>
+                    <span className="preview-lang-level">Professional</span>
+                  </div>
+                  <div className="preview-language">
+                    <span className="preview-lang-name">French</span>
+                    <span className="preview-lang-level">Intermediate</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       )
     },
     {
@@ -326,9 +425,19 @@ function ResumeTemplates({ onNavigateBack }) {
 
   const handleSelectTemplate = (template) => {
     setSelectedTemplate(template)
-    // In a real app, this would navigate to the template editor
-    // with the selected template
-    console.log(`Selected template: ${template.name}`)
+    
+    // Navigate to the specific template
+    if (template.id === 'template1') {
+      // Navigate to Professional Resume Template
+      const event = new CustomEvent('navigate', {
+        detail: { page: 'professional-resume-template' }
+      })
+      window.dispatchEvent(event)
+    } else {
+      // For other templates, show a placeholder or redirect to template editor
+      console.log(`Selected template: ${template.name}`)
+      alert(`${template.name} template will be available soon!`)
+    }
   }
 
   return (
@@ -365,14 +474,18 @@ function ResumeTemplates({ onNavigateBack }) {
               {template.previewContent}
             </div>
             <div className="template-info">
-              <h3>{template.name}</h3>
-              <p>{template.description}</p>
-              <button 
-                className="use-template-btn" 
-                style={{ backgroundColor: template.color }}
-              >
-                Use This Template
-              </button>
+              <div className="template-description">
+                <h3>{template.name}</h3>
+                <p>{template.description}</p>
+              </div>
+              <div className="template-button">
+                <button 
+                  className="use-template-btn" 
+                  style={{ backgroundColor: template.color }}
+                >
+                  Use This Template
+                </button>
+              </div>
             </div>
           </div>
         ))}
