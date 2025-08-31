@@ -1,113 +1,167 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import './ProfessionalResumeTemplate.css'
 
 function ProfessionalResumeTemplate() {
-  const [formData, setFormData] = useState({
-    // Personal Information
-    fullName: 'JOHN DOE',
-    jobTitle: 'Senior Product Manager',
-    email: 'john.doe@example.com',
-    phone: '(123) 456-7890',
-    location: 'San Francisco, CA',
-    linkedin: 'linkedin.com/in/johndoe',
-    
-    // Professional Summary
-    summary: 'Results-driven Product Manager with 8+ years of experience leading cross-functional teams to deliver innovative digital products. Proven track record in market analysis, product strategy, and agile development. Passionate about creating user-centric solutions that drive business growth and enhance customer experiences.',
-    
-    // Work Experience
-    experiences: [
-      {
-        title: 'Senior Product Manager',
-        company: 'TechSolutions Inc.',
-        location: 'San Francisco, CA',
-        startDate: '2019',
-        endDate: 'Present',
-        responsibilities: [
-          'Led product strategy and roadmap for SaaS platform, resulting in 40% increase in user engagement',
-          'Managed cross-functional team of 12 engineers, designers, and marketers using Agile methodologies',
-          'Conducted market research and competitive analysis to identify $2M revenue opportunity',
-          'Implemented data-driven decision making, improving conversion rates by 25%'
-        ]
-      },
-      {
-        title: 'Product Manager',
-        company: 'Digital Innovations Co.',
-        location: 'New York, NY',
-        startDate: '2016',
-        endDate: '2019',
-        responsibilities: [
-          'Launched mobile app that acquired 500K users in first 6 months',
-          'Collaborated with UX team to redesign onboarding flow, reducing drop-off rate by 35%',
-          'Established product metrics framework to track KPIs and inform roadmap priorities'
-        ]
+  // Function to get user profile data from localStorage or return default data
+  const getUserProfileData = () => {
+    try {
+      const savedProfile = localStorage.getItem('userProfileData')
+      if (savedProfile) {
+        const profileData = JSON.parse(savedProfile)
+        
+        // Transform profile data to resume format
+        return {
+          // Personal Information
+          fullName: profileData.personalInfo?.fullName?.toUpperCase() || 'YOUR NAME',
+          jobTitle: profileData.experience?.[0]?.title || 'Your Job Title',
+          email: profileData.personalInfo?.email || 'your.email@example.com',
+          phone: profileData.personalInfo?.phone || '(123) 456-7890',
+          location: profileData.personalInfo?.location || 'Your Location',
+          linkedin: profileData.personalInfo?.linkedin || 'linkedin.com/in/yourprofile',
+          
+          // Professional Summary - use aboutMe or create from experience
+          summary: profileData.personalInfo?.aboutMe || 
+                  `Professional with experience in ${profileData.experience?.[0]?.title || 'your field'}. ${profileData.experience?.[0]?.description || 'Add your professional summary in the Profile section.'}`,
+          
+          // Work Experience - transform from profile format, ensure at least one entry
+          experiences: profileData.experience?.length > 0 ? profileData.experience.map(exp => ({
+            title: exp.title || '',
+            company: exp.company || '',
+            location: profileData.personalInfo?.location || '', // Use profile location as default
+            startDate: exp.duration?.split(' - ')[0] || '',
+            endDate: exp.duration?.split(' - ')[1] || '',
+            responsibilities: [exp.description || '']
+          })) : [{
+            title: '',
+            company: '',
+            location: '',
+            startDate: '',
+            endDate: '',
+            responsibilities: ['']
+          }],
+          
+          // Skills - split into technical and business skills, ensure at least one entry each
+          technicalSkills: profileData.skills?.length > 0 ? 
+            profileData.skills.slice(0, Math.ceil(profileData.skills.length / 2)) : [''],
+          businessSkills: profileData.skills?.length > 0 ? 
+            profileData.skills.slice(Math.ceil(profileData.skills.length / 2)) : [''],
+          
+          // Education - transform from profile format, ensure at least one entry
+          education: profileData.education?.length > 0 ? profileData.education.map(edu => ({
+            degree: edu.degree || '',
+            school: edu.school || '',
+            startDate: edu.year?.split(' - ')[0] || '',
+            endDate: edu.year?.split(' - ')[1] || ''
+          })) : [{
+            degree: '',
+            school: '',
+            startDate: '',
+            endDate: ''
+          }],
+          
+          // Certifications - transform from achievements if available, ensure at least one entry
+          certifications: profileData.achievements?.filter(achievement => 
+            achievement.category === 'Education' && 
+            (achievement.title.toLowerCase().includes('certification') || 
+             achievement.title.toLowerCase().includes('certificate'))
+          ).map(cert => ({
+            name: cert.title || '',
+            issuer: 'Professional Body',
+            year: new Date(cert.date).getFullYear().toString() || ''
+          })) || [{
+            name: '',
+            issuer: '',
+            year: ''
+          }],
+          
+          // Languages - default placeholder, ensure at least one entry
+          languages: [{
+            language: 'English',
+            proficiency: 'Native'
+          }]
+        }
       }
-    ],
+    } catch (error) {
+      console.error('Error loading profile data:', error)
+    }
     
-    // Skills
-    technicalSkills: [
-      'Product Strategy & Roadmapping',
-      'Market Research & Analysis',
-      'Agile & Scrum Methodologies',
-      'Data Analysis & Metrics',
-      'User Experience Design'
-    ],
-    
-    businessSkills: [
-      'Strategic Planning',
-      'Cross-functional Leadership',
-      'Stakeholder Management',
-      'Financial Analysis',
-      'Go-to-Market Strategy'
-    ],
-    
-    // Education
-    education: [
-      {
-        degree: 'MBA, Business Administration',
-        school: 'Stanford University',
-        startDate: '2014',
-        endDate: '2016'
-      },
-      {
-        degree: 'BS, Computer Science',
-        school: 'University of California, Berkeley',
-        startDate: '2010',
-        endDate: '2014'
-      }
-    ],
-    
-    // Certifications
-    certifications: [
-      {
-        name: 'Certified Scrum Product Owner',
-        issuer: 'Scrum Alliance',
-        year: '2018'
-      },
-      {
-        name: 'Google Analytics Certification',
-        issuer: 'Google',
-        year: '2017'
-      }
-    ],
-    
-    // Languages
-    languages: [
-      {
-        language: 'English',
-        proficiency: 'Native'
-      },
-      {
-        language: 'Spanish',
-        proficiency: 'Professional Proficiency'
-      },
-      {
-        language: 'French',
-        proficiency: 'Intermediate'
-      }
-    ]
-  })
+    // Return default data if no profile data is found
+    return {
+      // Personal Information
+      fullName: 'YOUR NAME',
+      jobTitle: 'Your Job Title',
+      email: 'your.email@example.com',
+      phone: '(123) 456-7890',
+      location: 'Your Location',
+      linkedin: 'linkedin.com/in/yourprofile',
+      
+      // Professional Summary
+      summary: 'Add your professional summary here. Go to Profile section to update your information and it will automatically appear in your resume.',
+      
+      // Work Experience - ensure at least one empty entry
+      experiences: [{
+        title: '',
+        company: '',
+        location: '',
+        startDate: '',
+        endDate: '',
+        responsibilities: ['']
+      }],
+      
+      // Skills - ensure at least one empty entry each
+      technicalSkills: [''],
+      businessSkills: [''],
+      
+      // Education - ensure at least one empty entry
+      education: [{
+        degree: '',
+        school: '',
+        startDate: '',
+        endDate: ''
+      }],
+      
+      // Certifications - ensure at least one empty entry
+      certifications: [{
+        name: '',
+        issuer: '',
+        year: ''
+      }],
+      
+      // Languages - ensure at least one entry
+      languages: [
+        {
+          language: 'English',
+          proficiency: 'Native'
+        }
+      ]
+    }
+  }
+
+  const [formData, setFormData] = useState(getUserProfileData())
 
   const [isEditing, setIsEditing] = useState(false)
+
+  // Reload profile data when component mounts or when returning from profile
+  useEffect(() => {
+    const loadProfileData = () => {
+      const profileData = getUserProfileData()
+      setFormData(profileData)
+    }
+
+    // Load data on mount
+    loadProfileData()
+
+    // Listen for profile updates
+    const handleProfileUpdate = () => {
+      loadProfileData()
+    }
+
+    window.addEventListener('profileUpdated', handleProfileUpdate)
+    
+    return () => {
+      window.removeEventListener('profileUpdated', handleProfileUpdate)
+    }
+  }, [])
 
   const handleInputChange = (field, value) => {
     setFormData(prev => ({
@@ -181,6 +235,78 @@ function ProfessionalResumeTemplate() {
     }))
   }
 
+  const removeExperience = (index) => {
+    if (formData.experiences.length > 1) {
+      setFormData(prev => ({
+        ...prev,
+        experiences: prev.experiences.filter((_, i) => i !== index)
+      }))
+    }
+  }
+
+  const removeEducation = (index) => {
+    if (formData.education.length > 1) {
+      setFormData(prev => ({
+        ...prev,
+        education: prev.education.filter((_, i) => i !== index)
+      }))
+    }
+  }
+
+  const removeCertification = (index) => {
+    if (formData.certifications.length > 1) {
+      setFormData(prev => ({
+        ...prev,
+        certifications: prev.certifications.filter((_, i) => i !== index)
+      }))
+    }
+  }
+
+  const removeLanguage = (index) => {
+    if (formData.languages.length > 1) {
+      setFormData(prev => ({
+        ...prev,
+        languages: prev.languages.filter((_, i) => i !== index)
+      }))
+    }
+  }
+
+  const removeTechnicalSkill = (index) => {
+    if (formData.technicalSkills.length > 1) {
+      setFormData(prev => ({
+        ...prev,
+        technicalSkills: prev.technicalSkills.filter((_, i) => i !== index)
+      }))
+    }
+  }
+
+  const removeBusinessSkill = (index) => {
+    if (formData.businessSkills.length > 1) {
+      setFormData(prev => ({
+        ...prev,
+        businessSkills: prev.businessSkills.filter((_, i) => i !== index)
+      }))
+    }
+  }
+
+  // Helper function to check if an item should be visible in preview
+  const isItemVisible = (item, type) => {
+    switch (type) {
+      case 'experience':
+        return item.title.trim() || item.company.trim() || item.responsibilities.some(r => r.trim())
+      case 'education':
+        return item.degree.trim() || item.school.trim()
+      case 'certification':
+        return item.name.trim() || item.issuer.trim()
+      case 'language':
+        return item.language.trim() || item.proficiency.trim()
+      case 'skill':
+        return item.trim()
+      default:
+        return true
+    }
+  }
+
   const downloadPDF = () => {
     window.print()
   }
@@ -212,6 +338,19 @@ function ProfessionalResumeTemplate() {
               onClick={() => setIsEditing(!isEditing)}
             >
               {isEditing ? '👁️ Preview' : '✏️ Edit'}
+            </button>
+            
+            <button
+              className="profile-btn"
+              onClick={() => {
+                const event = new CustomEvent('navigate', {
+                  detail: { page: 'profile' }
+                });
+                window.dispatchEvent(event);
+              }}
+              title="Update your profile information"
+            >
+              👤 Update Profile
             </button>
             
             <button
@@ -346,8 +485,14 @@ function ProfessionalResumeTemplate() {
                 <div className="section-divider"></div>
                 
                 <div className="experience-list">
-                  {formData.experiences.map((exp, index) => (
-                    <div key={index} className="experience-item">
+                  {formData.experiences.map((exp, index) => {
+                    // Hide empty experiences in preview mode
+                    if (!isEditing && !isItemVisible(exp, 'experience')) {
+                      return null;
+                    }
+                    
+                    return (
+                      <div key={index} className="experience-item">
                       {isEditing ? (
                         <>
                           <div className="experience-header-edit">
@@ -358,22 +503,34 @@ function ProfessionalResumeTemplate() {
                               className="edit-input"
                               placeholder="Job Title"
                             />
-                            <div className="date-inputs">
-                              <input
-                                type="text"
-                                value={exp.startDate}
-                                onChange={(e) => handleArrayFieldChange('experiences', index, 'startDate', e.target.value)}
-                                className="edit-input date-input"
-                                placeholder="Start"
-                              />
-                              <span>-</span>
-                              <input
-                                type="text"
-                                value={exp.endDate}
-                                onChange={(e) => handleArrayFieldChange('experiences', index, 'endDate', e.target.value)}
-                                className="edit-input date-input"
-                                placeholder="End"
-                              />
+                            <div className="edit-controls">
+                              <div className="date-inputs">
+                                <input
+                                  type="text"
+                                  value={exp.startDate}
+                                  onChange={(e) => handleArrayFieldChange('experiences', index, 'startDate', e.target.value)}
+                                  className="edit-input date-input"
+                                  placeholder="Start"
+                                />
+                                <span>-</span>
+                                <input
+                                  type="text"
+                                  value={exp.endDate}
+                                  onChange={(e) => handleArrayFieldChange('experiences', index, 'endDate', e.target.value)}
+                                  className="edit-input date-input"
+                                  placeholder="End"
+                                />
+                              </div>
+                              {formData.experiences.length > 1 && (
+                                <button
+                                  type="button"
+                                  className="remove-btn"
+                                  onClick={() => removeExperience(index)}
+                                  title="Remove this experience"
+                                >
+                                  ✕
+                                </button>
+                              )}
                             </div>
                           </div>
                           <input
@@ -405,25 +562,55 @@ function ProfessionalResumeTemplate() {
                         {exp.responsibilities.map((resp, respIndex) => (
                           <li key={respIndex}>
                             {isEditing ? (
-                              <textarea
-                                value={resp}
-                                onChange={(e) => {
-                                  const newResponsibilities = [...exp.responsibilities]
-                                  newResponsibilities[respIndex] = e.target.value
-                                  handleArrayFieldChange('experiences', index, 'responsibilities', newResponsibilities)
-                                }}
-                                className="edit-textarea small"
-                                rows="2"
-                                placeholder="Responsibility"
-                              />
+                              <div className="responsibility-edit">
+                                <textarea
+                                  value={resp}
+                                  onChange={(e) => {
+                                    const newResponsibilities = [...exp.responsibilities]
+                                    newResponsibilities[respIndex] = e.target.value
+                                    handleArrayFieldChange('experiences', index, 'responsibilities', newResponsibilities)
+                                  }}
+                                  className="edit-textarea small"
+                                  rows="2"
+                                  placeholder="Responsibility"
+                                />
+                                {exp.responsibilities.length > 1 && (
+                                  <button
+                                    type="button"
+                                    className="remove-btn small"
+                                    onClick={() => {
+                                      const newResponsibilities = exp.responsibilities.filter((_, i) => i !== respIndex)
+                                      handleArrayFieldChange('experiences', index, 'responsibilities', newResponsibilities)
+                                    }}
+                                    title="Remove this responsibility"
+                                  >
+                                    ✕
+                                  </button>
+                                )}
+                              </div>
                             ) : (
                               resp
                             )}
                           </li>
                         ))}
+                        {isEditing && (
+                          <li>
+                            <button
+                              type="button"
+                              className="add-responsibility-btn"
+                              onClick={() => {
+                                const newResponsibilities = [...exp.responsibilities, '']
+                                handleArrayFieldChange('experiences', index, 'responsibilities', newResponsibilities)
+                              }}
+                            >
+                              + Add Responsibility
+                            </button>
+                          </li>
+                        )}
                       </ul>
                     </div>
-                  ))}
+                    );
+                  })}
                   
                   {isEditing && (
                     <button className="add-btn" onClick={addExperience}>
@@ -441,21 +628,52 @@ function ProfessionalResumeTemplate() {
                 <h2 className="section-title">TECHNICAL SKILLS</h2>
                 <div className="section-divider"></div>
                 <div className="skills-list">
-                  {formData.technicalSkills.map((skill, index) => (
-                    <div key={index} className="skill-item">
+                  {formData.technicalSkills.map((skill, index) => {
+                    // Hide empty skills in preview mode
+                    if (!isEditing && !isItemVisible(skill, 'skill')) {
+                      return null;
+                    }
+                    
+                    return (
+                      <div key={index} className="skill-item">
                       {isEditing ? (
-                        <input
-                          type="text"
-                          value={skill}
-                          onChange={(e) => handleSkillChange('technicalSkills', index, e.target.value)}
-                          className="edit-input skill-input"
-                          placeholder="Technical Skill"
-                        />
+                        <div className="skill-edit">
+                          <input
+                            type="text"
+                            value={skill}
+                            onChange={(e) => handleSkillChange('technicalSkills', index, e.target.value)}
+                            className="edit-input skill-input"
+                            placeholder="Technical Skill"
+                          />
+                          {formData.technicalSkills.length > 1 && (
+                            <button
+                              type="button"
+                              className="remove-btn small"
+                              onClick={() => removeTechnicalSkill(index)}
+                              title="Remove this skill"
+                            >
+                              ✕
+                            </button>
+                          )}
+                        </div>
                       ) : (
                         <h4 className="skill-name">{skill}</h4>
                       )}
                     </div>
-                  ))}
+                    );
+                  })}
+                  {isEditing && (
+                    <button
+                      type="button"
+                      className="add-skill-btn"
+                      onClick={() => setFormData(prev => ({
+                        ...prev,
+                        technicalSkills: [...prev.technicalSkills, '']
+                      }))}
+                    >
+                      + Add Technical Skill
+                    </button>
+                  )}
                 </div>
               </div>
 
@@ -464,21 +682,45 @@ function ProfessionalResumeTemplate() {
                 <h2 className="section-title">BUSINESS SKILLS</h2>
                 <div className="section-divider"></div>
                 <div className="skills-list">
-                  {formData.businessSkills.map((skill, index) => (
+                  {formData.businessSkills.filter((skill, index) => isEditing || isItemVisible(skill, 'skill')).map((skill, index) => (
                     <div key={index} className="skill-item">
                       {isEditing ? (
-                        <input
-                          type="text"
-                          value={skill}
-                          onChange={(e) => handleSkillChange('businessSkills', index, e.target.value)}
-                          className="edit-input skill-input"
-                          placeholder="Business Skill"
-                        />
+                        <div className="skill-edit">
+                          <input
+                            type="text"
+                            value={skill}
+                            onChange={(e) => handleSkillChange('businessSkills', index, e.target.value)}
+                            className="edit-input skill-input"
+                            placeholder="Business Skill"
+                          />
+                          {formData.businessSkills.length > 1 && (
+                            <button
+                              type="button"
+                              className="remove-btn small"
+                              onClick={() => removeBusinessSkill(index)}
+                              title="Remove this skill"
+                            >
+                              ✕
+                            </button>
+                          )}
+                        </div>
                       ) : (
                         <h4 className="skill-name">{skill}</h4>
                       )}
                     </div>
                   ))}
+                  {isEditing && (
+                    <button
+                      type="button"
+                      className="add-skill-btn"
+                      onClick={() => setFormData(prev => ({
+                        ...prev,
+                        businessSkills: [...prev.businessSkills, '']
+                      }))}
+                    >
+                      + Add Business Skill
+                    </button>
+                  )}
                 </div>
               </div>
 
@@ -487,17 +729,29 @@ function ProfessionalResumeTemplate() {
                 <h2 className="section-title">EDUCATION</h2>
                 <div className="section-divider"></div>
                 <div className="education-list">
-                  {formData.education.map((edu, index) => (
+                  {formData.education.filter((edu, index) => isEditing || isItemVisible(edu, 'education')).map((edu, index) => (
                     <div key={index} className="education-item">
                       {isEditing ? (
                         <>
-                          <input
-                            type="text"
-                            value={edu.degree}
-                            onChange={(e) => handleArrayFieldChange('education', index, 'degree', e.target.value)}
-                            className="edit-input"
-                            placeholder="Degree"
-                          />
+                          <div className="education-header-edit">
+                            <input
+                              type="text"
+                              value={edu.degree}
+                              onChange={(e) => handleArrayFieldChange('education', index, 'degree', e.target.value)}
+                              className="edit-input"
+                              placeholder="Degree"
+                            />
+                            {formData.education.length > 1 && (
+                              <button
+                                type="button"
+                                className="remove-btn"
+                                onClick={() => removeEducation(index)}
+                                title="Remove this education"
+                              >
+                                ✕
+                              </button>
+                            )}
+                          </div>
                           <input
                             type="text"
                             value={edu.school}
@@ -546,17 +800,29 @@ function ProfessionalResumeTemplate() {
                 <h2 className="section-title">CERTIFICATIONS</h2>
                 <div className="section-divider"></div>
                 <div className="certifications-list">
-                  {formData.certifications.map((cert, index) => (
+                  {formData.certifications.filter((cert, index) => isEditing || isItemVisible(cert, 'certification')).map((cert, index) => (
                     <div key={index} className="certification-item">
                       {isEditing ? (
                         <>
-                          <input
-                            type="text"
-                            value={cert.name}
-                            onChange={(e) => handleArrayFieldChange('certifications', index, 'name', e.target.value)}
-                            className="edit-input"
-                            placeholder="Certification Name"
-                          />
+                          <div className="certification-header-edit">
+                            <input
+                              type="text"
+                              value={cert.name}
+                              onChange={(e) => handleArrayFieldChange('certifications', index, 'name', e.target.value)}
+                              className="edit-input"
+                              placeholder="Certification Name"
+                            />
+                            {formData.certifications.length > 1 && (
+                              <button
+                                type="button"
+                                className="remove-btn"
+                                onClick={() => removeCertification(index)}
+                                title="Remove this certification"
+                              >
+                                ✕
+                              </button>
+                            )}
+                          </div>
                           <input
                             type="text"
                             value={cert.issuer}
@@ -594,17 +860,29 @@ function ProfessionalResumeTemplate() {
                 <h2 className="section-title">LANGUAGES</h2>
                 <div className="section-divider"></div>
                 <div className="languages-list">
-                  {formData.languages.map((lang, index) => (
+                  {formData.languages.filter((lang, index) => isEditing || isItemVisible(lang, 'language')).map((lang, index) => (
                     <div key={index} className="language-item">
                       {isEditing ? (
                         <>
-                          <input
-                            type="text"
-                            value={lang.language}
-                            onChange={(e) => handleArrayFieldChange('languages', index, 'language', e.target.value)}
-                            className="edit-input"
-                            placeholder="Language"
-                          />
+                          <div className="language-header-edit">
+                            <input
+                              type="text"
+                              value={lang.language}
+                              onChange={(e) => handleArrayFieldChange('languages', index, 'language', e.target.value)}
+                              className="edit-input"
+                              placeholder="Language"
+                            />
+                            {formData.languages.length > 1 && (
+                              <button
+                                type="button"
+                                className="remove-btn"
+                                onClick={() => removeLanguage(index)}
+                                title="Remove this language"
+                              >
+                                ✕
+                              </button>
+                            )}
+                          </div>
                           <input
                             type="text"
                             value={lang.proficiency}

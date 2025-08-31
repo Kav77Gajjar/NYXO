@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import './Profile.css'
 import { enableSettings } from './Settings'
 
@@ -7,66 +7,81 @@ function Profile({ userEmail, activeSection = 'personal', setActiveSection, onNa
   const [localActiveSection, setLocalActiveSection] = useState('personal')
   const currentActiveSection = activeSection || localActiveSection
   const currentSetActiveSection = setActiveSection || setLocalActiveSection
+
+  // Function to get initial profile data
+  const getInitialProfileData = () => {
+    try {
+      const savedProfile = localStorage.getItem('userProfileData')
+      if (savedProfile) {
+        return JSON.parse(savedProfile)
+      }
+    } catch (error) {
+      console.error('Error loading saved profile data:', error)
+    }
+    
+    // Return default profile data
+    return {
+      personalInfo: {
+        fullName: 'John Doe',
+        email: userEmail || 'john.doe@email.com',
+        phone: '+1 (555) 123-4567',
+        location: 'San Francisco, CA',
+        linkedin: 'linkedin.com/in/johndoe',
+        github: 'github.com/johndoe',
+        website: 'johndoe.dev',
+        aboutMe: '' // optional large field for resume/profile
+      },
+      experience: [
+        {
+          id: 1,
+          title: 'Frontend Developer',
+          company: 'TechCorp Inc.',
+          duration: 'Jan 2023 - Present',
+          description: 'Developed responsive web applications using React and TypeScript'
+        },
+        {
+          id: 2,
+          title: 'Junior Developer',
+          company: 'StartupXYZ',
+          duration: 'Jun 2021 - Dec 2022',
+          description: 'Built user interfaces and collaborated with backend team'
+        }
+      ],
+      education: [
+        {
+          id: 1,
+          degree: 'Bachelor of Science in Computer Science',
+          school: 'University of California, Berkeley',
+          year: '2021',
+          gpa: '3.7/4.0'
+        }
+      ],
+      skills: [
+        'React', 'JavaScript', 'TypeScript', 'HTML/CSS', 'Node.js', 
+        'Python', 'Git', 'MongoDB', 'PostgreSQL', 'AWS'
+      ],
+      achievements: [
+        {
+          id: 1,
+          title: 'Employee of the Month',
+          description: 'Recognized for outstanding performance and leadership in Q3 2023',
+          date: '2023-09',
+          category: 'Work',
+          image: null
+        },
+        {
+          id: 2,
+          title: 'Full Stack Web Development Certificate',
+          description: 'Completed comprehensive web development bootcamp with 95% score',
+          date: '2022-12',
+          category: 'Education',
+          image: null
+        }
+      ]
+    }
+  }
   
-  const [profileData, setProfileData] = useState({
-    personalInfo: {
-      fullName: 'John Doe',
-      email: userEmail || 'john.doe@email.com',
-      phone: '+1 (555) 123-4567',
-      location: 'San Francisco, CA',
-      linkedin: 'linkedin.com/in/johndoe',
-      github: 'github.com/johndoe',
-  website: 'johndoe.dev',
-  aboutMe: '' // optional large field for resume/profile
-    },
-    experience: [
-      {
-        id: 1,
-        title: 'Frontend Developer',
-        company: 'TechCorp Inc.',
-        duration: 'Jan 2023 - Present',
-        description: 'Developed responsive web applications using React and TypeScript'
-      },
-      {
-        id: 2,
-        title: 'Junior Developer',
-        company: 'StartupXYZ',
-        duration: 'Jun 2021 - Dec 2022',
-        description: 'Built user interfaces and collaborated with backend team'
-      }
-    ],
-    education: [
-      {
-        id: 1,
-        degree: 'Bachelor of Science in Computer Science',
-        school: 'University of California, Berkeley',
-        year: '2021',
-        gpa: '3.7/4.0'
-      }
-    ],
-    skills: [
-      'React', 'JavaScript', 'TypeScript', 'HTML/CSS', 'Node.js', 
-      'Python', 'Git', 'MongoDB', 'PostgreSQL', 'AWS'
-    ],
-    achievements: [
-      {
-        id: 1,
-        title: 'Employee of the Month',
-        description: 'Recognized for outstanding performance and leadership in Q3 2023',
-        date: '2023-09',
-        category: 'Work',
-        image: null
-      },
-      {
-        id: 2,
-        title: 'Full Stack Web Development Certificate',
-        description: 'Completed comprehensive web development bootcamp with 95% score',
-        date: '2022-12',
-        category: 'Education',
-        image: null
-      }
-    ]
-  })
+  const [profileData, setProfileData] = useState(getInitialProfileData())
 
   const [skillInput, setSkillInput] = useState('')
   const [showSuggestions, setShowSuggestions] = useState(false)
@@ -183,20 +198,39 @@ function Profile({ userEmail, activeSection = 'personal', setActiveSection, onNa
   const addSkill = (skillName) => {
     const skillToAdd = skillName || skillInput.trim()
     if (skillToAdd && !profileData.skills.includes(skillToAdd)) {
-      setProfileData(prev => ({
-        ...prev,
-        skills: [...prev.skills, skillToAdd]
-      }))
+      const updatedProfileData = {
+        ...profileData,
+        skills: [...profileData.skills, skillToAdd]
+      }
+      setProfileData(updatedProfileData)
+      
+      // Save to localStorage
+      try {
+        localStorage.setItem('userProfileData', JSON.stringify(updatedProfileData))
+        window.dispatchEvent(new CustomEvent('profileUpdated'))
+      } catch (error) {
+        console.error('Error saving skills:', error)
+      }
+      
       setSkillInput('')
       setShowSuggestions(false)
     }
   }
 
   const removeSkill = (skillToRemove) => {
-    setProfileData(prev => ({
-      ...prev,
-      skills: prev.skills.filter(skill => skill !== skillToRemove)
-    }))
+    const updatedProfileData = {
+      ...profileData,
+      skills: profileData.skills.filter(skill => skill !== skillToRemove)
+    }
+    setProfileData(updatedProfileData)
+    
+    // Save to localStorage
+    try {
+      localStorage.setItem('userProfileData', JSON.stringify(updatedProfileData))
+      window.dispatchEvent(new CustomEvent('profileUpdated'))
+    } catch (error) {
+      console.error('Error saving skills:', error)
+    }
   }
 
   const selectSuggestion = (skill) => {
@@ -439,8 +473,15 @@ function Profile({ userEmail, activeSection = 'personal', setActiveSection, onNa
       return
     }
 
-    // Save the data (you can add API call here in the future)
-    console.log('Saving personal info:', profileData.personalInfo)
+    // Save the data to localStorage
+    try {
+      localStorage.setItem('userProfileData', JSON.stringify(profileData))
+      // Dispatch event to notify other components
+      window.dispatchEvent(new CustomEvent('profileUpdated'))
+      console.log('Profile data saved to localStorage:', profileData)
+    } catch (error) {
+      console.error('Error saving profile data:', error)
+    }
     
     // Exit edit mode
     setIsEditing(prev => ({
@@ -562,10 +603,20 @@ function Profile({ userEmail, activeSection = 'personal', setActiveSection, onNa
       description: newExperience.description.trim()
     }
 
-    setProfileData(prev => ({
-      ...prev,
-      experience: [...prev.experience, experienceToAdd]
-    }))
+    const updatedProfileData = {
+      ...profileData,
+      experience: [...profileData.experience, experienceToAdd]
+    }
+    
+    setProfileData(updatedProfileData)
+    
+    // Save to localStorage
+    try {
+      localStorage.setItem('userProfileData', JSON.stringify(updatedProfileData))
+      window.dispatchEvent(new CustomEvent('profileUpdated'))
+    } catch (error) {
+      console.error('Error saving experience:', error)
+    }
 
     // Reset and close dialog
     setNewExperience({
@@ -597,10 +648,20 @@ function Profile({ userEmail, activeSection = 'personal', setActiveSection, onNa
       gpa: newEducation.gpa.trim()
     }
 
-    setProfileData(prev => ({
-      ...prev,
-      education: [...prev.education, educationToAdd]
-    }))
+    const updatedProfileData = {
+      ...profileData,
+      education: [...profileData.education, educationToAdd]
+    }
+    
+    setProfileData(updatedProfileData)
+    
+    // Save to localStorage
+    try {
+      localStorage.setItem('userProfileData', JSON.stringify(updatedProfileData))
+      window.dispatchEvent(new CustomEvent('profileUpdated'))
+    } catch (error) {
+      console.error('Error saving education:', error)
+    }
 
     // Reset and close dialog
     setNewEducation({
