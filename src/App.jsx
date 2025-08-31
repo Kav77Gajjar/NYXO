@@ -47,7 +47,7 @@ function App() {
         ) : currentPage === 'sitemap' ? (
           <Sitemap onNavigate={handleNavigate} />
         ) : null}
-        <Footer onNavigate={handleNavigate} />
+        {currentPage !== 'auth' && <Footer onNavigate={handleNavigate} />}
       </div>
     </TranslationProvider>
   )

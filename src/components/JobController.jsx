@@ -205,30 +205,22 @@ function JobController({ activeTab = 'search', setActiveTab, onNavigateBack }) {
 
       {/* Main Content Area (left sub-nav removed) */}
       <div className="jobcontroller-content">
-        {/* Top bar with Back button */}
-        <div className="top-bar">
-          <button
-            className="back-btn"
-            onClick={() => {
-              // If user is on 'search' tab, go back to dashboard
-              // If user is on other tabs ('saved' or 'analytics'), go back to 'search' tab
-              if (currentActiveTab === 'search') {
-                if (onNavigateBack) {
-                  onNavigateBack()
-                } else {
-                  window.history.back()
-                }
-              } else {
-                // Go back to search tab
+        {/* Top bar with Back button, only show if not on 'search' tab */}
+        {currentActiveTab !== 'search' && (
+          <div className="top-bar">
+            <button
+              className="back-btn"
+              onClick={() => {
+                // If user is on other tabs ('saved' or 'analytics'), go back to 'search' tab
                 currentSetActiveTab('search')
-              }
-            }}
-            aria-label="Go back"
-            title="Go back"
-          >
-            ← Back
-          </button>
-        </div>
+              }}
+              aria-label="Go back"
+              title="Go back"
+            >
+              ← Back
+            </button>
+          </div>
+        )}
         <div className="tab-navigation">
           <button 
             className={`tab-btn ${currentActiveTab === 'search' ? 'active' : ''}`}
