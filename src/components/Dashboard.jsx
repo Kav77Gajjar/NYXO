@@ -6,6 +6,7 @@ import Profile from './Profile'
 import JobMatches from './JobMatches'
 import JobApplications from './JobApplications'
 import ResumeTemplates from './ResumeTemplates'
+import ProfessionalResumeTemplate from './ProfessionalResumeTemplate'
 import CoverLetterGenerator from './CoverLetterGenerator'
 import CoverLetterTemplates from './CoverLetterTemplates'
 import { useTranslation } from '../contexts/TranslationContext'
@@ -246,7 +247,49 @@ function Dashboard({ onLogout, userEmail }) {
     
     return (
       <div className="dashboard-home">
-  {/* Welcome section removed per request */}
+        {/* Job Search Bar */}
+        <div className="search-bar-section">
+          <h2 className="search-section-label">Find Your Perfect Job</h2>
+          <p className="search-section-description">Search thousands of job opportunities from top companies</p>
+          <div className="search-container">
+            <input
+              type="text"
+              className="search-input"
+              placeholder="Search for jobs, companies, or keywords..."
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') {
+                  // Navigate to job controller with search
+                  setCurrentPage('jobcontroller')
+                  setJobControllerActiveTab('search')
+                }
+              }}
+            />
+            <button 
+              className="search-button"
+              onClick={() => {
+                // Navigate to job controller with search
+                setCurrentPage('jobcontroller')
+                setJobControllerActiveTab('search')
+              }}
+            >
+              <svg 
+                width="18" 
+                height="18" 
+                viewBox="0 0 24 24" 
+                fill="none" 
+                stroke="currentColor" 
+                strokeWidth="2" 
+                strokeLinecap="round" 
+                strokeLinejoin="round"
+                style={{ marginRight: '6px' }}
+              >
+                <circle cx="11" cy="11" r="8"></circle>
+                <path d="m21 21-4.35-4.35"></path>
+              </svg>
+              Search
+            </button>
+          </div>
+        </div>
 
         {/* Activity Overview */}
         <div className="activity-overview">
@@ -420,6 +463,8 @@ function Dashboard({ onLogout, userEmail }) {
         />
       case 'resume-templates':
         return <ResumeTemplates />
+      case 'professional-resume-template':
+        return <ProfessionalResumeTemplate />
       case 'cover-letter':
         return <CoverLetterGenerator />
       case 'cover-letter-templates':
