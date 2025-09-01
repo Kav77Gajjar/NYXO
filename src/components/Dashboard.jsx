@@ -403,7 +403,12 @@ function Dashboard({ onLogout, userEmail, onNavigate }) {
                 className="action-card primary"
                 onClick={() => setCurrentPage('profile')}
               >
-                <div className="action-icon">👤</div>
+                <div className="action-icon">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <circle cx="12" cy="8" r="4" />
+                    <path d="M4 20c0-4 4-6 8-6s8 2 8 6" />
+                  </svg>
+                </div>
                 <div className="action-content">
                   <h3>Update Profile</h3>
                   <p>Keep your profile fresh and attract better opportunities</p>
@@ -414,10 +419,20 @@ function Dashboard({ onLogout, userEmail, onNavigate }) {
                 className="action-card secondary"
                 onClick={() => setCurrentPage('toolkit')}
               >
-                <div className="action-icon">🛠️</div>
+                <div className="action-icon">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M12 2l7 4-7 4-7-4 7-4z" fill="#b3c6e0"/>
+                    <path d="M12 10v4" stroke="#64748b"/>
+                    <circle cx="17" cy="17" r="3" stroke="#64748b" fill="#fff"/>
+                    <path d="M17 15.5v1M17 20v-1.5M18.5 17h-1M15.5 17h1" stroke="#64748b"/>
+                  </svg>
+                </div>
                 <div className="action-content">
                   <h3>Career Tools</h3>
-                  <p>Resume builder, interview prep, and skill assessments</p>
+                  <p>Resume builder
+                    {/* ,interview prep, and  */}
+                    {/* skill assessments */}
+                    </p>
                 </div>
                 <div className="action-arrow">→</div>
               </div>
@@ -425,10 +440,17 @@ function Dashboard({ onLogout, userEmail, onNavigate }) {
                 className="action-card secondary"
                 onClick={() => setCurrentPage('jobcontroller')}
               >
-                <div className="action-icon">💼</div>
+                <div className="action-icon">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <path d="m21 21-4.35-4.35"></path>
+                  </svg>
+                </div>
                 <div className="action-content">
-                  <h3>Job Search</h3>
-                  <p>Find new opportunities and track your applications</p>
+                  <h3>Find Work</h3>
+                  <p>Find new opportunities
+                     {/* and track your applications */}
+                     </p>
                 </div>
                 <div className="action-arrow">→</div>
               </div>
