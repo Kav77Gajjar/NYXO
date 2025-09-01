@@ -9,6 +9,20 @@ import JobMatches from './JobMatches'
 import JobApplications from './JobApplications'
 import ResumeTemplates from './ResumeTemplates'
 import ProfessionalResumeTemplate from './ProfessionalResumeTemplate'
+import AcademicResumeTemplate from './AcademicResumeTemplate'
+import AcademicTemplateEditor from './AcademicTemplateEditor'
+import CreativeResumeTemplate from './CreativeResumeTemplate'
+import CreativeTemplateEditor from './CreativeTemplateEditor'
+import TechnicalResumeTemplate from './TechnicalResumeTemplate'
+import TechnicalTemplateEditor from './TechnicalTemplateEditor'
+import ExecutiveResumeTemplate from './ExecutiveResumeTemplate'
+import ExecutiveTemplateEditor from './ExecutiveTemplateEditor'
+import ModernResumeTemplate from './ModernResumeTemplate'
+import ModernTemplateEditor from './ModernTemplateEditor'
+import SimpleResumeTemplate from './SimpleResumeTemplate'
+import SimpleTemplateEditor from './SimpleTemplateEditor'
+import EntryLevelResumeTemplate from './EntryLevelResumeTemplate'
+import EntryLevelTemplateEditor from './EntryLevelTemplateEditor'
 import CoverLetterGenerator from './CoverLetterGenerator'
 import CoverLetterTemplates from './CoverLetterTemplates'
 
@@ -491,6 +505,34 @@ function Dashboard({ onLogout, userEmail, onNavigate }) {
         return <ResumeTemplates />
       case 'professional-resume-template':
         return <ProfessionalResumeTemplate />
+      case 'academic-resume-template':
+        return <AcademicResumeTemplate onNavigateBack={() => setCurrentPage('resume-templates')} onEdit={() => setCurrentPage('academic-template-editor')} />
+      case 'academic-template-editor':
+        return <AcademicTemplateEditor onNavigateBack={() => setCurrentPage('academic-resume-template')} />
+      case 'creative-resume-template':
+        return <CreativeResumeTemplate onNavigateBack={() => setCurrentPage('resume-templates')} onEdit={() => setCurrentPage('creative-template-editor')} />
+      case 'creative-template-editor':
+        return <CreativeTemplateEditor onNavigateBack={() => setCurrentPage('creative-resume-template')} />
+      case 'technical-resume-template':
+        return <TechnicalResumeTemplate onNavigateBack={() => setCurrentPage('resume-templates')} onEdit={() => setCurrentPage('technical-template-editor')} />
+      case 'technical-template-editor':
+        return <TechnicalTemplateEditor onNavigateBack={() => setCurrentPage('technical-resume-template')} />
+      case 'executive-resume-template':
+        return <ExecutiveResumeTemplate onNavigateBack={() => setCurrentPage('resume-templates')} onEdit={() => setCurrentPage('executive-template-editor')} />
+      case 'executive-template-editor':
+        return <ExecutiveTemplateEditor onNavigateBack={() => setCurrentPage('executive-resume-template')} />
+      case 'modern-resume-template':
+        return <ModernResumeTemplate onNavigateBack={() => setCurrentPage('resume-templates')} onEdit={() => setCurrentPage('modern-template-editor')} />
+      case 'modern-template-editor':
+        return <ModernTemplateEditor onNavigateBack={() => setCurrentPage('modern-resume-template')} />
+      case 'simple-resume-template':
+        return <SimpleResumeTemplate onNavigateBack={() => setCurrentPage('resume-templates')} onEdit={() => setCurrentPage('simple-template-editor')} />
+      case 'simple-template-editor':
+        return <SimpleTemplateEditor onNavigateBack={() => setCurrentPage('simple-resume-template')} />
+      case 'entry-level-resume-template':
+        return <EntryLevelResumeTemplate onNavigateBack={() => setCurrentPage('resume-templates')} onEdit={() => setCurrentPage('entry-level-template-editor')} />
+      case 'entry-level-template-editor':
+        return <EntryLevelTemplateEditor onNavigateBack={() => setCurrentPage('entry-level-resume-template')} />
       case 'cover-letter':
         return <CoverLetterGenerator onNavigateBack={() => setCurrentPage('toolkit')} />
       case 'cover-letter-templates':

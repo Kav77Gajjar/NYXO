@@ -1,102 +1,115 @@
-/* Navigation Bar Linear Alignment Fix - Responsive Safe */
+/* Navigation Bar Linear Alignment Fix */
 
-/* Desktop-only improvements (preserve mobile behavior) */
-@media (min-width: 769px) {
-  /* Main navigation container improvements for better linear alignment */
-  .dashboard-nav-menu {
-    /* Improve flex properties for better alignment on desktop only */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 1.5rem; /* Consistent spacing between nav items */
-    
-    /* Ensure proper wrapping and alignment */
-    flex-wrap: nowrap;
-    white-space: nowrap;
-    
-    /* Keep the original absolute positioning for desktop */
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 1010;
-  }
-
-  /* Ensure nav links have consistent spacing and alignment on desktop */
-  .dashboard-nav-menu a,
-  .dashboard-nav-menu button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    
-    /* Consistent padding for all nav items */
-    padding: 0.75rem 1.25rem;
-    margin: 0;
-    
-    /* Better text alignment */
-    text-align: center;
-    white-space: nowrap;
-    
-    /* Ensure consistent height */
-    min-height: 44px;
-    box-sizing: border-box;
-  }
+/* Main navigation container improvements for better linear alignment */
+.dashboard-nav-menu {
+  /* Keep centered but adjust alignment for better spacing */
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  
+  /* Improve flex properties for better alignment */
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 1.5rem !important; /* Consistent spacing between nav items */
+  
+  /* Ensure proper wrapping and alignment */
+  flex-wrap: nowrap !important;
+  white-space: nowrap !important;
+  
+  /* Better container properties */
+  min-height: 60px !important;
+  padding: 0 1rem !important;
 }
 
-/* Medium screens - slightly tighter spacing */
+/* Ensure nav links have consistent spacing and alignment */
+.dashboard-nav-menu a {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  
+  /* Consistent padding for all nav items */
+  padding: 0.75rem 1.25rem !important;
+  margin: 0 !important;
+  
+  /* Better text alignment */
+  text-align: center !important;
+  white-space: nowrap !important;
+  
+  /* Ensure consistent height */
+  min-height: 44px !important;
+  box-sizing: border-box !important;
+}
+
+/* Improve visual alignment on larger screens */
 @media (min-width: 769px) and (max-width: 1200px) {
   .dashboard-nav-menu {
-    gap: 1.25rem;
+    gap: 1.25rem !important;
   }
   
-  .dashboard-nav-menu a,
-  .dashboard-nav-menu button {
-    padding: 0.75rem 1rem;
-    font-size: 0.95rem;
+  .dashboard-nav-menu a {
+    padding: 0.75rem 1rem !important;
+    font-size: 0.95rem !important;
   }
 }
 
-/* Large screens - more generous spacing */
+/* Better alignment for very large screens */
 @media (min-width: 1201px) {
   .dashboard-nav-menu {
-    gap: 2rem;
-    max-width: 800px; /* Prevent over-stretching */
+    gap: 2rem !important;
+    max-width: 800px !important; /* Prevent over-stretching */
   }
   
-  .dashboard-nav-menu a,
-  .dashboard-nav-menu button {
-    padding: 0.75rem 1.5rem;
-    font-size: 1rem;
+  .dashboard-nav-menu a {
+    padding: 0.75rem 1.5rem !important;
+    font-size: 1rem !important;
   }
 }
 
-/* DO NOT OVERRIDE MOBILE BEHAVIOR - Let original CSS handle mobile completely */
-/* The original @media (max-width: 768px) rules in Dashboard.css will handle mobile */
-
-/* Profile subnav alignment improvements (desktop only) */
-@media (min-width: 769px) {
-  .profile-subnav-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 1rem;
-    flex-wrap: wrap;
-    padding: 0 2rem;
+/* Ensure hamburger menu button is properly positioned when visible */
+@media (max-width: 768px) {
+  /* Keep mobile behavior intact */
+  .dashboard-nav-menu {
+    position: static !important;
+    transform: none !important;
+    left: auto !important;
+    justify-content: flex-start !important;
   }
-
-  .profile-nav-btn {
-    margin: 0.25rem;
-    white-space: nowrap;
+  
+  .mobile-menu-btn {
+    margin-left: auto !important;
+    margin-right: 1rem !important;
   }
 }
 
-/* Small improvements that don't break mobile */
-.dashboard-nav-container {
-  position: relative; /* Ensure absolute positioning context for nav menu */
+/* Fix any potential alignment issues with the nav container */
+.dashboard-nav {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  position: relative !important;
+  width: 100% !important;
 }
 
-/* Ensure nav menu items are properly styled on all screen sizes */
-.dashboard-nav-menu .dashboard-nav-link {
-  transition: all 0.2s ease;
-  border-radius: 8px;
-  font-weight: 500;
+/* Ensure proper spacing in the main dashboard header */
+.dashboard-header {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  position: relative !important;
+}
+
+/* Profile subnav alignment improvements */
+.profile-subnav-container {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  gap: 1rem !important;
+  flex-wrap: wrap !important;
+  padding: 0 2rem !important;
+}
+
+.profile-nav-btn {
+  margin: 0.25rem !important;
+  white-space: nowrap !important;
 }

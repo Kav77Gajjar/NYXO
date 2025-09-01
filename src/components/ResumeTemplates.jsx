@@ -1,5 +1,7 @@
 import { useState } from 'react'
 import './ResumeTemplates.css'
+import AcademicTemplate from './AcademicTemplate'
+import CreativeTemplate from './CreativeTemplate'
 
 function ResumeTemplates({ onNavigateBack }) {
   const [selectedTemplate, setSelectedTemplate] = useState(null)
@@ -135,23 +137,15 @@ function ResumeTemplates({ onNavigateBack }) {
       description: 'Bold layout for design and creative positions',
       color: '#FF7B54',
       previewContent: (
-        <svg width="100%" height="100%" viewBox="0 0 200 280" xmlns="http://www.w3.org/2000/svg">
-          <rect width="70" height="280" fill="#FF7B5420" />
-          <rect x="10" y="20" width="50" height="50" rx="25" fill="#FF7B54" />
-          <rect x="85" y="20" width="105" height="15" fill="#FF7B5440" />
-          <rect x="85" y="45" width="75" height="10" fill="#FF7B5430" />
-          <rect x="85" y="65" width="95" height="8" fill="#FF7B5420" />
-          <rect x="10" y="90" width="50" height="12" fill="#FF7B5480" />
-          <rect x="85" y="100" width="105" height="1" fill="#FF7B5440" />
-          <rect x="85" y="110" width="105" height="6" fill="#FF7B5420" />
-          <rect x="85" y="125" width="105" height="6" fill="#FF7B5420" />
-          <rect x="85" y="140" width="105" height="6" fill="#FF7B5420" />
-          <rect x="10" y="160" width="50" height="12" fill="#FF7B5480" />
-          <rect x="85" y="170" width="105" height="1" fill="#FF7B5440" />
-          <rect x="85" y="180" width="105" height="6" fill="#FF7B5420" />
-          <rect x="85" y="195" width="105" height="6" fill="#FF7B5420" />
-          <rect x="85" y="210" width="105" height="6" fill="#FF7B5420" />
-        </svg>
+        <div style={{ 
+          transform: 'scale(0.25)', 
+          transformOrigin: 'top left',
+          width: '400%',
+          height: '400%',
+          overflow: 'hidden'
+        }}>
+          <CreativeTemplate />
+        </div>
       )
     },
     {
@@ -160,23 +154,15 @@ function ResumeTemplates({ onNavigateBack }) {
       description: 'Structured format for research and education roles',
       color: '#6E44FF',
       previewContent: (
-        <svg width="100%" height="100%" viewBox="0 0 200 280" xmlns="http://www.w3.org/2000/svg">
-          <rect width="200" height="50" fill="#6E44FF" />
-          <rect x="70" y="15" width="120" height="20" fill="white" fillOpacity="0.3" />
-          <rect x="10" y="60" width="180" height="1" fill="#6E44FF80" />
-          <rect x="10" y="70" width="100" height="12" fill="#6E44FF50" />
-          <rect x="10" y="90" width="180" height="6" fill="#6E44FF20" />
-          <rect x="10" y="105" width="180" height="6" fill="#6E44FF20" />
-          <rect x="10" y="120" width="180" height="6" fill="#6E44FF20" />
-          <rect x="10" y="140" width="180" height="1" fill="#6E44FF80" />
-          <rect x="10" y="150" width="100" height="12" fill="#6E44FF50" />
-          <rect x="10" y="170" width="180" height="6" fill="#6E44FF20" />
-          <rect x="10" y="185" width="180" height="6" fill="#6E44FF20" />
-          <rect x="10" y="200" width="180" height="6" fill="#6E44FF20" />
-          <rect x="10" y="220" width="180" height="1" fill="#6E44FF80" />
-          <rect x="10" y="230" width="100" height="12" fill="#6E44FF50" />
-          <rect x="10" y="250" width="180" height="6" fill="#6E44FF20" />
-        </svg>
+        <div style={{ 
+          transform: 'scale(0.4)', 
+          transformOrigin: 'top left',
+          width: '250%',
+          height: '250%',
+          overflow: 'hidden'
+        }}>
+          <AcademicTemplate />
+        </div>
       )
     },
     {
@@ -286,24 +272,39 @@ function ResumeTemplates({ onNavigateBack }) {
       id: 'template8',
       name: 'Entry-Level',
       description: 'Perfect for graduates and first-time job seekers',
-      color: '#EF476F',
+      color: '#6ea6b9',
       previewContent: (
         <svg width="100%" height="100%" viewBox="0 0 200 280" xmlns="http://www.w3.org/2000/svg">
           <rect width="200" height="280" fill="#ffffff" />
-          <rect x="10" y="20" width="180" height="40" fill="#EF476F10" />
-          <rect x="20" y="30" width="120" height="10" fill="#EF476F50" />
-          <rect x="20" y="45" width="80" height="6" fill="#EF476F30" />
-          <rect x="10" y="70" width="180" height="1" fill="#EF476F30" />
-          <rect x="10" y="80" width="60" height="10" fill="#EF476F" />
-          <rect x="10" y="100" width="180" height="6" fill="#EF476F20" />
-          <rect x="10" y="115" width="180" height="6" fill="#EF476F20" />
-          <rect x="10" y="130" width="180" height="6" fill="#EF476F20" />
-          <rect x="10" y="145" width="180" height="6" fill="#EF476F20" />
-          <rect x="10" y="170" width="60" height="10" fill="#EF476F" />
-          <rect x="10" y="190" width="180" height="6" fill="#EF476F20" />
-          <rect x="10" y="205" width="180" height="6" fill="#EF476F20" />
-          <rect x="10" y="220" width="180" height="6" fill="#EF476F20" />
-          <rect x="10" y="235" width="180" height="6" fill="#EF476F20" />
+          {/* Header section with light blue background */}
+          <rect x="10" y="20" width="180" height="40" fill="#dbe7f0" />
+          <rect x="20" y="30" width="120" height="10" fill="#1f2937" />
+          <rect x="20" y="45" width="80" height="6" fill="#4b5563" />
+          {/* Summary section with teal background */}
+          <rect x="10" y="70" width="180" height="20" fill="#6ea6b9" />
+          <rect x="20" y="75" width="40" height="6" fill="#ffffff" />
+          <rect x="20" y="82" width="160" height="4" fill="#ffffff" />
+          {/* Education section */}
+          <rect x="10" y="100" width="60" height="8" fill="#dbe7f0" />
+          <rect x="10" y="115" width="180" height="6" fill="#1f293720" />
+          <rect x="10" y="125" width="140" height="4" fill="#1f293720" />
+          {/* Experience section */}
+          <rect x="10" y="145" width="80" height="8" fill="#dbe7f0" />
+          <rect x="10" y="160" width="180" height="6" fill="#1f293720" />
+          <rect x="10" y="170" width="160" height="4" fill="#1f293720" />
+          <rect x="15" y="180" width="4" height="4" fill="#1f2937" />
+          <rect x="25" y="180" width="150" height="4" fill="#1f293720" />
+          <rect x="15" y="188" width="4" height="4" fill="#1f2937" />
+          <rect x="25" y="188" width="120" height="4" fill="#1f293720" />
+          {/* Skills section */}
+          <rect x="10" y="205" width="40" height="8" fill="#dbe7f0" />
+          <rect x="10" y="220" width="80" height="4" fill="#1f293720" />
+          <rect x="110" y="220" width="80" height="4" fill="#1f293720" />
+          <rect x="10" y="230" width="70" height="4" fill="#1f293720" />
+          <rect x="110" y="230" width="60" height="4" fill="#1f293720" />
+          {/* Hobbies section */}
+          <rect x="10" y="250" width="80" height="8" fill="#dbe7f0" />
+          <rect x="10" y="265" width="180" height="4" fill="#1f293720" />
         </svg>
       )
     },
@@ -431,6 +432,48 @@ function ResumeTemplates({ onNavigateBack }) {
       // Navigate to Professional Resume Template
       const event = new CustomEvent('navigate', {
         detail: { page: 'professional-resume-template' }
+      })
+      window.dispatchEvent(event)
+    } else if (template.id === 'template2') {
+      // Navigate to Creative Resume Template
+      const event = new CustomEvent('navigate', {
+        detail: { page: 'creative-resume-template' }
+      })
+      window.dispatchEvent(event)
+    } else if (template.id === 'template3') {
+      // Navigate to Academic Resume Template
+      const event = new CustomEvent('navigate', {
+        detail: { page: 'academic-resume-template' }
+      })
+      window.dispatchEvent(event)
+    } else if (template.id === 'template4') {
+      // Navigate to Technical Resume Template
+      const event = new CustomEvent('navigate', {
+        detail: { page: 'technical-resume-template' }
+      })
+      window.dispatchEvent(event)
+    } else if (template.id === 'template5') {
+      // Navigate to Executive Resume Template
+      const event = new CustomEvent('navigate', {
+        detail: { page: 'executive-resume-template' }
+      })
+      window.dispatchEvent(event)
+    } else if (template.id === 'template6') {
+      // Navigate to Modern Resume Template
+      const event = new CustomEvent('navigate', {
+        detail: { page: 'modern-resume-template' }
+      })
+      window.dispatchEvent(event)
+    } else if (template.id === 'template7') {
+      // Navigate to Simple Resume Template
+      const event = new CustomEvent('navigate', {
+        detail: { page: 'simple-resume-template' }
+      })
+      window.dispatchEvent(event)
+    } else if (template.id === 'template8') {
+      // Navigate to Entry-Level Resume Template
+      const event = new CustomEvent('navigate', {
+        detail: { page: 'entry-level-resume-template' }
       })
       window.dispatchEvent(event)
     } else {
