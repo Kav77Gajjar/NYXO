@@ -106,21 +106,27 @@ function JobController({ activeTab = 'search', setActiveTab, onNavigateBack }) {
       </div>
 
       <div className="search-controls">
-        <div className="search-form">
-          <input 
-            type="text" 
-            placeholder="Job title, keywords, or company"
-            className="search-input"
-          />
-          <input 
-            type="text" 
-            placeholder="Location"
-            className="location-input"
-          />
-          {/* Compound action button: Search + Liked (divider) */}
-          <div className="compound-btn" role="group" aria-label="Search and liked actions">
+        <div className="search-form" style={{ display: 'flex', gap: '1rem', marginBottom: '1rem', width: '100%' }}>
+          {/* Input fields container (75%) */}
+          <div style={{ display: 'flex', flex: '4 1 0%', border: '2px solid #667eea', borderRadius: 12, overflow: 'hidden', background: 'white', boxShadow: '0 2px 4px rgba(0,0,0,0.08)' }}>
+            <input 
+              type="text" 
+              placeholder="Job title, keywords, or company"
+              className="search-input"
+              style={{ flex: 1, border: 'none', borderRadius: 0, boxShadow: 'none', padding: '1rem', fontSize: '1rem' }}
+            />
+            <input 
+              type="text" 
+              placeholder="Location"
+              className="location-input"
+              style={{ flex: 1, border: 'none', borderRadius: 0, boxShadow: 'none', borderLeft: '1px solid #e2e8f0', padding: '1rem', fontSize: '1rem' }}
+            />
+          </div>
+          {/* Buttons container (25%) */}
+          <div style={{ display: 'flex', flexDirection: 'row', flex: '1 1 0%', border: '2px solid #667eea', borderRadius: 12, overflow: 'hidden', background: 'white', boxShadow: '0 2px 4px rgba(0,0,0,0.08)' }}>
             <button
               className="search-btn compound-main"
+              style={{ flex: 1, border: 'none', borderRadius: 0, boxShadow: 'none', fontSize: '1rem', fontWeight: 600, background: 'linear-gradient(90deg, #667eea 0%, #764ba2 100%)', color: 'white' }}
               onClick={() => {/* trigger search - placeholder */}}
             >
               Search Jobs
@@ -129,6 +135,7 @@ function JobController({ activeTab = 'search', setActiveTab, onNavigateBack }) {
               className="liked-btn compound-side"
               aria-label="Liked Jobs"
               title="Liked Jobs"
+              style={{ flex: 1, border: 'none', borderRadius: 0, boxShadow: 'none', fontSize: '1rem', borderLeft: '1px solid #e2e8f0', background: 'white', color: '#1e293b' }}
               onClick={() => currentSetActiveTab('saved')}
             >
               <span className="heart-icon" aria-hidden="true">❤</span>
@@ -136,22 +143,35 @@ function JobController({ activeTab = 'search', setActiveTab, onNavigateBack }) {
           </div>
         </div>
 
-        <div className="filter-options">
-          <select className="filter-select">
+        <div 
+          className="filter-options-container"
+          style={{
+            display: 'flex',
+            border: '2px solid #667eea',
+            borderRadius: 12,
+            overflow: 'hidden',
+            width: '100%',
+            margin: '0 auto',
+            background: 'white',
+            boxShadow: '0 2px 4px rgba(0,0,0,0.08)',
+            marginBottom: '2rem',
+          }}
+        >
+          <select className="filter-select" style={{ flex: 1, border: 'none', borderRadius: 0, boxShadow: 'none' }}>
             <option>Job Type</option>
             <option>Full-time</option>
             <option>Part-time</option>
             <option>Contract</option>
             <option>Remote</option>
           </select>
-          <select className="filter-select">
+          <select className="filter-select" style={{ flex: 1, border: 'none', borderRadius: 0, boxShadow: 'none', borderLeft: '1px solid #e2e8f0' }}>
             <option>Experience Level</option>
             <option>Entry Level</option>
             <option>Mid Level</option>
             <option>Senior Level</option>
             <option>Executive</option>
           </select>
-          <select className="filter-select">
+          <select className="filter-select" style={{ flex: 1, border: 'none', borderRadius: 0, boxShadow: 'none', borderLeft: '1px solid #e2e8f0' }}>
             <option>Salary Range</option>
             <option>$40,000 - $60,000</option>
             <option>$60,000 - $80,000</option>
