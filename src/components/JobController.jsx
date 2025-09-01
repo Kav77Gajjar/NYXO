@@ -102,7 +102,23 @@ function JobController({ activeTab = 'search', setActiveTab, onNavigateBack }) {
   const renderJobSearch = () => (
     <div className="job-search-section">
       <div className="section-header">
-        <h2>🔍 Job Search</h2>
+        <h2 style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+          <svg 
+            width="32" 
+            height="32" 
+            viewBox="0 0 24 24" 
+            fill="none" 
+            stroke="currentColor" 
+            strokeWidth="2" 
+            strokeLinecap="round" 
+            strokeLinejoin="round"
+            style={{ verticalAlign: 'middle' }}
+          >
+            <circle cx="11" cy="11" r="8"></circle>
+            <path d="m21 21-4.35-4.35"></path>
+          </svg>
+          Search Work
+        </h2>
       </div>
 
       <div className="search-controls">
@@ -122,14 +138,28 @@ function JobController({ activeTab = 'search', setActiveTab, onNavigateBack }) {
               style={{ flex: 1, border: 'none', borderRadius: 0, boxShadow: 'none', borderLeft: '1px solid #e2e8f0', padding: '1rem', fontSize: '1rem' }}
             />
           </div>
-          {/* Buttons container (25%) */}
-          <div style={{ display: 'flex', flexDirection: 'row', flex: '1 1 0%', border: '2px solid #667eea', borderRadius: 12, overflow: 'hidden', background: 'white', boxShadow: '0 2px 4px rgba(0,0,0,0.08)' }}>
+          {/* Grouped buttons container */}
+          <div className="search-btns-group" style={{ display: 'flex', flexDirection: 'row', flex: '1 1 0%', border: '2px solid #667eea', borderRadius: 12, overflow: 'hidden', background: 'white', boxShadow: '0 2px 4px rgba(0,0,0,0.08)' }}>
             <button
               className="search-btn compound-main"
-              style={{ flex: 1, border: 'none', borderRadius: 0, boxShadow: 'none', fontSize: '1rem', fontWeight: 600, background: 'linear-gradient(90deg, #667eea 0%, #764ba2 100%)', color: 'white' }}
+              style={{ flex: 1, border: 'none', borderRadius: 0, boxShadow: 'none', fontSize: '1rem', fontWeight: 600, background: 'linear-gradient(90deg, #667eea 0%, #764ba2 100%)', color: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem' }}
               onClick={() => {/* trigger search - placeholder */}}
             >
-              Search Jobs
+              <svg 
+                width="20" 
+                height="20" 
+                viewBox="0 0 24 24" 
+                fill="none" 
+                stroke="currentColor" 
+                strokeWidth="2" 
+                strokeLinecap="round" 
+                strokeLinejoin="round"
+                style={{ verticalAlign: 'middle' }}
+              >
+                <circle cx="11" cy="11" r="8"></circle>
+                <path d="m21 21-4.35-4.35"></path>
+              </svg>
+              Search
             </button>
             <button
               className="liked-btn compound-side"
@@ -148,7 +178,7 @@ function JobController({ activeTab = 'search', setActiveTab, onNavigateBack }) {
           style={{
             display: 'flex',
             border: '2px solid #667eea',
-            borderRadius: 12,
+              borderRadius: 8,
             overflow: 'hidden',
             width: '100%',
             margin: '0 auto',

@@ -63,15 +63,18 @@
 }
 
 .dashboard-nav-menu {
+  /* display: flex; */
+  /* align-items: center; */
+  /* gap: 0.5rem; */
+
+
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-}
-
-/* Center the main nav menu visually while preserving left/right controls
-   Uses absolute centering inside the relative container. Falls back to
-   normal flow on small screens. */
-.dashboard-nav-menu {
+  gap: 2rem;
+  flex-wrap: wrap;
+  margin-right: 2.5rem;
+  margin-left: 1.5rem;
+  /* moves the actions slightly left from the edge */
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
@@ -1107,9 +1110,13 @@
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
-.action-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+
+.actions-grid.no-hover .action-card:hover,
+.actions-grid.no-hover .action-card.primary:hover,
+.actions-grid.no-hover .action-card.secondary:hover {
+  transform: none;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  border-color: #e2e8f0;
 }
 
 .action-card.primary {

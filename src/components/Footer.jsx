@@ -36,16 +36,6 @@ const Footer = ({ onNavigate }) => {
             </ul>
           </div>
 
-          {/* Legal */}
-          <div className="footer-section">
-            <h4 className="footer-heading">Legal</h4>
-            <ul className="footer-links">
-              <li><a href="#privacy">Privacy Policy</a></li>
-              <li><a href="#terms">Terms of Service</a></li>
-              <li><a href="#cookies">Cookie Policy</a></li>
-              <li><a href="#contact">Contact Us</a></li>
-            </ul>
-          </div>
         </div>
 
         {/* Footer Bottom */}
@@ -59,10 +49,7 @@ const Footer = ({ onNavigate }) => {
               🗺️ Site Map
             </button>
             <div className="footer-social">
-              <span>Follow us:</span>
-              <a href="#" aria-label="LinkedIn">LinkedIn</a>
-              <a href="#" aria-label="Twitter">Twitter</a>
-              <a href="#" aria-label="Facebook">Facebook</a>
+              <span>Contact Us</span>
             </div>
           </div>
         </div>

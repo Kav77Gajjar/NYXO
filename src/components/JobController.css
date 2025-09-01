@@ -1,3 +1,16 @@
+/* Grouped Search and Liked buttons container */
+.search-btns-group {
+  display: flex;
+  flex-direction: row;
+  flex: 1 1 0%;
+  border: 2px solid #667eea;
+  border-radius: 12px;
+  overflow: hidden;
+  background: white;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+  min-width: 160px;
+  max-width: 220px;
+}
 /* Job Controller Layout - Two column design with left sidebar */
 .job-controller {
   color: #333;

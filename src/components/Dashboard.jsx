@@ -397,53 +397,41 @@ function Dashboard({ onLogout, userEmail, onNavigate }) {
         {/* Quick Actions */}
         <div className="quick-actions">
           <h2>Quick Actions</h2>
-          <div className="actions-grid">
-            <div 
-              className="action-card primary"
-              onClick={() => setCurrentPage('profile')}
-            >
-              <div className="action-icon">👤</div>
-              <div className="action-content">
-                <h3>Update Profile</h3>
-                <p>Keep your profile fresh and attract better opportunities</p>
+          <div className="main-actions-border-container">
+            <div className="actions-grid no-hover">
+              <div 
+                className="action-card primary"
+                onClick={() => setCurrentPage('profile')}
+              >
+                <div className="action-icon">👤</div>
+                <div className="action-content">
+                  <h3>Update Profile</h3>
+                  <p>Keep your profile fresh and attract better opportunities</p>
+                </div>
+                <div className="action-arrow">→</div>
               </div>
-              <div className="action-arrow">→</div>
-            </div>
-            
-            <div 
-              className="action-card secondary"
-              onClick={() => setCurrentPage('toolkit')}
-            >
-              <div className="action-icon">🛠️</div>
-              <div className="action-content">
-                <h3>Career Tools</h3>
-                <p>Resume builder, interview prep, and skill assessments</p>
+              <div 
+                className="action-card secondary"
+                onClick={() => setCurrentPage('toolkit')}
+              >
+                <div className="action-icon">🛠️</div>
+                <div className="action-content">
+                  <h3>Career Tools</h3>
+                  <p>Resume builder, interview prep, and skill assessments</p>
+                </div>
+                <div className="action-arrow">→</div>
               </div>
-              <div className="action-arrow">→</div>
-            </div>
-            
-            <div 
-              className="action-card secondary"
-              onClick={() => setCurrentPage('jobcontroller')}
-            >
-              <div className="action-icon">💼</div>
-              <div className="action-content">
-                <h3>Job Search</h3>
-                <p>Find new opportunities and track your applications</p>
+              <div 
+                className="action-card secondary"
+                onClick={() => setCurrentPage('jobcontroller')}
+              >
+                <div className="action-icon">💼</div>
+                <div className="action-content">
+                  <h3>Job Search</h3>
+                  <p>Find new opportunities and track your applications</p>
+                </div>
+                <div className="action-arrow">→</div>
               </div>
-              <div className="action-arrow">→</div>
-            </div>
-            
-            <div 
-              className="action-card secondary"
-              onClick={() => onNavigate('sitemap')}
-            >
-              <div className="action-icon">🗺️</div>
-              <div className="action-content">
-                <h3>Site Map</h3>
-                <p>Navigate through all pages and sections of NYXO</p>
-              </div>
-              <div className="action-arrow">→</div>
             </div>
           </div>
         </div>
