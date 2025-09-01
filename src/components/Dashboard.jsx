@@ -1,5 +1,7 @@
-import { useState, useEffect } from 'react'
-import './Dashboard.css'
+import React, { useState, useEffect, useContext } from 'react';
+import './Dashboard.css';
+import './navigation-alignment-fix.css';
+import { useTranslation } from '../contexts/TranslationContext';
 import Toolkit from './Toolkit'
 import JobController from './JobController'
 import Profile from './Profile'
@@ -9,7 +11,6 @@ import ResumeTemplates from './ResumeTemplates'
 import ProfessionalResumeTemplate from './ProfessionalResumeTemplate'
 import CoverLetterGenerator from './CoverLetterGenerator'
 import CoverLetterTemplates from './CoverLetterTemplates'
-import { useTranslation } from '../contexts/TranslationContext'
 
 function Dashboard({ onLogout, userEmail, onNavigate }) {
   const [currentPage, setCurrentPage] = useState('dashboard')

@@ -1,0 +1,193 @@
+/* Desktop Dropdown Fix - Resolves overlapping issues on larger screens */
+
+/* Override mobile-first rules for desktop screens */
+@media (min-width: 768px) {
+  /* Ensure filter container has proper overflow management */
+  .filter-options-container {
+    overflow: visible !important;
+    position: relative !important;
+    z-index: 50 !important;
+  }
+  
+  /* Dropdown containers must allow overflow */
+  .custom-dropdown {
+    overflow: visible !important;
+    position: relative !important;
+    z-index: 100 !important;
+  }
+  
+  /* Dropdown menus positioning for desktop */
+  .dropdown-menu,
+  div[id^="dropdown-"] {
+    position: absolute !important;
+    top: 100% !important;
+    left: 0 !important;
+    right: 0 !important;
+    background: white !important;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15) !important;
+    z-index: 9999 !important;
+    border: 1px solid #e2e8f0 !important;
+    border-top: none !important;
+    border-radius: 0 0 12px 12px !important;
+    display: none !important;
+    min-width: 200px !important;
+    max-height: 300px !important;
+    overflow-y: auto !important;
+  }
+  
+  /* Force dropdown visibility when opened */
+  .dropdown-menu[style*="display: block"],
+  div[id^="dropdown-"][style*="display: block"] {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    z-index: 9999 !important;
+    transform: translateY(0) !important;
+  }
+  
+  /* Dropdown items styling for desktop */
+  .dropdown-item {
+    padding: 12px 16px !important;
+    cursor: pointer !important;
+    color: #2d3748 !important;
+    border-bottom: 1px solid #f1f5f9 !important;
+    transition: background-color 0.2s ease !important;
+    font-size: 0.95rem !important;
+    white-space: nowrap !important;
+  }
+  
+  .dropdown-item:last-child {
+    border-bottom: none !important;
+    border-radius: 0 0 12px 12px !important;
+  }
+  
+  .dropdown-item:hover {
+    background: #f8fafc !important;
+    color: #1a202c !important;
+  }
+  
+  /* Dropdown selected styling for desktop */
+  .dropdown-selected {
+    padding: 1rem 3rem 1rem 1.5rem !important;
+    height: 58px !important;
+    min-height: 58px !important;
+    display: flex !important;
+    align-items: center !important;
+    cursor: pointer !important;
+    font-weight: 600 !important;
+    color: #2d3748 !important;
+    background: white !important;
+    position: relative !important;
+    transition: all 0.3s ease !important;
+    border-radius: 0 !important;
+  }
+  
+  .dropdown-selected:hover {
+    background: #f8fafc !important;
+  }
+  
+  /* Dropdown arrow styling */
+  .dropdown-arrow {
+    position: absolute !important;
+    right: 1.2rem !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    width: 1.2rem !important;
+    height: 1.2rem !important;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23667eea' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6,9 12,15 18,9'%3e%3c/polyline%3e%3c/svg%3e") !important;
+    background-repeat: no-repeat !important;
+    background-position: center !important;
+    background-size: contain !important;
+    transition: transform 0.3s ease !important;
+  }
+  
+  /* Rotate arrow when dropdown is open */
+  .dropdown-selected[aria-expanded="true"] .dropdown-arrow {
+    transform: translateY(-50%) rotate(180deg) !important;
+  }
+  
+  /* Ensure tab-content doesn't clip dropdowns */
+  .tab-content {
+    overflow: visible !important;
+  }
+  
+  /* Ensure job-search-section doesn't clip dropdowns */
+  .job-search-section {
+    overflow: visible !important;
+  }
+  
+  /* Ensure search-controls doesn't clip dropdowns */
+  .search-controls {
+    overflow: visible !important;
+  }
+}
+
+/* Large desktop screens - even better spacing */
+@media (min-width: 1024px) {
+  .dropdown-menu,
+  div[id^="dropdown-"] {
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15) !important;
+    min-width: 220px !important;
+  }
+  
+  .dropdown-item {
+    padding: 14px 18px !important;
+    font-size: 1rem !important;
+  }
+  
+  .dropdown-selected {
+    font-size: 1rem !important;
+  }
+}
+
+/* Ultra-wide screens */
+@media (min-width: 1400px) {
+  .dropdown-menu,
+  div[id^="dropdown-"] {
+    min-width: 240px !important;
+  }
+}
+
+/* Fix for any potential conflicts with other styles */
+.job-controller .filter-options-container .custom-dropdown .dropdown-menu,
+.job-controller .filter-options-container .custom-dropdown div[id^="dropdown-"] {
+  position: absolute !important;
+  top: 100% !important;
+  left: 0 !important;
+  right: 0 !important;
+  z-index: 9999 !important;
+}
+
+/* Ensure no parent container clips the dropdowns */
+.job-controller,
+.job-controller *:not(.dropdown-menu):not([id^="dropdown-"]) {
+  overflow: visible !important;
+}
+
+/* Special fix for dropdown container overflow */
+.job-controller .filter-options-container {
+  overflow: visible !important;
+}
+
+.job-controller .custom-dropdown {
+  overflow: visible !important;
+}
+
+/* Animation for dropdown appearance */
+@media (min-width: 768px) {
+  .dropdown-menu,
+  div[id^="dropdown-"] {
+    animation: fadeInDown 0.2s ease-out !important;
+  }
+  
+  @keyframes fadeInDown {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}

@@ -69,6 +69,41 @@
   color: #667eea;
 }
 
+/* Active/Clickable Links */
+.footer-link-active {
+  cursor: pointer;
+  position: relative;
+}
+
+.footer-link-active:hover {
+  color: #667eea !important;
+  text-decoration: underline;
+}
+
+.footer-link-active:active {
+  color: #5a67d8 !important;
+}
+
+/* Disabled Links */
+.footer-link-disabled {
+  color: #64748b !important;
+  cursor: not-allowed !important;
+  opacity: 0.6;
+  position: relative;
+}
+
+.footer-link-disabled:hover {
+  color: #64748b !important;
+  text-decoration: none !important;
+}
+
+.footer-link-disabled::after {
+  content: " (Coming Soon)";
+  font-size: 0.8rem;
+  color: #94a3b8;
+  font-style: italic;
+}
+
 .footer-bottom {
   border-top: 1px solid #475569;
   padding-top: 1.5rem;

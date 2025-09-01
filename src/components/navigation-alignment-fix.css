@@ -1,0 +1,102 @@
+/* Navigation Bar Linear Alignment Fix - Responsive Safe */
+
+/* Desktop-only improvements (preserve mobile behavior) */
+@media (min-width: 769px) {
+  /* Main navigation container improvements for better linear alignment */
+  .dashboard-nav-menu {
+    /* Improve flex properties for better alignment on desktop only */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem; /* Consistent spacing between nav items */
+    
+    /* Ensure proper wrapping and alignment */
+    flex-wrap: nowrap;
+    white-space: nowrap;
+    
+    /* Keep the original absolute positioning for desktop */
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1010;
+  }
+
+  /* Ensure nav links have consistent spacing and alignment on desktop */
+  .dashboard-nav-menu a,
+  .dashboard-nav-menu button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    /* Consistent padding for all nav items */
+    padding: 0.75rem 1.25rem;
+    margin: 0;
+    
+    /* Better text alignment */
+    text-align: center;
+    white-space: nowrap;
+    
+    /* Ensure consistent height */
+    min-height: 44px;
+    box-sizing: border-box;
+  }
+}
+
+/* Medium screens - slightly tighter spacing */
+@media (min-width: 769px) and (max-width: 1200px) {
+  .dashboard-nav-menu {
+    gap: 1.25rem;
+  }
+  
+  .dashboard-nav-menu a,
+  .dashboard-nav-menu button {
+    padding: 0.75rem 1rem;
+    font-size: 0.95rem;
+  }
+}
+
+/* Large screens - more generous spacing */
+@media (min-width: 1201px) {
+  .dashboard-nav-menu {
+    gap: 2rem;
+    max-width: 800px; /* Prevent over-stretching */
+  }
+  
+  .dashboard-nav-menu a,
+  .dashboard-nav-menu button {
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+  }
+}
+
+/* DO NOT OVERRIDE MOBILE BEHAVIOR - Let original CSS handle mobile completely */
+/* The original @media (max-width: 768px) rules in Dashboard.css will handle mobile */
+
+/* Profile subnav alignment improvements (desktop only) */
+@media (min-width: 769px) {
+  .profile-subnav-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    padding: 0 2rem;
+  }
+
+  .profile-nav-btn {
+    margin: 0.25rem;
+    white-space: nowrap;
+  }
+}
+
+/* Small improvements that don't break mobile */
+.dashboard-nav-container {
+  position: relative; /* Ensure absolute positioning context for nav menu */
+}
+
+/* Ensure nav menu items are properly styled on all screen sizes */
+.dashboard-nav-menu .dashboard-nav-link {
+  transition: all 0.2s ease;
+  border-radius: 8px;
+  font-weight: 500;
+}

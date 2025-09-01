@@ -1,0 +1,171 @@
+/* Button Alignment Fix - Make search buttons even and properly aligned */
+
+/* Reset all button group styling for consistent appearance */
+.job-controller .search-btns-group {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 0.5rem !important;
+  width: auto !important;
+  max-width: none !important;
+  min-width: auto !important;
+  height: auto !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  border: none !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  overflow: visible !important;
+  flex: none !important;
+  flex-grow: 0 !important;
+  flex-shrink: 0 !important;
+  flex-basis: auto !important;
+}
+
+/* Make both buttons exactly the same size and style */
+.job-controller .search-btn,
+.job-controller .liked-btn {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 48px !important;
+  height: 48px !important;
+  min-width: 48px !important;
+  min-height: 48px !important;
+  max-width: 48px !important;
+  max-height: 48px !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  border: 2px solid #667eea !important;
+  border-radius: 12px !important;
+  background: white !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08) !important;
+  cursor: pointer !important;
+  transition: all 0.3s ease !important;
+  position: relative !important;
+  overflow: hidden !important;
+  flex: none !important;
+  flex-grow: 0 !important;
+  flex-shrink: 0 !important;
+  flex-basis: auto !important;
+}
+
+/* Ensure button icons are properly centered */
+.job-controller .search-btn .btn-icon-container,
+.job-controller .liked-btn .btn-icon-container {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 100% !important;
+  height: 100% !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+/* Style the SVG icons consistently */
+.job-controller .search-btn svg {
+  width: 20px !important;
+  height: 20px !important;
+  stroke: #667eea !important;
+  stroke-width: 2 !important;
+}
+
+/* Style the heart icon consistently */
+.job-controller .liked-btn .heart-icon {
+  font-size: 18px !important;
+  line-height: 1 !important;
+  color: #667eea !important;
+}
+
+/* Hover effects */
+.job-controller .search-btn:hover,
+.job-controller .liked-btn:hover {
+  background: #667eea !important;
+  border-color: #667eea !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 4px 8px rgba(102, 126, 234, 0.2) !important;
+}
+
+.job-controller .search-btn:hover svg {
+  stroke: white !important;
+}
+
+.job-controller .liked-btn:hover .heart-icon {
+  color: white !important;
+}
+
+/* Active states */
+.job-controller .search-btn:active,
+.job-controller .liked-btn:active {
+  transform: translateY(0) !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08) !important;
+}
+
+/* Ensure buttons don't inherit any unwanted styles */
+.job-controller .search-btn,
+.job-controller .liked-btn {
+  font-family: inherit !important;
+  font-size: inherit !important;
+  line-height: 1 !important;
+  text-decoration: none !important;
+  text-align: center !important;
+  vertical-align: top !important;
+  white-space: nowrap !important;
+  user-select: none !important;
+  -webkit-user-select: none !important;
+  -moz-user-select: none !important;
+  -ms-user-select: none !important;
+}
+
+/* Remove any compound button styling that might conflict */
+.job-controller .compound-main,
+.job-controller .compound-side {
+  width: 48px !important;
+  height: 48px !important;
+  border-radius: 12px !important;
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+  .job-controller .search-btn,
+  .job-controller .liked-btn {
+    width: 44px !important;
+    height: 44px !important;
+    min-width: 44px !important;
+    min-height: 44px !important;
+    max-width: 44px !important;
+    max-height: 44px !important;
+  }
+  
+  .job-controller .search-btn svg {
+    width: 18px !important;
+    height: 18px !important;
+  }
+  
+  .job-controller .liked-btn .heart-icon {
+    font-size: 16px !important;
+  }
+}
+
+@media (min-width: 1024px) {
+  .job-controller .search-btn,
+  .job-controller .liked-btn {
+    width: 52px !important;
+    height: 52px !important;
+    min-width: 52px !important;
+    min-height: 52px !important;
+    max-width: 52px !important;
+    max-height: 52px !important;
+  }
+  
+  .job-controller .search-btn svg {
+    width: 22px !important;
+    height: 22px !important;
+  }
+  
+  .job-controller .liked-btn .heart-icon {
+    font-size: 20px !important;
+  }
+}

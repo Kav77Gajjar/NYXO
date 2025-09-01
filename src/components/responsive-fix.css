@@ -1,0 +1,201 @@
+/* Responsive fixes for JobController component */
+
+/* Base responsive styles */
+.job-controller {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 90px 2rem 2rem 2rem;
+}
+
+/* Better tab navigation display */
+.tab-navigation {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+
+/* Search form responsiveness */
+.search-form {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  width: 100%;
+  flex-wrap: wrap;
+}
+
+.search-form > div:first-child {
+  flex: 4 1 300px; /* Minimum width for the search inputs */
+}
+
+.search-btns-group {
+  flex: 1 1 160px !important; /* Allow it to grow but maintain minimum width */
+  max-width: 220px;
+}
+
+/* Filter options container responsiveness */
+.filter-options-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+/* Custom dropdown responsiveness */
+.custom-dropdown {
+  flex: 1 1 180px !important; /* Allow wrapping on small screens with minimum width */
+  min-width: 180px;
+}
+
+/* Ensure the dropdown options are fully visible */
+.custom-dropdown div[id^="dropdown-"] {
+  width: 100%;
+  min-width: 180px;
+}
+
+/* Fix for card grids */
+.saved-jobs-grid,
+.analytics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1.5rem;
+}
+
+/* Media queries for specific screen sizes */
+@media (max-width: 1024px) {
+  .job-controller {
+    padding: 80px 1.5rem 1.5rem 1.5rem;
+  }
+  
+  .tab-content {
+    padding: 1.5rem;
+  }
+  
+  .section-header {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .job-controller {
+    padding: 70px 1rem 1rem 1rem;
+  }
+  
+  .tab-content {
+    padding: 1rem;
+  }
+  
+  .search-form > div:first-child {
+    flex-direction: column;
+  }
+  
+  .search-form input.location-input {
+    border-left: none !important;
+    border-top: 1px solid #e2e8f0 !important;
+  }
+  
+  .section-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .filter-options-container {
+    flex-direction: column;
+    border-radius: 12px !important;
+    overflow: hidden !important;
+  }
+  
+  .custom-dropdown {
+    border-left: none !important;
+    border-top: 1px solid #e2e8f0;
+  }
+  
+  .custom-dropdown:first-child {
+    border-top: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .job-controller {
+    padding: 60px 0.75rem 0.75rem 0.75rem;
+  }
+  
+  .tab-content {
+    padding: 0.75rem;
+  }
+  
+  .tab-navigation {
+    flex-direction: column;
+  }
+  
+  .search-btns-group {
+    max-width: 100% !important;
+    width: 100% !important;
+  }
+  
+  .saved-jobs-grid,
+  .analytics-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .job-actions {
+    flex-direction: column;
+  }
+  
+  .action-btn {
+    width: 100%;
+  }
+}
+
+/* Special fix for dropdown positioning on small screens */
+@media (max-width: 768px) {
+  .filter-options-container {
+    z-index: 20 !important;
+  }
+  
+  .custom-dropdown div[id^="dropdown-"] {
+    position: relative !important;
+    top: 0 !important;
+    border-radius: 0 !important;
+    border-top: 1px solid #e2e8f0 !important;
+    box-shadow: none !important;
+  }
+  
+  /* Fix for dropdown-selected on mobile */
+  .dropdown-selected {
+    height: auto !important;
+    min-height: 58px !important;
+    padding: 1rem 3rem 1rem 1rem !important;
+  }
+}
+
+/* Fix for search input container on mobile */
+@media (max-width: 600px) {
+  .search-form > div:first-child {
+    display: flex !important;
+    flex-direction: column !important;
+  }
+
+  .tab-content {
+    padding: 1rem !important;
+  }
+
+  .job-controller {
+    padding: 60px 0.5rem 0.5rem 0.5rem !important;
+  }
+
+  /* Fix tiny screens by reducing padding and font sizes */
+  .section-header h2 {
+    font-size: 1.5rem !important;
+  }
+
+  .search-inputs-container input {
+    padding: 0.75rem !important;
+    font-size: 0.9rem !important;
+  }
+
+  .saved-job-card, .metric-card {
+    padding: 1rem !important;
+  }
+}
