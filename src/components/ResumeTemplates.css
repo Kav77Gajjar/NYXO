@@ -91,7 +91,29 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 8px;
+  padding: 4px; /* Reduced padding to give more space for photos */
+  position: relative;
+  overflow: hidden;
+}
+
+/* Photo background styling for template previews */
+.template-preview > div {
+  max-width: 100%;
+  max-height: 100%;
+  background-size: contain !important; /* Changed from cover to contain to show full image */
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+  border-radius: 4px;
+  width: 100%;
+  height: 100%;
+}
+
+/* Ensure photos maintain aspect ratio and are clearly visible */
+.template-preview img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain; /* Changed from cover to contain to preserve aspect ratio */
+  border-radius: 4px;
 }
 
 .template-icon {

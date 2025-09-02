@@ -137,15 +137,15 @@ function ResumeTemplates({ onNavigateBack }) {
       description: 'Bold layout for design and creative positions',
       color: '#FF7B54',
       previewContent: (
-        <div style={{ 
-          transform: 'scale(0.25)', 
-          transformOrigin: 'top left',
-          width: '400%',
-          height: '400%',
-          overflow: 'hidden'
-        }}>
-          <CreativeTemplate />
-        </div>
+        <div style={{
+          width: '100%',
+          height: '100%',
+          backgroundImage: 'url("/creative.jpg")',
+          backgroundSize: 'contain',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat',
+          borderRadius: '4px'
+        }} />
       )
     },
     {
@@ -154,15 +154,15 @@ function ResumeTemplates({ onNavigateBack }) {
       description: 'Structured format for research and education roles',
       color: '#6E44FF',
       previewContent: (
-        <div style={{ 
-          transform: 'scale(0.4)', 
-          transformOrigin: 'top left',
-          width: '250%',
-          height: '250%',
-          overflow: 'hidden'
-        }}>
-          <AcademicTemplate />
-        </div>
+        <div style={{
+          width: '100%',
+          height: '100%',
+          backgroundImage: 'url("/Acedemic.jpg")',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat',
+          borderRadius: '4px'
+        }} />
       )
     },
     {
@@ -171,24 +171,15 @@ function ResumeTemplates({ onNavigateBack }) {
       description: 'Optimized for IT and engineering positions',
       color: '#2AB3A6',
       previewContent: (
-        <svg width="100%" height="100%" viewBox="0 0 200 280" xmlns="http://www.w3.org/2000/svg">
-          <rect width="200" height="60" fill="#2AB3A6" />
-          <circle cx="40" cy="30" r="20" fill="white" fillOpacity="0.2" />
-          <rect x="70" y="20" width="120" height="10" fill="white" fillOpacity="0.3" />
-          <rect x="70" y="40" width="80" height="6" fill="white" fillOpacity="0.2" />
-          <rect x="10" y="70" width="180" height="40" fill="#2AB3A610" />
-          <rect x="20" y="80" width="80" height="8" fill="#2AB3A650" />
-          <rect x="20" y="95" width="160" height="5" fill="#2AB3A630" />
-          <rect x="10" y="120" width="180" height="40" fill="#2AB3A610" />
-          <rect x="20" y="130" width="80" height="8" fill="#2AB3A650" />
-          <rect x="20" y="145" width="160" height="5" fill="#2AB3A630" />
-          <rect x="10" y="170" width="180" height="40" fill="#2AB3A610" />
-          <rect x="20" y="180" width="80" height="8" fill="#2AB3A650" />
-          <rect x="20" y="195" width="160" height="5" fill="#2AB3A630" />
-          <rect x="10" y="220" width="180" height="40" fill="#2AB3A610" />
-          <rect x="20" y="230" width="80" height="8" fill="#2AB3A650" />
-          <rect x="20" y="245" width="160" height="5" fill="#2AB3A630" />
-        </svg>
+        <div style={{
+          width: '100%',
+          height: '100%',
+          backgroundImage: 'url("/Technical.jpg")',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat',
+          borderRadius: '4px'
+        }} />
       )
     },
     {
@@ -197,26 +188,15 @@ function ResumeTemplates({ onNavigateBack }) {
       description: 'Sophisticated design for leadership positions',
       color: '#345995',
       previewContent: (
-        <svg width="100%" height="100%" viewBox="0 0 200 280" xmlns="http://www.w3.org/2000/svg">
-          <rect width="200" height="280" fill="#f8f8f8" />
-          <rect width="60" height="280" fill="#345995" />
-          <rect x="70" y="30" width="120" height="15" fill="#34599550" />
-          <rect x="70" y="55" width="80" height="8" fill="#34599540" />
-          <circle cx="30" cy="30" r="20" fill="white" fillOpacity="0.2" />
-          <rect x="15" y="70" width="30" height="8" fill="white" fillOpacity="0.3" />
-          <rect x="70" y="85" width="120" height="1" fill="#34599530" />
-          <rect x="70" y="95" width="120" height="8" fill="#34599550" />
-          <rect x="70" y="110" width="120" height="6" fill="#34599520" />
-          <rect x="70" y="125" width="120" height="6" fill="#34599520" />
-          <rect x="15" y="140" width="30" height="8" fill="white" fillOpacity="0.3" />
-          <rect x="70" y="155" width="120" height="8" fill="#34599550" />
-          <rect x="70" y="170" width="120" height="6" fill="#34599520" />
-          <rect x="70" y="185" width="120" height="6" fill="#34599520" />
-          <rect x="15" y="210" width="30" height="8" fill="white" fillOpacity="0.3" />
-          <rect x="70" y="220" width="120" height="8" fill="#34599550" />
-          <rect x="70" y="235" width="120" height="6" fill="#34599520" />
-          <rect x="70" y="250" width="120" height="6" fill="#34599520" />
-        </svg>
+        <div style={{
+          width: '100%',
+          height: '100%',
+          backgroundImage: 'url("/Executive.jpeg")',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat',
+          borderRadius: '4px'
+        }} />
       )
     },
     {
@@ -225,22 +205,15 @@ function ResumeTemplates({ onNavigateBack }) {
       description: 'Contemporary layout with clean typography',
       color: '#FB4D3D',
       previewContent: (
-        <svg width="100%" height="100%" viewBox="0 0 200 280" xmlns="http://www.w3.org/2000/svg">
-          <rect width="200" height="280" fill="#ffffff" />
-          <rect width="200" height="10" fill="#FB4D3D" />
-          <rect x="10" y="30" width="50" height="50" rx="4" fill="#FB4D3D20" />
-          <rect x="70" y="30" width="120" height="15" fill="#FB4D3D60" />
-          <rect x="70" y="55" width="80" height="8" fill="#FB4D3D40" />
-          <rect x="10" y="100" width="50" height="10" fill="#FB4D3D" />
-          <rect x="10" y="120" width="180" height="6" fill="#FB4D3D20" />
-          <rect x="10" y="135" width="180" height="6" fill="#FB4D3D20" />
-          <rect x="10" y="150" width="120" height="6" fill="#FB4D3D20" />
-          <rect x="10" y="175" width="50" height="10" fill="#FB4D3D" />
-          <rect x="10" y="195" width="180" height="6" fill="#FB4D3D20" />
-          <rect x="10" y="210" width="180" height="6" fill="#FB4D3D20" />
-          <rect x="10" y="225" width="120" height="6" fill="#FB4D3D20" />
-          <rect x="10" y="250" width="50" height="10" fill="#FB4D3D" />
-        </svg>
+        <div style={{
+          width: '100%',
+          height: '100%',
+          backgroundImage: 'url("/mordern.jpg")',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat',
+          borderRadius: '4px'
+        }} />
       )
     },
     {
@@ -249,23 +222,15 @@ function ResumeTemplates({ onNavigateBack }) {
       description: 'Straightforward and effective for all positions',
       color: '#03CEA4',
       previewContent: (
-        <svg width="100%" height="100%" viewBox="0 0 200 280" xmlns="http://www.w3.org/2000/svg">
-          <rect width="200" height="280" fill="#ffffff" />
-          <rect x="10" y="20" width="180" height="20" fill="#03CEA430" />
-          <rect x="10" y="50" width="120" height="10" fill="#03CEA460" />
-          <rect x="10" y="70" width="60" height="6" fill="#03CEA440" />
-          <rect x="10" y="85" width="180" height="1" fill="#03CEA450" />
-          <rect x="10" y="95" width="80" height="8" fill="#03CEA480" />
-          <rect x="10" y="110" width="180" height="6" fill="#03CEA420" />
-          <rect x="10" y="125" width="180" height="6" fill="#03CEA420" />
-          <rect x="10" y="140" width="180" height="6" fill="#03CEA420" />
-          <rect x="10" y="165" width="80" height="8" fill="#03CEA480" />
-          <rect x="10" y="180" width="180" height="6" fill="#03CEA420" />
-          <rect x="10" y="195" width="180" height="6" fill="#03CEA420" />
-          <rect x="10" y="210" width="180" height="6" fill="#03CEA420" />
-          <rect x="10" y="235" width="80" height="8" fill="#03CEA480" />
-          <rect x="10" y="250" width="180" height="6" fill="#03CEA420" />
-        </svg>
+        <div style={{
+          width: '100%',
+          height: '100%',
+          backgroundImage: 'url("/simple.jpg")',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat',
+          borderRadius: '4px'
+        }} />
       )
     },
     {
@@ -274,38 +239,15 @@ function ResumeTemplates({ onNavigateBack }) {
       description: 'Perfect for graduates and first-time job seekers',
       color: '#6ea6b9',
       previewContent: (
-        <svg width="100%" height="100%" viewBox="0 0 200 280" xmlns="http://www.w3.org/2000/svg">
-          <rect width="200" height="280" fill="#ffffff" />
-          {/* Header section with light blue background */}
-          <rect x="10" y="20" width="180" height="40" fill="#dbe7f0" />
-          <rect x="20" y="30" width="120" height="10" fill="#1f2937" />
-          <rect x="20" y="45" width="80" height="6" fill="#4b5563" />
-          {/* Summary section with teal background */}
-          <rect x="10" y="70" width="180" height="20" fill="#6ea6b9" />
-          <rect x="20" y="75" width="40" height="6" fill="#ffffff" />
-          <rect x="20" y="82" width="160" height="4" fill="#ffffff" />
-          {/* Education section */}
-          <rect x="10" y="100" width="60" height="8" fill="#dbe7f0" />
-          <rect x="10" y="115" width="180" height="6" fill="#1f293720" />
-          <rect x="10" y="125" width="140" height="4" fill="#1f293720" />
-          {/* Experience section */}
-          <rect x="10" y="145" width="80" height="8" fill="#dbe7f0" />
-          <rect x="10" y="160" width="180" height="6" fill="#1f293720" />
-          <rect x="10" y="170" width="160" height="4" fill="#1f293720" />
-          <rect x="15" y="180" width="4" height="4" fill="#1f2937" />
-          <rect x="25" y="180" width="150" height="4" fill="#1f293720" />
-          <rect x="15" y="188" width="4" height="4" fill="#1f2937" />
-          <rect x="25" y="188" width="120" height="4" fill="#1f293720" />
-          {/* Skills section */}
-          <rect x="10" y="205" width="40" height="8" fill="#dbe7f0" />
-          <rect x="10" y="220" width="80" height="4" fill="#1f293720" />
-          <rect x="110" y="220" width="80" height="4" fill="#1f293720" />
-          <rect x="10" y="230" width="70" height="4" fill="#1f293720" />
-          <rect x="110" y="230" width="60" height="4" fill="#1f293720" />
-          {/* Hobbies section */}
-          <rect x="10" y="250" width="80" height="8" fill="#dbe7f0" />
-          <rect x="10" y="265" width="180" height="4" fill="#1f293720" />
-        </svg>
+        <div style={{
+          width: '100%',
+          height: '100%',
+          backgroundImage: 'url("/entry-level.jpg")',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat',
+          borderRadius: '4px'
+        }} />
       )
     },
     {

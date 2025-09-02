@@ -1079,8 +1079,30 @@ function CreativeTemplateEditor({ onNavigateBack, onSave, initialData }) {
         <div className="editor-preview">
           <h3>Live Preview</h3>
           <div className="preview-container">
-            <div style={{ transform: 'scale(0.4)', transformOrigin: 'top left', width: '250%', height: '250%' }}>
-              <CreativeTemplate data={templateData} />
+            <div style={{ 
+              backgroundImage: 'url("/mordern.jpg")',
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+              backgroundRepeat: 'no-repeat',
+              width: '100%',
+              height: '100%',
+              minHeight: '400px',
+              borderRadius: '8px',
+              position: 'relative'
+            }}>
+              <div style={{ 
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                right: 0,
+                bottom: 0,
+                backgroundColor: 'rgba(255, 255, 255, 0.9)',
+                borderRadius: '8px'
+              }}>
+                <div style={{ transform: 'scale(0.4)', transformOrigin: 'top left', width: '250%', height: '250%' }}>
+                  <CreativeTemplate data={templateData} />
+                </div>
+              </div>
             </div>
           </div>
         </div>
