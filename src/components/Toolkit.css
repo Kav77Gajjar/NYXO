@@ -1,8 +1,8 @@
 /* Toolkit Layout - Two column design with left sidebar */
 .toolkit {
-  color: #333;
+  color: var(--text-primary);
   min-height: 100vh;
-  background: #f8f9fa;
+  background: var(--bg-main);
   padding: 90px 2rem 2rem 2rem; /* Reduced padding to match regular navbar height */
   width: 100%;
   display: flex;

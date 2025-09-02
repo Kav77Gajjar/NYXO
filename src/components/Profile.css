@@ -1,8 +1,8 @@
 /* Profile Layout - Two column design with left sidebar */
 .profile {
-  color: #333;
+  color: var(--text-primary);
   min-height: 100vh;
-  background: #f8f9fa;
+  background: var(--bg-main);
   padding: 90px 2rem 2rem 2rem; /* Reduced padding to match navbar height */
   display: flex;
   gap: 2rem;
@@ -12,10 +12,10 @@
 .profile-sidebar {
   width: 280px;
   min-width: 280px;
-  background: white;
+  background: var(--bg-main);
   border-radius: 16px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-  border: 1px solid rgba(0, 0, 0, 0.05);
+  border: 1px solid var(--text-secondary);
   height: fit-content;
   position: sticky;
   top: 90px; /* Adjusted to match reduced navbar height */
@@ -24,7 +24,7 @@
 }
 
 .sidebar-header {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: var(--btn-primary);
   color: white;
   padding: 1.5rem;
   text-align: center;
@@ -72,14 +72,14 @@
   top: 0;
   bottom: 0;
   width: 4px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: var(--btn-primary);
   transform: scaleY(0);
   transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .sidebar-nav-item:hover {
-  background: linear-gradient(90deg, rgba(102, 126, 234, 0.1), transparent);
-  color: #667eea;
+  background: linear-gradient(90deg, rgba(255, 127, 80, 0.1), transparent);
+  color: var(--btn-primary);
   transform: translateX(8px);
 }
 
@@ -88,8 +88,8 @@
 }
 
 .sidebar-nav-item.active {
-  background: linear-gradient(90deg, rgba(102, 126, 234, 0.15), rgba(102, 126, 234, 0.05));
-  color: #667eea !important;
+  background: linear-gradient(90deg, rgba(255, 127, 80, 0.15), rgba(255, 127, 80, 0.05));
+  color: var(--btn-primary) !important;
   font-weight: 600;
   transform: translateX(12px);
 }

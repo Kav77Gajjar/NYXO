@@ -1,8 +1,8 @@
 /* Resume Templates Layout */
 .resume-templates {
-  color: #333;
+  color: var(--text-primary);
   min-height: 100vh;
-  background: #f8f9fa;
+  background: var(--bg-main);
   padding: 90px 2rem 2rem 2rem; /* Reduced padding to match navbar height */
   display: block;
   width: 100%;
@@ -17,8 +17,8 @@
 
 .resume-templates .back-btn {
   background: transparent;
-  border: 1px solid rgba(0,0,0,0.06);
-  color: #333;
+  border: 1px solid var(--text-secondary);
+  color: var(--text-primary);
   padding: 0.5rem 0.75rem;
   border-radius: 8px;
   cursor: pointer;
@@ -27,7 +27,8 @@
 }
 
 .resume-templates .back-btn:hover {
-  background: rgba(0,0,0,0.03);
+  background: var(--btn-primary);
+  color: white;
   transform: translateY(-1px);
 }
 

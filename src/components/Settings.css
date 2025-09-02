@@ -80,10 +80,10 @@
 
 /* Settings Menu */
 .settings-menu {
-  background: rgba(255, 255, 255, 0.95);
+  background: var(--bg-main);
   -webkit-backdrop-filter: blur(20px);
   backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid var(--text-secondary);
   border-radius: 16px;
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
   width: 90%;

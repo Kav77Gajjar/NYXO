@@ -3,19 +3,19 @@
   display: flex;
   flex-direction: row;
   flex: 1 1 0%;
-  border: 2px solid #667eea;
+  border: 2px solid var(--btn-secondary);
   border-radius: 12px;
   overflow: hidden;
-  background: white;
+  background: var(--bg-main);
   box-shadow: 0 2px 4px rgba(0,0,0,0.08);
   min-width: 160px;
   max-width: 220px;
 }
 /* Job Controller Layout - Two column design with left sidebar */
 .job-controller {
-  color: #333;
+  color: var(--text-primary);
   min-height: 100vh;
-  background: #f8f9fa;
+  background: var(--bg-main);
   padding: 90px 2rem 2rem 2rem; /* Reduced padding to match navbar height */
   display: block; /* Single column since sidebar removed */
 }
@@ -68,14 +68,14 @@
 }
 
 .tab-btn:hover {
-  background: #f8f9fa;
-  color: #667eea;
+  background: var(--bg-main);
+  color: var(--btn-primary);
 }
 
 .tab-btn.active {
-  background: #667eea;
+  background: var(--btn-primary);
   color: white;
-  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+  box-shadow: 0 4px 15px rgba(255, 127, 80, 0.3);
 }
 
 /* Tab Content */
@@ -160,7 +160,7 @@
 }
 
 .add-btn {
-  background: #667eea;
+  background: var(--btn-primary);
   color: white;
   border: none;
   padding: 0.75rem 1.5rem;
