@@ -9,6 +9,7 @@ import JobMatches from './JobMatches'
 import JobApplications from './JobApplications'
 import ResumeTemplates from './ResumeTemplates'
 import ProfessionalResumeTemplate from './ProfessionalResumeTemplate'
+import ProfessionalTemplateEditor from './ProfessionalTemplateEditor'
 import AcademicResumeTemplate from './AcademicResumeTemplate'
 import AcademicTemplateEditor from './AcademicTemplateEditor'
 import CreativeResumeTemplate from './CreativeResumeTemplate'
@@ -25,6 +26,7 @@ import EntryLevelResumeTemplate from './EntryLevelResumeTemplate'
 import EntryLevelTemplateEditor from './EntryLevelTemplateEditor'
 import CoverLetterGenerator from './CoverLetterGenerator'
 import CoverLetterTemplates from './CoverLetterTemplates'
+import Sitemap from './Sitemap'
 
 function Dashboard({ onLogout, userEmail, onNavigate }) {
   const [currentPage, setCurrentPage] = useState('dashboard')
@@ -504,7 +506,9 @@ function Dashboard({ onLogout, userEmail, onNavigate }) {
       case 'resume-templates':
         return <ResumeTemplates />
       case 'professional-resume-template':
-        return <ProfessionalResumeTemplate />
+        return <ProfessionalResumeTemplate onNavigateBack={() => setCurrentPage('resume-templates')} onEdit={() => setCurrentPage('professional-template-editor')} />
+      case 'professional-template-editor':
+        return <ProfessionalTemplateEditor onNavigateBack={() => setCurrentPage('professional-resume-template')} />
       case 'academic-resume-template':
         return <AcademicResumeTemplate onNavigateBack={() => setCurrentPage('resume-templates')} onEdit={() => setCurrentPage('academic-template-editor')} />
       case 'academic-template-editor':
@@ -537,6 +541,8 @@ function Dashboard({ onLogout, userEmail, onNavigate }) {
         return <CoverLetterGenerator onNavigateBack={() => setCurrentPage('toolkit')} />
       case 'cover-letter-templates':
         return <CoverLetterTemplates onNavigateBack={() => setCurrentPage('toolkit')} />
+      case 'sitemap':
+        return <Sitemap onNavigate={setCurrentPage} />
       default:
         return renderDashboardHome()
     }

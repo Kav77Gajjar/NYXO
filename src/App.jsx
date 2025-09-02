@@ -28,8 +28,8 @@ function App() {
     setCurrentPage(page)
   }
 
-  // If user is authenticated and not on dashboard, redirect to dashboard
-  if (isAuthenticated && currentPage !== 'dashboard') {
+  // Default to dashboard for authenticated users on initial load
+  if (isAuthenticated && currentPage === 'auth') {
     setCurrentPage('dashboard')
   }
 

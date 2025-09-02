@@ -1,27 +1,234 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
-.professional-resume-template {
+/* Professional Resume Template - Inherits base styles from ResumeTemplates.css */
+
+.professional-template {
   font-family: 'Inter', sans-serif;
   background: var(--bg-main);
   color: var(--text-primary);
   min-height: 100vh;
 }
 
-/* Control Panel */
-.control-panel {
+/* Professional template specific styles */
+.professional-template .template-preview-wrapper {
+  background: white;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  overflow: hidden;
+  margin: 2rem auto;
+  max-width: 1024px;
+}
+
+.professional-template .resume-header {
+  background: var(--text-primary);
+  color: white;
+  padding: 2rem;
+  text-align: center;
+}
+
+.professional-template .resume-name {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin: 0 0 0.5rem 0;
+}
+
+.professional-template .resume-title {
+  font-size: 1.25rem;
+  color: #ecf0f1;
+  margin: 0 0 1rem 0;
+  font-weight: 400;
+}
+
+.professional-template .resume-contact {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+  font-size: 0.9rem;
+}
+
+.professional-template .resume-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  padding: 2rem;
+}
+
+.professional-template .section-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 1rem;
+  border-bottom: 2px solid var(--btn-secondary);
+  padding-bottom: 0.5rem;
+}
+
+.professional-template .experience-item,
+.professional-template .education-item {
+  margin-bottom: 1.5rem;
+}
+
+.professional-template .experience-header {
+  margin-bottom: 0.5rem;
+}
+
+.professional-template .experience-title {
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.professional-template .experience-company {
+  color: #7f8c8d;
+  font-weight: 500;
+}
+
+.professional-template .experience-date {
+  color: #95a5a6;
+  font-size: 0.9rem;
+}
+
+.professional-template .responsibilities {
+  list-style-type: disc;
+  padding-left: 1.5rem;
+  color: #555;
+  margin: 0;
+}
+
+.professional-template .responsibilities li {
+  margin-bottom: 0.25rem;
+}
+
+.professional-template .skills-grid {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.professional-template .skill-category {
+  margin-bottom: 1rem;
+}
+
+.professional-template .skill-category h4 {
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: var(--text-primary);
+}
+
+.professional-template .skill-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.professional-template .skill-item {
+  background: #ecf0f1;
+  padding: 0.25rem 0.75rem;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  color: var(--text-primary);
+}
+
+/* Editor specific styles */
+.professional-editor {
+  font-family: 'Inter', sans-serif;
+  background: var(--bg-main);
+  min-height: 100vh;
+}
+
+.professional-editor .edit-input {
+  width: 100%;
+  padding: 0.75rem;
+  border: 2px solid #e5e7eb;
+  border-radius: 0.375rem;
+  font-size: 0.875rem;
+  margin-bottom: 0.5rem;
+  font-family: inherit;
+}
+
+.professional-editor .edit-input:focus {
+  outline: none;
+  border-color: var(--btn-primary);
+}
+
+.professional-editor .edit-textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border: 2px solid #e5e7eb;
+  border-radius: 0.375rem;
+  font-size: 0.875rem;
+  margin-bottom: 0.5rem;
+  resize: vertical;
+  font-family: inherit;
+  min-height: 100px;
+}
+
+.professional-editor .edit-textarea:focus {
+  outline: none;
+  border-color: var(--btn-primary);
+}
+
+.professional-editor .add-btn {
+  background: var(--btn-primary);
+  color: white;
+  border: none;
+  padding: 0.75rem 1rem;
+  border-radius: 0.375rem;
+  cursor: pointer;
+  margin-right: 0.5rem;
+  margin-bottom: 0.5rem;
+  transition: background-color 0.2s ease;
+}
+
+.professional-editor .add-btn:hover {
+  background: #e74c3c;
+}
+
+.professional-editor .remove-btn {
+  background: #ef4444;
+  color: white;
+  border: none;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 0.75rem;
+  margin-left: 0.5rem;
+  transition: all 0.2s ease;
+}
+
+.professional-editor .remove-btn:hover {
+  background: #dc2626;
+  transform: scale(1.1);
+}
+
+.professional-editor .section-container {
+  border: 1px solid #e5e7eb;
+  padding: 1rem;
+  border-radius: 0.375rem;
+  margin-bottom: 1rem;
+  background: white;
+}
+
+.professional-editor .editor-panel {
+  background: white;
+  padding: 2rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  height: fit-content;
+}
+
+.professional-editor .control-panel {
   position: fixed;
   top: 90px;
   left: 0;
   right: 0;
   background: var(--bg-main);
-  -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
   z-index: 100;
   padding: 1rem 2rem;
   border-bottom: 1px solid var(--text-secondary);
 }
 
-.control-buttons {
+.professional-editor .control-buttons {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -29,28 +236,12 @@
   margin: 0 auto;
 }
 
-.back-btn {
-  background: #6b7280;
-  color: white;
-  border: none;
-  padding: 0.75rem 1rem;
-  border-radius: 0.5rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.back-btn:hover {
-  background: #4b5563;
-}
-
-.control-actions {
+.professional-editor .control-actions {
   display: flex;
   gap: 1rem;
   justify-content: center;
   align-items: center;
   background: rgba(255, 255, 255, 0.8);
-  -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
   border-radius: 1rem;
   padding: 1rem;
@@ -58,53 +249,63 @@
   border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-.edit-btn, .profile-btn, .download-btn {
-  border: none;
-  padding: 0.75rem 1rem;
-  border-radius: 0.5rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  color: #374151;
-  font-size: 0.875rem;
+/* Responsive Design */
+@media (max-width: 768px) {
+  .professional-template .resume-content {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    padding: 1rem;
+  }
+
+  .professional-template .resume-name {
+    font-size: 2rem;
+  }
+
+  .professional-template .resume-contact {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .professional-editor .control-panel {
+    top: 70px;
+    padding: 0.75rem 1rem;
+  }
+
+  .professional-editor .control-buttons {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .professional-editor .control-actions {
+    width: 100%;
+    justify-content: center;
+  }
 }
 
-.edit-btn {
-  background: rgba(59, 130, 246, 0.1);
-  border: 1px solid rgba(59, 130, 246, 0.2);
-}
+/* Print Styles */
+@media print {
+  .professional-template,
+  .professional-editor {
+    background: white !important;
+  }
 
-.edit-btn:hover {
-  background: rgba(59, 130, 246, 0.2);
-  transform: translateY(-1px);
-  box-shadow: 0 2px 4px rgba(59, 130, 246, 0.2);
-}
+  .professional-editor .control-panel,
+  .professional-editor .add-btn,
+  .professional-editor .remove-btn {
+    display: none !important;
+  }
 
-.edit-btn.active {
-  background: rgba(5, 150, 105, 0.2);
-  border: 1px solid rgba(5, 150, 105, 0.3);
-}
+  .professional-template .template-preview-wrapper {
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    margin: 0 !important;
+    max-width: none !important;
+  }
 
-.profile-btn {
-  background: rgba(139, 92, 246, 0.1);
-  border: 1px solid rgba(139, 92, 246, 0.2);
-}
-
-.profile-btn:hover {
-  background: rgba(139, 92, 246, 0.2);
-  transform: translateY(-1px);
-  box-shadow: 0 2px 4px rgba(139, 92, 246, 0.2);
-}
-
-.download-btn {
-  background: rgba(220, 38, 38, 0.1);
-  border: 1px solid rgba(220, 38, 38, 0.2);
-}
-
-.download-btn:hover {
-  background: rgba(220, 38, 38, 0.2);
-  transform: translateY(-1px);
-  box-shadow: 0 2px 4px rgba(220, 38, 38, 0.2);
+  @page {
+    margin: 0.5in;
+    size: A4;
+  }
 }
 
 /* Resume Container */

@@ -3,16 +3,12 @@ import ProfessionalTemplate from './ProfessionalTemplate';
 import ProfessionalTemplateEditor from './ProfessionalTemplateEditor';
 import './ResumeTemplates.css';
 
-function ProfessionalResumeTemplate({ onNavigateBack, onEdit }) {
+function ProfessionalResumeTemplate({ onNavigateBack }) {
   const [currentView, setCurrentView] = useState('preview');
   const [templateData, setTemplateData] = useState(null);
 
   const handleEditTemplate = () => {
-    if (onEdit) {
-      onEdit();
-    } else {
-      setCurrentView('editor');
-    }
+    setCurrentView('editor');
   };
 
   const handleBackToPreview = () => {
@@ -130,107 +126,94 @@ function ProfessionalResumeTemplate({ onNavigateBack, onEdit }) {
             }
             body { 
               margin: 0; 
-              padding: 0; 
-              font-family: 'Inter', sans-serif !important;
-              background: white !important;
-              color: #333 !important;
-              line-height: 1.6 !important;
-              -webkit-font-smoothing: antialiased !important;
+              padding: 20px; 
+              font-family: 'Inter', sans-serif;
+              background: #f8f9fa;
+              color: #333;
             }
             .resume-container {
               max-width: 1024px;
               margin: 0 auto;
-              background: white !important;
-              color: #333 !important;
-              line-height: 1.6 !important;
+              background: white;
+              box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+              border-radius: 8px;
+              overflow: hidden;
             }
             .resume-header {
-              background: #4A5568 !important;
-              color: white !important;
-              padding: 2.5rem 2rem;
+              background: #2c3e50;
+              color: white;
+              padding: 2rem;
               text-align: center;
             }
             .resume-name {
-              font-size: 3rem !important;
-              font-weight: 700 !important;
-              margin: 0 0 0.5rem 0 !important;
-              letter-spacing: 0.05em !important;
-              color: white !important;
+              font-size: 2.5rem;
+              font-weight: 700;
+              margin-bottom: 0.5rem;
             }
             .resume-title {
-              font-size: 1.5rem !important;
-              color: #e5e7eb !important;
-              margin: 0 0 1.5rem 0 !important;
-              font-weight: 400 !important;
+              font-size: 1.25rem;
+              color: #ecf0f1;
+              margin-bottom: 1rem;
             }
             .resume-contact {
               display: flex;
               justify-content: center;
-              gap: 2.5rem;
+              gap: 2rem;
               flex-wrap: wrap;
-              font-size: 1rem !important;
-              color: white !important;
-            }
-            .resume-contact span {
-              color: white !important;
+              font-size: 0.9rem;
             }
             .resume-content {
               display: grid;
               grid-template-columns: 1fr 1fr;
-              gap: 3rem;
-              padding: 2.5rem;
+              gap: 2rem;
+              padding: 2rem;
             }
             .section-title {
-              font-size: 1.4rem !important;
-              font-weight: 600 !important;
-              color: #4A5568 !important;
-              margin-bottom: 1.5rem !important;
-              border-bottom: 3px solid #3182CE !important;
-              padding-bottom: 0.5rem !important;
+              font-size: 1.25rem;
+              font-weight: 600;
+              color: #2c3e50;
+              margin-bottom: 1rem;
+              border-bottom: 2px solid #3498db;
+              padding-bottom: 0.5rem;
             }
             .experience-item, .education-item {
-              margin-bottom: 2rem;
+              margin-bottom: 1.5rem;
             }
             .experience-header {
-              margin-bottom: 0.75rem;
+              margin-bottom: 0.5rem;
             }
             .experience-title {
-              font-weight: 600 !important;
-              color: #4A5568 !important;
-              font-size: 1.1rem !important;
-              margin-bottom: 0.25rem !important;
+              font-weight: 600;
+              color: #2c3e50;
             }
             .experience-company {
-              color: #718096 !important;
-              font-weight: 500 !important;
-              margin-bottom: 0.25rem !important;
+              color: #7f8c8d;
+              font-weight: 500;
             }
             .experience-date {
-              color: #A0AEC0 !important;
-              font-size: 0.9rem !important;
+              color: #95a5a6;
+              font-size: 0.9rem;
             }
             .responsibilities {
-              list-style-type: disc !important;
-              padding-left: 1.5rem !important;
-              color: #4A5568 !important;
-              margin: 0 !important;
+              list-style-type: disc;
+              padding-left: 1.5rem;
+              color: #555;
             }
             .responsibilities li {
-              margin-bottom: 0.4rem !important;
-              font-size: 0.95rem !important;
-              color: #4A5568 !important;
+              margin-bottom: 0.25rem;
             }
             .skills-grid {
-              margin-bottom: 1.5rem;
+              display: grid;
+              grid-template-columns: 1fr 1fr;
+              gap: 1.5rem;
             }
             .skill-category {
-              margin-bottom: 1.5rem;
+              margin-bottom: 1rem;
             }
             .skill-category h4 {
-              font-weight: 600 !important;
-              margin-bottom: 0.75rem !important;
-              color: #4A5568 !important;
-              font-size: 1.1rem !important;
+              font-weight: 600;
+              margin-bottom: 0.5rem;
+              color: #2c3e50;
             }
             .skill-list {
               display: flex;
@@ -238,58 +221,23 @@ function ProfessionalResumeTemplate({ onNavigateBack, onEdit }) {
               gap: 0.5rem;
             }
             .skill-item {
-              background: #EDF2F7 !important;
-              padding: 0.4rem 0.8rem !important;
-              border-radius: 6px !important;
-              font-size: 0.9rem !important;
-              color: #4A5568 !important;
-              font-weight: 500 !important;
+              background: #ecf0f1;
+              padding: 0.25rem 0.75rem;
+              border-radius: 4px;
+              font-size: 0.85rem;
+              color: #2c3e50;
             }
             @media print {
               body { 
-                margin: 0 !important; 
-                padding: 0 !important; 
+                margin: 0; 
+                padding: 0; 
                 background: white !important;
-                -webkit-print-color-adjust: exact !important;
-                color-adjust: exact !important;
-                print-color-adjust: exact !important;
-              }
-              * {
-                -webkit-print-color-adjust: exact !important;
-                color-adjust: exact !important;
-                print-color-adjust: exact !important;
               }
               .resume-container {
                 box-shadow: none !important;
                 border-radius: 0 !important;
                 margin: 0 !important;
                 max-width: none !important;
-              }
-              .resume-header {
-                background: #4A5568 !important;
-                color: white !important;
-                -webkit-print-color-adjust: exact !important;
-                color-adjust: exact !important;
-                print-color-adjust: exact !important;
-              }
-              .resume-name, .resume-title, .resume-contact, .resume-contact span {
-                color: white !important;
-                -webkit-print-color-adjust: exact !important;
-                color-adjust: exact !important;
-                print-color-adjust: exact !important;
-              }
-              .section-title {
-                border-bottom: 3px solid #3182CE !important;
-                color: #4A5568 !important;
-                -webkit-print-color-adjust: exact !important;
-                color-adjust: exact !important;
-                print-color-adjust: exact !important;
-              }
-              .skill-item {
-                background: #EDF2F7 !important;
-                -webkit-print-color-adjust: exact !important;
-                color-adjust: exact !important;
-                print-color-adjust: exact !important;
               }
               @page {
                 margin: 0.5in;
@@ -315,7 +263,7 @@ function ProfessionalResumeTemplate({ onNavigateBack, onEdit }) {
               <div class="left-column">
                 <section class="summary-section">
                   <h3 class="section-title">Professional Summary</h3>
-                  <p style="line-height: 1.7 !important; margin: 0 !important; color: #4A5568 !important; font-size: 0.95rem !important;">${currentData.summary}</p>
+                  <p>${currentData.summary}</p>
                 </section>
                 
                 <section class="experience-section">
@@ -338,16 +286,18 @@ function ProfessionalResumeTemplate({ onNavigateBack, onEdit }) {
               <div class="right-column">
                 <section class="skills-section">
                   <h3 class="section-title">Skills</h3>
-                  <div class="skill-category">
-                    <h4>Technical Skills</h4>
-                    <div class="skill-list">
-                      ${currentData.technicalSkills.map(skill => `<span class="skill-item">${skill}</span>`).join('')}
+                  <div class="skills-grid">
+                    <div class="skill-category">
+                      <h4>Technical Skills</h4>
+                      <div class="skill-list">
+                        ${currentData.technicalSkills.map(skill => `<span class="skill-item">${skill}</span>`).join('')}
+                      </div>
                     </div>
-                  </div>
-                  <div class="skill-category">
-                    <h4>Business Skills</h4>
-                    <div class="skill-list">
-                      ${currentData.businessSkills.map(skill => `<span class="skill-item">${skill}</span>`).join('')}
+                    <div class="skill-category">
+                      <h4>Business Skills</h4>
+                      <div class="skill-list">
+                        ${currentData.businessSkills.map(skill => `<span class="skill-item">${skill}</span>`).join('')}
+                      </div>
                     </div>
                   </div>
                 </section>
@@ -396,7 +346,7 @@ function ProfessionalResumeTemplate({ onNavigateBack, onEdit }) {
     setTimeout(() => {
       printWindow.focus();
       printWindow.print();
-    }, 2000);
+    }, 1000);
   };
 
   if (currentView === 'editor') {
