@@ -68,13 +68,6 @@ export const translations = {
     personalizedJobMatches: 'Personalized Job Matches',
     jobMatchesDesc: 'Discover opportunities tailored to your skills and preferences',
     
-    // Settings
-    settings: 'Settings',
-    theme: 'Theme',
-    language: 'Language',
-    light: 'Light',
-    dark: 'Dark',
-    
     // Common
     apply: 'Apply',
     save: 'Save',
@@ -153,12 +146,6 @@ export const translations = {
     personalizedJobMatches: 'व्यक्तिगत जॉब मैच',
     jobMatchesDesc: 'आपके कौशल और प्राथमिकताओं के अनुरूप अवसर खोजें',
     
-    // Settings
-    settings: 'सेटिंग्स',
-    theme: 'थीम',
-    language: 'भाषा',
-    light: 'उजला',
-    dark: 'अंधेरा',
     
     // Common
     apply: 'आवेदन करें',
@@ -189,7 +176,6 @@ export const translations = {
     yourActivity: 'તમારી પ્રવૃત્તિ',
     jobsSearched: 'જોબ્સ શોધ્યા',
     applicationsSent: 'અરજીઓ મોકલેલ',
-    jobMatches: 'જોબ મેચ',
     interviews: 'ઇન્ટરવ્યુ',
     thisWeek: 'આ અઠવાડિયે',
     newMatches: 'નવા મેચ',
@@ -237,13 +223,6 @@ export const translations = {
     // Job Matches
     personalizedJobMatches: 'વ્યક્તિગત જોબ મેચ',
     jobMatchesDesc: 'તમારી કુશળતા અને પસંદગીઓ અનુસાર તકો શોધો',
-    
-    // Settings
-    settings: 'સેટિંગ્સ',
-    theme: 'થીમ',
-    language: 'ભાષા',
-    light: 'પ્રકાશ',
-    dark: 'અંધકાર',
     
     // Common
     apply: 'અરજી કરો',

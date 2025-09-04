@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react'
 import './Profile.css'
-import { enableSettings } from './Settings'
 
 function Profile({ userEmail, activeSection = 'personal', setActiveSection, onNavigateBack }) {
   // Remove local state if props are provided
