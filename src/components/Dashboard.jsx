@@ -26,6 +26,7 @@ import EntryLevelResumeTemplate from './EntryLevelResumeTemplate'
 import EntryLevelTemplateEditor from './EntryLevelTemplateEditor'
 import CoverLetterGenerator from './CoverLetterGenerator'
 import CoverLetterTemplates from './CoverLetterTemplates'
+import ErrorPage from './ErrorPage'
 import Sitemap from './Sitemap'
 
 function Dashboard({ onLogout, userEmail, onNavigate }) {
@@ -34,12 +35,16 @@ function Dashboard({ onLogout, userEmail, onNavigate }) {
   const [profileActiveSection, setProfileActiveSection] = useState('personal')
   const [jobControllerActiveTab, setJobControllerActiveTab] = useState('search')
   const [toolkitActiveCategory, setToolkitActiveCategory] = useState('all')
+  const [errorPageFeatureName, setErrorPageFeatureName] = useState('')
   const { t } = useTranslation()
   
   // Listen for custom navigation events from child components
   useEffect(() => {
     const handleCustomNavigation = (event) => {
       if (event.detail && event.detail.page) {
+        if (event.detail.page === 'error-page') {
+          setErrorPageFeatureName(event.detail.featureName || 'This Feature')
+        }
         setCurrentPage(event.detail.page);
       }
     };
@@ -288,22 +293,21 @@ function Dashboard({ onLogout, userEmail, onNavigate }) {
                 setCurrentPage('jobcontroller')
                 setJobControllerActiveTab('search')
               }}
+              aria-label="Search"
             >
               <svg 
-                width="18" 
-                height="18" 
+                width="20" 
+                height="20" 
                 viewBox="0 0 24 24" 
                 fill="none" 
                 stroke="currentColor" 
-                strokeWidth="2" 
+                strokeWidth="2.5" 
                 strokeLinecap="round" 
                 strokeLinejoin="round"
-                style={{ marginRight: '6px' }}
               >
                 <circle cx="11" cy="11" r="8"></circle>
                 <path d="m21 21-4.35-4.35"></path>
               </svg>
-              Search
             </button>
           </div>
         </div>
@@ -541,6 +545,11 @@ function Dashboard({ onLogout, userEmail, onNavigate }) {
         return <CoverLetterGenerator onNavigateBack={() => setCurrentPage('toolkit')} />
       case 'cover-letter-templates':
         return <CoverLetterTemplates onNavigateBack={() => setCurrentPage('toolkit')} />
+      case 'error-page':
+        return <ErrorPage 
+          onNavigateBack={() => setCurrentPage('dashboard')} 
+          featureName={errorPageFeatureName}
+        />
       case 'sitemap':
         return <Sitemap onNavigate={setCurrentPage} />
       default:

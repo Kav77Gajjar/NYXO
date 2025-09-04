@@ -69,6 +69,13 @@ function Toolkit({ activeCategory = 'all', setActiveCategory, onNavigateBack }) 
         window.dispatchEvent(event)
         return
       }
+      if (toolId === 'interview-prep') {
+        const event = new CustomEvent('navigate', {
+          detail: { page: 'error-page', featureName: 'Interview Preparation' }
+        })
+        window.dispatchEvent(event)
+        return
+      }
       // For other tools, we'll use the default behavior for now
       alert(`Navigating to ${toolId} page`)
     }

@@ -124,6 +124,22 @@ function JobController({ activeTab = 'search', setActiveTab, onNavigateBack }) {
     }
   };
 
+  // Function to calculate relative time
+  const getRelativeTime = (dateString) => {
+    const now = new Date();
+    const postDate = new Date(dateString);
+    const diffInHours = Math.floor((now - postDate) / (1000 * 60 * 60));
+    
+    if (diffInHours < 1) return 'Just now';
+    if (diffInHours < 24) return `${diffInHours} hour${diffInHours > 1 ? 's' : ''} ago`;
+    
+    const diffInDays = Math.floor(diffInHours / 24);
+    if (diffInDays < 30) return `${diffInDays} day${diffInDays > 1 ? 's' : ''} ago`;
+    
+    const diffInMonths = Math.floor(diffInDays / 30);
+    return `${diffInMonths} month${diffInMonths > 1 ? 's' : ''} ago`;
+  };
+
   const [savedJobs, setSavedJobs] = useState([
     {
       id: 1,
@@ -131,11 +147,12 @@ function JobController({ activeTab = 'search', setActiveTab, onNavigateBack }) {
       position: 'Senior Frontend Developer',
       location: 'New York, NY',
       type: 'Full-time',
-      postedDate: '2025-08-25',
+      postedDate: '2025-09-03',
       match: '95%',
       description: 'Looking for an experienced React developer to join our growing team. Work with modern technologies and build scalable web applications.',
       source: 'LinkedIn',
-      isLiked: true
+      isLiked: true,
+      tags: ['Full-time', 'Remote', 'Start Immediate', '3+ Years Experience', 'React', 'TypeScript']
     },
     {
       id: 2,
@@ -143,11 +160,12 @@ function JobController({ activeTab = 'search', setActiveTab, onNavigateBack }) {
       position: 'React Native Developer',
       location: 'Los Angeles, CA',
       type: 'Contract',
-      postedDate: '2025-08-24',
+      postedDate: '2025-09-04',
       match: '88%',
       description: 'Build cross-platform mobile applications using React Native. Experience with iOS and Android development preferred.',
       source: 'Indeed',
-      isLiked: true
+      isLiked: true,
+      tags: ['Contract', 'Part-time', 'Remote', 'Immediate Start', 'Mobile', 'React Native']
     },
     {
       id: 3,
@@ -155,11 +173,25 @@ function JobController({ activeTab = 'search', setActiveTab, onNavigateBack }) {
       position: 'JavaScript Developer',
       location: 'Remote',
       type: 'Full-time',
-      postedDate: '2025-08-23',
+      postedDate: '2025-09-02',
       match: '92%',
       description: 'Join our innovative startup building cutting-edge web applications. Strong JavaScript and Node.js skills required.',
       source: 'Glassdoor',
-      isLiked: true
+      isLiked: true,
+      tags: ['Full-time', 'Remote', 'Trainership', 'Fresher Friendly', 'Node.js', 'Startup']
+    },
+    {
+      id: 4,
+      company: 'InnovateCorp',
+      position: 'Frontend Intern',
+      location: 'San Francisco, CA',
+      type: 'Internship',
+      postedDate: '2025-09-04',
+      match: '85%',
+      description: 'Perfect opportunity for students and fresh graduates to gain hands-on experience in frontend development.',
+      source: 'AngelList',
+      isLiked: true,
+      tags: ['Internship', 'Fresher', 'Part-time', 'Learning Opportunity', 'HTML/CSS', 'JavaScript']
     }
   ])
 
@@ -192,68 +224,201 @@ function JobController({ activeTab = 'search', setActiveTab, onNavigateBack }) {
       }}>
         {savedJobs.filter(job => job.isLiked).map(job => (
           <div key={job.id} className="saved-job-card" style={{
-            background: 'rgba(255, 255, 255, 0.1)',
-            border: '1px solid rgba(255, 255, 255, 0.2)',
-            borderRadius: '12px',
+            background: 'rgba(255, 255, 255, 0.95)',
+            border: '1px solid rgba(0, 0, 0, 0.1)',
+            borderRadius: '16px',
             padding: '1.5rem',
             transition: 'all 0.3s ease',
             display: 'flex',
             flexDirection: 'column',
-            height: '100%'
+            height: '100%',
+            position: 'relative',
+            boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
+            hover: {
+              transform: 'translateY(-2px)',
+              boxShadow: '0 8px 24px rgba(0, 0, 0, 0.15)'
+            }
           }}>
-            <div className="job-header" style={{
+            
+            {/* 1. Position Title at Top */}
+            <div className="job-position" style={{
               display: 'flex',
               justifyContent: 'space-between',
               alignItems: 'flex-start',
-              marginBottom: '1rem',
-              flexWrap: 'wrap',
+              marginBottom: '0.75rem'
+            }}>
+              <h3 style={{ 
+                margin: 0, 
+                fontSize: '1.3rem', 
+                fontWeight: '600',
+                color: '#1e293b',
+                lineHeight: '1.3'
+              }}>
+                {job.position}
+              </h3>
+              <button 
+                className={`heart-btn ${job.isLiked ? 'liked' : ''}`}
+                onClick={() => handleToggleLike(job.id)}
+                aria-label={job.isLiked ? 'Remove from saved' : 'Save job'}
+                style={{
+                  background: 'none',
+                  border: 'none',
+                  fontSize: '1.2rem',
+                  cursor: 'pointer',
+                  padding: '0.25rem'
+                }}
+              >
+                <span className="heart-icon">
+                  {job.isLiked ? '❤️' : '🤍'}
+                </span>
+              </button>
+            </div>
+
+            {/* 2. Company Name */}
+            <div className="company-name" style={{
+              marginBottom: '0.5rem'
+            }}>
+              <p style={{
+                margin: 0,
+                fontSize: '1.1rem',
+                fontWeight: '500',
+                color: '#3b82f6'
+              }}>
+                {job.company}
+              </p>
+            </div>
+
+            {/* 3. Location */}
+            <div className="job-location" style={{
+              marginBottom: '0.5rem',
+              display: 'flex',
+              alignItems: 'center',
               gap: '0.5rem'
             }}>
-              <div className="job-title-section" style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '0.75rem',
+              <span style={{ color: '#64748b' }}>📍</span>
+              <p style={{
+                margin: 0,
+                fontSize: '0.95rem',
+                color: '#64748b'
+              }}>
+                {job.location}
+              </p>
+            </div>
+
+            {/* 4. Posted Time */}
+            <div className="posted-time" style={{
+              marginBottom: '1rem',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.5rem'
+            }}>
+              <span style={{ color: '#64748b' }}>🕒</span>
+              <p style={{
+                margin: 0,
+                fontSize: '0.9rem',
+                color: '#64748b'
+              }}>
+                {getRelativeTime(job.postedDate)}
+              </p>
+            </div>
+
+            {/* 5. Tags */}
+            <div className="job-tags" style={{
+              display: 'flex',
+              flexWrap: 'wrap',
+              gap: '0.5rem',
+              marginBottom: '1rem'
+            }}>
+              {job.tags && job.tags.map((tag, index) => (
+                <span key={index} style={{
+                  background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                  color: 'white',
+                  padding: '0.25rem 0.75rem',
+                  borderRadius: '20px',
+                  fontSize: '0.8rem',
+                  fontWeight: '500',
+                  whiteSpace: 'nowrap'
+                }}>
+                  {tag}
+                </span>
+              ))}
+            </div>
+
+            {/* 6. Description */}
+            {job.description && (
+              <div className="job-description" style={{
+                marginBottom: '1.5rem',
                 flex: 1
               }}>
-                <h3 style={{ margin: 0, fontSize: '1.2rem' }}>{job.position}</h3>
-                <button 
-                  className={`heart-btn ${job.isLiked ? 'liked' : ''}`}
-                  onClick={() => handleToggleLike(job.id)}
-                  aria-label={job.isLiked ? 'Remove from saved' : 'Save job'}
-                >
-                  <span className="heart-icon">
-                    {job.isLiked ? '❤️' : '🤍'}
-                  </span>
-                </button>
+                <p style={{
+                  margin: 0,
+                  fontSize: '0.95rem',
+                  lineHeight: '1.5',
+                  color: '#475569',
+                  background: '#f8fafc',
+                  padding: '1rem',
+                  borderRadius: '8px',
+                  borderLeft: '4px solid #667eea'
+                }}>
+                  {job.description}
+                </p>
               </div>
-              <span className="match-score">{job.match} Match</span>
-            </div>
-            <div className="job-details" style={{ flex: 1, marginBottom: '1.5rem' }}>
-              <p className="company">{job.company}</p>
-              <p className="location">📍 {job.location}</p>
-              <p className="posted-date">📅 Posted: {job.postedDate}</p>
-              <p className="job-description" style={{
-                fontSize: '0.95rem',
-                lineHeight: '1.5',
-                color: '#334155',
-                marginTop: '1rem',
-                padding: '1rem',
-                background: '#f1f5f9',
-                borderRadius: '8px',
-                borderLeft: '4px solid #667eea'
-              }}>{job.description}</p>
-            </div>
+            )}
+
+            {/* Action Buttons */}
             <div className="job-actions" style={{
               display: 'flex',
               gap: '0.75rem',
               flexWrap: 'wrap',
               marginBottom: '1rem'
             }}>
-              <button className="action-btn apply-btn">Apply Now</button>
-              <button className="action-btn view-btn">View Job</button>
+              <button className="action-btn apply-btn" style={{
+                background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                color: 'white',
+                border: 'none',
+                padding: '0.75rem 1.5rem',
+                borderRadius: '8px',
+                fontSize: '0.9rem',
+                fontWeight: '500',
+                cursor: 'pointer',
+                transition: 'all 0.3s ease',
+                flex: 1
+              }}>
+                Apply Now
+              </button>
+              <button className="action-btn view-btn" style={{
+                background: 'transparent',
+                color: '#667eea',
+                border: '2px solid #667eea',
+                padding: '0.75rem 1.5rem',
+                borderRadius: '8px',
+                fontSize: '0.9rem',
+                fontWeight: '500',
+                cursor: 'pointer',
+                transition: 'all 0.3s ease',
+                flex: 1
+              }}>
+                View Job
+              </button>
             </div>
-            <div className="job-source">
-              <span className="source-text">via {job.source}</span>
+
+            {/* 7. Portal Name Label (Centered at Bottom) */}
+            <div className="job-source" style={{
+              textAlign: 'center',
+              paddingTop: '1rem',
+              borderTop: '1px solid #e2e8f0'
+            }}>
+              <span style={{
+                fontSize: '0.85rem',
+                color: '#94a3b8',
+                fontWeight: '500',
+                background: '#f1f5f9',
+                padding: '0.25rem 1rem',
+                borderRadius: '12px',
+                display: 'inline-block'
+              }}>
+                via {job.source}
+              </span>
             </div>
           </div>
         ))}

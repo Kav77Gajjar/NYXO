@@ -299,6 +299,56 @@
   justify-content: center;
 }
 
+/* Enhanced Job Card Styling */
+.saved-job-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15) !important;
+  border-color: rgba(102, 126, 234, 0.3) !important;
+}
+
+.saved-job-card .job-position h3 {
+  transition: color 0.3s ease;
+}
+
+.saved-job-card:hover .job-position h3 {
+  color: #667eea;
+}
+
+.saved-job-card .company-name p {
+  transition: color 0.3s ease;
+}
+
+.saved-job-card:hover .company-name p {
+  color: #5a67d8;
+}
+
+.job-tags span {
+  transition: all 0.3s ease;
+}
+
+.job-tags span:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
+.action-btn {
+  transition: all 0.3s ease;
+}
+
+.action-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+.apply-btn:hover {
+  background: linear-gradient(135deg, #5a67d8 0%, #667eea 100%) !important;
+}
+
+.view-btn:hover {
+  background: #667eea !important;
+  color: white !important;
+}
+
 .heart-btn:hover {
   background: rgba(255, 255, 255, 0.1);
   transform: scale(1.1);
@@ -346,6 +396,54 @@
   color: white;
   white-space: nowrap;
   margin-left: 1rem;
+}
+
+/* Responsive Design for Job Cards */
+@media (max-width: 768px) {
+  .saved-job-card {
+    padding: 1rem !important;
+  }
+  
+  .job-position h3 {
+    font-size: 1.1rem !important;
+  }
+  
+  .company-name p {
+    font-size: 1rem !important;
+  }
+  
+  .job-tags {
+    gap: 0.25rem !important;
+  }
+  
+  .job-tags span {
+    font-size: 0.75rem !important;
+    padding: 0.2rem 0.6rem !important;
+  }
+  
+  .job-actions {
+    flex-direction: column !important;
+  }
+  
+  .action-btn {
+    width: 100% !important;
+    text-align: center !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .saved-jobs-grid {
+    grid-template-columns: 1fr !important;
+  }
+  
+  .job-tags {
+    justify-content: flex-start !important;
+  }
+  
+  .job-tags span {
+    font-size: 0.7rem !important;
+    padding: 0.15rem 0.5rem !important;
+  }
 }
 
 .application-details,
