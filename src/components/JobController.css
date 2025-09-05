@@ -260,11 +260,11 @@
 
 .application-card,
 .saved-job-card {
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 12px;
-  padding: 1.5rem;
-  transition: all 0.3s ease;
+  background: #ffffff;
+  border: 1px solid #d1d5db; /* 1px solid light grey */
+  border-radius: 8px;
+  padding: 1.25rem;
+  transition: all 0.2s ease;
   display: flex;
   flex-direction: column;
   height: 100%;
@@ -292,71 +292,68 @@
   border: none;
   cursor: pointer;
   padding: 0.25rem;
-  border-radius: 50%;
-  transition: all 0.3s ease;
+  border-radius: 4px;
+  transition: all 0.2s ease;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-/* Enhanced Job Card Styling */
+/* Minimal Job Card Hover Effects */
 .saved-job-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15) !important;
-  border-color: rgba(102, 126, 234, 0.3) !important;
+  border-color: #d1d5db;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
 }
 
 .saved-job-card .job-position h3 {
-  transition: color 0.3s ease;
+  transition: color 0.2s ease;
 }
 
 .saved-job-card:hover .job-position h3 {
-  color: #667eea;
+  color: #374151;
 }
 
 .saved-job-card .company-name p {
-  transition: color 0.3s ease;
+  transition: color 0.2s ease;
 }
 
 .saved-job-card:hover .company-name p {
-  color: #5a67d8;
+  color: #111827;
 }
 
 .job-tags span {
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
 }
 
 .job-tags span:hover {
-  transform: scale(1.05);
-  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+  background: #e5e7eb;
+  color: #111827;
 }
 
 .action-btn {
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
 }
 
 .action-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  transform: translateY(-1px);
 }
 
 .apply-btn:hover {
-  background: linear-gradient(135deg, #5a67d8 0%, #667eea 100%) !important;
+  background: #374151 !important;
 }
 
 .view-btn:hover {
-  background: #667eea !important;
-  color: white !important;
+  background: #f9fafb !important;
+  border-color: #9ca3af !important;
 }
 
 .heart-btn:hover {
-  background: rgba(255, 255, 255, 0.1);
-  transform: scale(1.1);
+  background: #f3f4f6;
 }
 
 .heart-icon {
-  font-size: 1.2rem;
-  transition: all 0.3s ease;
+  font-size: 1rem;
+  transition: all 0.2s ease;
 }
 
 .heart-btn.liked .heart-icon {
@@ -481,22 +478,25 @@
 
 .application-actions,
 .job-actions {
+.job-actions button {
+  color: #fff !important;
+}
   display: flex;
-  gap: 0.75rem;
-  flex-wrap: wrap;
-  margin-bottom: 1rem;
+  width: 100%;
+  margin-bottom: 0.75rem;
 }
 
 .action-btn {
-  padding: 0.75rem 1.25rem;
+  width: 100%;
+  height: 44px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  border-radius: 6px;
+  background: #111827;
+  color: #fff;
   border: none;
-  border-radius: 8px;
-  font-size: 0.9rem;
-  font-weight: 600;
   cursor: pointer;
-  transition: all 0.3s ease;
-  flex: 1;
-  min-width: 100px;
+  transition: background 0.2s;
 }
 
 .view-btn {
@@ -517,8 +517,7 @@
 }
 
 .action-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+  background: #374151;
 }
 
 /* Saved Jobs Section */

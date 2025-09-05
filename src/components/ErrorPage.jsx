@@ -23,13 +23,6 @@ function ErrorPage({ onNavigateBack, featureName = "This Feature" }) {
       icon: "✉️",
       status: "Available",
       action: "Go to Cover Letter"
-    // },
-    // {
-    //   name: "Profile Management",
-    //   description: "Manage your personal information and career details",
-    //   icon: "👤",
-    //   status: "Available",
-    //   action: "Go to Profile"
     }
   ]
 

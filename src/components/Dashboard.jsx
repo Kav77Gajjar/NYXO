@@ -69,7 +69,6 @@ function Dashboard({ onLogout, userEmail, onNavigate }) {
     <>
       <nav className={`dashboard-navbar ${(currentPage === 'profile' || currentPage === 'jobcontroller' || currentPage === 'toolkit') ? 'with-subnav' : ''}`}>
         <div className="dashboard-nav-container">
-          {/* brand logo removed */}
           
           <div className={`dashboard-nav-menu ${isMobileMenuOpen ? 'active' : ''}`}>
             <button 
@@ -450,10 +449,7 @@ function Dashboard({ onLogout, userEmail, onNavigate }) {
                 </div>
                 <div className="action-content">
                   <h3>Career Tools</h3>
-                  <p>Resume builder
-                    {/* ,interview prep, and  */}
-                    {/* skill assessments */}
-                    </p>
+                  <p>Resume builder and cover letter generator</p>
                 </div>
                 <div className="action-arrow">→</div>
               </div>
@@ -469,9 +465,7 @@ function Dashboard({ onLogout, userEmail, onNavigate }) {
                 </div>
                 <div className="action-content">
                   <h3>Find Work</h3>
-                  <p>Find new opportunities
-                     {/* and track your applications */}
-                     </p>
+                  <p>Find new opportunities and manage job search</p>
                 </div>
                 <div className="action-arrow">→</div>
               </div>

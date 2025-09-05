@@ -213,152 +213,161 @@ function JobController({ activeTab = 'search', setActiveTab, onNavigateBack }) {
         flexWrap: 'wrap',
         gap: '1rem'
       }}>
-        <h2>💾 Saved Jobs</h2>
-        <button className="add-job-btn">+ Add New Job</button>
+  <h2 style={{display: 'flex', alignItems: 'center', gap: '0.5rem', justifyContent: 'center', textAlign: 'center', fontSize: '1.65em', width: '100%'}}>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style={{verticalAlign: 'middle'}}>
+            <path d="M12 20.5C12 20.5 4 13.5 4 8.5C4 5.5 6.5 4 8.5 4C10 4 12 5.5 12 7C12 5.5 14 4 15.5 4C17.5 4 20 5.5 20 8.5C20 13.5 12 20.5 12 20.5Z" stroke="#FF7F50" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+          Liked Jobs
+        </h2>
+        {/* <button className="add-job-btn">+ Add New Job</button> */}
       </div>
 
       <div className="saved-jobs-grid" style={{
         display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))',
-        gap: '1.5rem'
+        gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
+        gap: '1rem'
       }}>
         {savedJobs.filter(job => job.isLiked).map(job => (
           <div key={job.id} className="saved-job-card" style={{
-            background: 'rgba(255, 255, 255, 0.95)',
-            border: '1px solid rgba(0, 0, 0, 0.1)',
-            borderRadius: '16px',
-            padding: '1.5rem',
-            transition: 'all 0.3s ease',
+            background: '#ffffff',
+            border: '1px solid #d1d5db',
+            borderRadius: '8px',
+            padding: '1.25rem',
+            transition: 'all 0.2s ease',
             display: 'flex',
             flexDirection: 'column',
             height: '100%',
-            position: 'relative',
-            boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
-            hover: {
-              transform: 'translateY(-2px)',
-              boxShadow: '0 8px 24px rgba(0, 0, 0, 0.15)'
-            }
+            position: 'relative'
           }}>
             
-            {/* 1. Position Title at Top */}
-            <div className="job-position" style={{
+            {/* Job Position & Heart */}
+            <div className="job-header" style={{
               display: 'flex',
               justifyContent: 'space-between',
               alignItems: 'flex-start',
-              marginBottom: '0.75rem'
-            }}>
-              <h3 style={{ 
-                margin: 0, 
-                fontSize: '1.3rem', 
-                fontWeight: '600',
-                color: '#1e293b',
-                lineHeight: '1.3'
-              }}>
-                {job.position}
-              </h3>
-              <button 
-                className={`heart-btn ${job.isLiked ? 'liked' : ''}`}
-                onClick={() => handleToggleLike(job.id)}
-                aria-label={job.isLiked ? 'Remove from saved' : 'Save job'}
-                style={{
-                  background: 'none',
-                  border: 'none',
-                  fontSize: '1.2rem',
-                  cursor: 'pointer',
-                  padding: '0.25rem'
-                }}
-              >
-                <span className="heart-icon">
-                  {job.isLiked ? '❤️' : '🤍'}
-                </span>
-              </button>
-            </div>
-
-            {/* 2. Company Name */}
-            <div className="company-name" style={{
               marginBottom: '0.5rem'
             }}>
-              <p style={{
-                margin: 0,
+              <h3 style={{
+                margin: '0',
                 fontSize: '1.1rem',
-                fontWeight: '500',
-                color: '#3b82f6'
+                fontWeight: '600',
+                color: '#111827',
+                lineHeight: '1.4'
               }}>
-                {job.company}
-              </p>
+                {job.title}
+              </h3>
+              <div style={{ display: 'flex', border: '1px solid #d1d5db', borderRadius: '8px', overflow: 'hidden', marginLeft: 'auto' }}>
+                <button 
+                        className={`heart-btn ${job.isLiked ? 'liked' : ''}`}
+                        onClick={() => handleToggleLike(job.id)}
+                        aria-label={job.isLiked ? 'Remove from wishlist' : 'Add to wishlist'}
+                        style={{
+                          background: 'none',
+                          border: 'none',
+                          fontSize: '1rem',
+                          cursor: 'pointer',
+                          padding: '0.25rem 0.75rem',
+                          color: job.isLiked ? '#ef4444' : '#9ca3af',
+                          borderRight: '1px solid #d1d5db',
+                          display: 'flex',
+                          alignItems: 'center',
+                          height: '32px'
+                        }}
+                      >
+                        ♥
+                      </button>
+                      <button 
+                        className="match-score-btn"
+                        style={{
+                          background: 'none',
+                          border: 'none',
+                          fontSize: '0.95rem',
+                          color: '#10b981',
+                          padding: '0.25rem 0.75rem',
+                          display: 'flex',
+                          alignItems: 'center',
+                          height: '32px',
+                          fontWeight: '500'
+                        }}
+                        aria-label="Match score"
+                      >
+                        {job.matchScore ? `${job.matchScore}% Match` : 'Match Score'}
+                      </button>
+                    </div>
             </div>
 
-            {/* 3. Location */}
-            <div className="job-location" style={{
-              marginBottom: '0.5rem',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '0.5rem'
+            {/* Company */}
+            <p style={{
+              margin: '0 0 0.75rem 0',
+              fontSize: '0.95rem',
+              fontWeight: '500',
+              color: '#4b5563'
             }}>
-              <span style={{ color: '#64748b' }}>📍</span>
-              <p style={{
-                margin: 0,
-                fontSize: '0.95rem',
-                color: '#64748b'
-              }}>
-                {job.location}
-              </p>
-            </div>
+              {job.company}
+            </p>
 
-            {/* 4. Posted Time */}
-            <div className="posted-time" style={{
+            {/* Location & Time */}
+            <div style={{ 
               marginBottom: '1rem',
+              fontSize: '0.85rem',
+              color: '#6b7280',
               display: 'flex',
-              alignItems: 'center',
-              gap: '0.5rem'
+              flexDirection: 'column',
+              gap: '0.25rem'
             }}>
-              <span style={{ color: '#64748b' }}>🕒</span>
-              <p style={{
-                margin: 0,
-                fontSize: '0.9rem',
-                color: '#64748b'
+              <span>{job.location}</span>
+              <span>{getRelativeTime(job.postedDate)}</span>
+            </div>
+
+            {/* Tags */}
+            {job.tags && job.tags.length > 0 && (
+              <div className="job-tags" style={{
+                display: 'flex',
+                flexWrap: 'wrap',
+                gap: '0.5rem',
+                marginBottom: '1rem'
               }}>
-                {getRelativeTime(job.postedDate)}
-              </p>
-            </div>
+                {job.tags.slice(0, 3).map((tag, index) => (
+                  <span key={index} style={{
+                    background: '#f3f4f6',
+                    color: '#374151',
+                    padding: '0.25rem 0.5rem',
+                    borderRadius: '50px',
+                    fontSize: '0.75rem',
+                    fontWeight: '500'
+                  }}>
+                    {tag}
+                  </span>
+                ))}
+                {job.tags.length > 3 && (
+                  <span style={{
+                    background: '#f3f4f6',
+                    color: '#6b7280',
+                    padding: '0.25rem 0.5rem',
+                    borderRadius: '50px',
+                    fontSize: '0.75rem'
+                  }}>
+                    +{job.tags.length - 3}
+                  </span>
+                )}
+              </div>
+            )}
 
-            {/* 5. Tags */}
-            <div className="job-tags" style={{
-              display: 'flex',
-              flexWrap: 'wrap',
-              gap: '0.5rem',
-              marginBottom: '1rem'
-            }}>
-              {job.tags && job.tags.map((tag, index) => (
-                <span key={index} style={{
-                  background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-                  color: 'white',
-                  padding: '0.25rem 0.75rem',
-                  borderRadius: '20px',
-                  fontSize: '0.8rem',
-                  fontWeight: '500',
-                  whiteSpace: 'nowrap'
-                }}>
-                  {tag}
-                </span>
-              ))}
-            </div>
-
-            {/* 6. Description */}
+            {/* Description */}
             {job.description && (
-              <div className="job-description" style={{
-                marginBottom: '1.5rem',
+              <div style={{
+                marginBottom: '1.25rem',
                 flex: 1
               }}>
                 <p style={{
                   margin: 0,
-                  fontSize: '0.95rem',
+                  fontSize: '0.875rem',
                   lineHeight: '1.5',
-                  color: '#475569',
-                  background: '#f8fafc',
-                  padding: '1rem',
-                  borderRadius: '8px',
-                  borderLeft: '4px solid #667eea'
+                  color: '#6b7280',
+                  display: '-webkit-box',
+                  WebkitLineClamp: 3,
+                  WebkitBoxOrient: 'vertical',
+                  overflow: 'hidden'
                 }}>
                   {job.description}
                 </p>
@@ -368,54 +377,34 @@ function JobController({ activeTab = 'search', setActiveTab, onNavigateBack }) {
             {/* Action Buttons */}
             <div className="job-actions" style={{
               display: 'flex',
-              gap: '0.75rem',
-              flexWrap: 'wrap',
-              marginBottom: '1rem'
+              marginBottom: '0.75rem'
             }}>
-              <button className="action-btn apply-btn" style={{
-                background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-                color: 'white',
-                border: 'none',
-                padding: '0.75rem 1.5rem',
-                borderRadius: '8px',
-                fontSize: '0.9rem',
+              <button style={{
+                background: 'rgba(17, 24, 39, 0.1)',
+                color: '#111827',
+                border: '1px solid #d1d5db',
+                padding: '0.75rem 1rem',
+                borderRadius: '6px',
+                fontSize: '0.95rem',
                 fontWeight: '500',
                 cursor: 'pointer',
-                transition: 'all 0.3s ease',
-                flex: 1
+                width: '100%',
+                height: '44px'
               }}>
-                Apply Now
-              </button>
-              <button className="action-btn view-btn" style={{
-                background: 'transparent',
-                color: '#667eea',
-                border: '2px solid #667eea',
-                padding: '0.75rem 1.5rem',
-                borderRadius: '8px',
-                fontSize: '0.9rem',
-                fontWeight: '500',
-                cursor: 'pointer',
-                transition: 'all 0.3s ease',
-                flex: 1
-              }}>
-                View Job
+                Apply
               </button>
             </div>
 
-            {/* 7. Portal Name Label (Centered at Bottom) */}
-            <div className="job-source" style={{
-              textAlign: 'center',
-              paddingTop: '1rem',
-              borderTop: '1px solid #e2e8f0'
+            {/* Source */}
+            <div style={{
+              borderTop: '1px solid #f3f4f6',
+              paddingTop: '0.75rem',
+              textAlign: 'center'
             }}>
               <span style={{
-                fontSize: '0.85rem',
-                color: '#94a3b8',
-                fontWeight: '500',
-                background: '#f1f5f9',
-                padding: '0.25rem 1rem',
-                borderRadius: '12px',
-                display: 'inline-block'
+                fontSize: '0.75rem',
+                color: '#9ca3af',
+                fontWeight: '500'
               }}>
                 via {job.source}
               </span>
