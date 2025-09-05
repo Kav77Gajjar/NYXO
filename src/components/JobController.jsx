@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import UniversalJobCard from './UniversalJobCard'
 import './JobController.css'
 import './dropdown-fix.css' // Import the dropdown fix styles
 import './emergency-fix.css' // Import emergency fixes
@@ -228,188 +229,15 @@ function JobController({ activeTab = 'search', setActiveTab, onNavigateBack }) {
         gap: '1rem'
       }}>
         {savedJobs.filter(job => job.isLiked).map(job => (
-          <div key={job.id} className="saved-job-card" style={{
-            background: '#ffffff',
-            border: '1px solid #d1d5db',
-            borderRadius: '8px',
-            padding: '1.25rem',
-            transition: 'all 0.2s ease',
-            display: 'flex',
-            flexDirection: 'column',
-            height: '100%',
-            position: 'relative'
-          }}>
-            
-            {/* Job Position & Heart */}
-            <div className="job-header" style={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'flex-start',
-              marginBottom: '0.5rem'
-            }}>
-              <h3 style={{
-                margin: '0',
-                fontSize: '1.1rem',
-                fontWeight: '600',
-                color: '#111827',
-                lineHeight: '1.4'
-              }}>
-                {job.title}
-              </h3>
-              <div style={{ display: 'flex', border: '1px solid #d1d5db', borderRadius: '8px', overflow: 'hidden', marginLeft: 'auto' }}>
-                <button 
-                        className={`heart-btn ${job.isLiked ? 'liked' : ''}`}
-                        onClick={() => handleToggleLike(job.id)}
-                        aria-label={job.isLiked ? 'Remove from wishlist' : 'Add to wishlist'}
-                        style={{
-                          background: 'none',
-                          border: 'none',
-                          fontSize: '1rem',
-                          cursor: 'pointer',
-                          padding: '0.25rem 0.75rem',
-                          color: job.isLiked ? '#ef4444' : '#9ca3af',
-                          borderRight: '1px solid #d1d5db',
-                          display: 'flex',
-                          alignItems: 'center',
-                          height: '32px'
-                        }}
-                      >
-                        ♥
-                      </button>
-                      <button 
-                        className="match-score-btn"
-                        style={{
-                          background: 'none',
-                          border: 'none',
-                          fontSize: '0.95rem',
-                          color: '#10b981',
-                          padding: '0.25rem 0.75rem',
-                          display: 'flex',
-                          alignItems: 'center',
-                          height: '32px',
-                          fontWeight: '500'
-                        }}
-                        aria-label="Match score"
-                      >
-                        {job.matchScore ? `${job.matchScore}% Match` : 'Match Score'}
-                      </button>
-                    </div>
-            </div>
-
-            {/* Company */}
-            <p style={{
-              margin: '0 0 0.75rem 0',
-              fontSize: '0.95rem',
-              fontWeight: '500',
-              color: '#4b5563'
-            }}>
-              {job.company}
-            </p>
-
-            {/* Location & Time */}
-            <div style={{ 
-              marginBottom: '1rem',
-              fontSize: '0.85rem',
-              color: '#6b7280',
-              display: 'flex',
-              flexDirection: 'column',
-              gap: '0.25rem'
-            }}>
-              <span>{job.location}</span>
-              <span>{getRelativeTime(job.postedDate)}</span>
-            </div>
-
-            {/* Tags */}
-            {job.tags && job.tags.length > 0 && (
-              <div className="job-tags" style={{
-                display: 'flex',
-                flexWrap: 'wrap',
-                gap: '0.5rem',
-                marginBottom: '1rem'
-              }}>
-                {job.tags.slice(0, 3).map((tag, index) => (
-                  <span key={index} style={{
-                    background: '#f3f4f6',
-                    color: '#374151',
-                    padding: '0.25rem 0.5rem',
-                    borderRadius: '50px',
-                    fontSize: '0.75rem',
-                    fontWeight: '500'
-                  }}>
-                    {tag}
-                  </span>
-                ))}
-                {job.tags.length > 3 && (
-                  <span style={{
-                    background: '#f3f4f6',
-                    color: '#6b7280',
-                    padding: '0.25rem 0.5rem',
-                    borderRadius: '50px',
-                    fontSize: '0.75rem'
-                  }}>
-                    +{job.tags.length - 3}
-                  </span>
-                )}
-              </div>
-            )}
-
-            {/* Description */}
-            {job.description && (
-              <div style={{
-                marginBottom: '1.25rem',
-                flex: 1
-              }}>
-                <p style={{
-                  margin: 0,
-                  fontSize: '0.875rem',
-                  lineHeight: '1.5',
-                  color: '#6b7280',
-                  display: '-webkit-box',
-                  WebkitLineClamp: 3,
-                  WebkitBoxOrient: 'vertical',
-                  overflow: 'hidden'
-                }}>
-                  {job.description}
-                </p>
-              </div>
-            )}
-
-            {/* Action Buttons */}
-            <div className="job-actions" style={{
-              display: 'flex',
-              marginBottom: '0.75rem'
-            }}>
-              <button style={{
-                background: 'rgba(17, 24, 39, 0.1)',
-                color: '#111827',
-                border: '1px solid #d1d5db',
-                padding: '0.75rem 1rem',
-                borderRadius: '6px',
-                fontSize: '0.95rem',
-                fontWeight: '500',
-                cursor: 'pointer',
-                width: '100%',
-                height: '44px'
-              }}>
-                Apply
-              </button>
-            </div>
-
-            {/* Source */}
-            <div style={{
-              borderTop: '1px solid #f3f4f6',
-              paddingTop: '0.75rem',
-              textAlign: 'center'
-            }}>
-              <span style={{
-                fontSize: '0.75rem',
-                color: '#9ca3af',
-                fontWeight: '500'
-              }}>
-                via {job.source}
-              </span>
-            </div>
-          </div>
+          <UniversalJobCard
+            key={job.id}
+            job={job}
+            onToggleLike={handleToggleLike}
+            showMatchScore={true}
+            showHeart={true}
+            showSource={true}
+            variant="saved"
+          />
         ))}
       </div>
     </div>

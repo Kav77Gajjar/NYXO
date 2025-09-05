@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import UniversalJobCard from './UniversalJobCard'
 import './JobApplications.css'
 
 function JobApplications({ userEmail, onNavigateBack }) {
@@ -277,7 +278,11 @@ function JobApplications({ userEmail, onNavigateBack }) {
         </div>
       </div>
 
-      <div className="applications-list">
+      <div className="applications-list" style={{
+        display: 'grid',
+        gridTemplateColumns: 'repeat(auto-fill, minmax(350px, 1fr))',
+        gap: '1.5rem'
+      }}>
         {sortedApplications.length === 0 ? (
           <div className="no-applications">
             <div className="no-applications-icon">📝</div>
@@ -285,42 +290,36 @@ function JobApplications({ userEmail, onNavigateBack }) {
             <p>No applications match your current filter criteria.</p>
           </div>
         ) : (
-          sortedApplications.map(application => (
-            <div key={application.id} className="application-card">
-              <div className="card-main-content">
-                <div className="card-header">
-                  <div className="company-info">
-                    <span className="company-logo">{application.companyLogo}</span>
-                    <h3 className="company-name">{application.company}</h3>
-                  </div>
-                  <div className="job-type-badge">
-                    <span className="job-type">{application.jobType}</span>
-                  </div>
-                </div>
-                
-                <div className="card-details">
-                  <div className="applied-date">
-                    <span className="label">Applied:</span>
-                    <span className="date">{formatDate(application.appliedDate)} ({getDaysAgo(application.appliedDate)})</span>
-                  </div>
-                  <div className="position-title">
-                    <h4>{application.position}</h4>
-                  </div>
-                  <div className="location-salary">
-                    <span className="location">{application.location}</span>
-                    <span className="salary">{application.salary}</span>
-                  </div>
-                </div>
-              </div>
-              
-              <div className="card-footer">
-                <div className="website-info">
-                  <span className="website-logo">{getWebsiteLogo(application.applicationMethod)}</span>
-                  <span className="application-source">via {application.company}</span>
-                </div>
-              </div>
-            </div>
-          ))
+          sortedApplications.map(application => {
+            // Transform application data to match universal card format
+            const jobData = {
+              id: application.id,
+              title: application.position,
+              company: application.company,
+              location: application.location,
+              appliedDate: application.appliedDate,
+              salary: application.salary,
+              description: `Applied via ${application.applicationMethod}`,
+              source: application.applicationMethod,
+              applicationMethod: application.applicationMethod,
+              tags: [application.jobType, application.salary ? 'Salary Listed' : 'Salary TBD'].filter(Boolean)
+            };
+
+            return (
+              <UniversalJobCard
+                key={application.id}
+                job={jobData}
+                showMatchScore={false}
+                showHeart={false}
+                showSource={true}
+                variant="application"
+                onApply={(job) => {
+                  // Handle view application action
+                  console.log('View application for:', job.title);
+                }}
+              />
+            );
+          })
         )}
       </div>
     </div>

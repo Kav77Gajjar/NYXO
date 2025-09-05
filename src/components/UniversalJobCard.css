@@ -1,0 +1,91 @@
+/* Universal Job Card Styles */
+.universal-job-card {
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.universal-job-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  border-color: #3b82f6;
+}
+
+.universal-job-card .job-header h3 {
+  transition: color 0.2s ease;
+}
+
+.universal-job-card:hover .job-header h3 {
+  color: #3b82f6;
+}
+
+.universal-job-card .heart-btn {
+  transition: all 0.2s ease;
+}
+
+.universal-job-card .heart-btn:hover {
+  background: rgba(239, 68, 68, 0.1) !important;
+  color: #ef4444 !important;
+}
+
+.universal-job-card .heart-btn.liked {
+  color: #ef4444 !important;
+}
+
+.universal-job-card .match-score-btn {
+  transition: all 0.2s ease;
+}
+
+.universal-job-card .match-score-btn:hover {
+  background: rgba(16, 185, 129, 0.1) !important;
+}
+
+.universal-job-card .job-tags span {
+  transition: all 0.2s ease;
+}
+
+.universal-job-card .job-tags span:hover {
+  background: #e5e7eb;
+  transform: scale(1.02);
+}
+
+.universal-job-card .job-actions button {
+  transition: all 0.2s ease;
+}
+
+.universal-job-card .job-actions button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Application variant specific styles */
+.universal-job-card .application-info {
+  background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%);
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .universal-job-card {
+    padding: 1rem;
+  }
+  
+  .universal-job-card .job-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+  
+  .universal-job-card .job-header > div {
+    margin-left: 0 !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .universal-job-card .job-tags {
+    flex-wrap: wrap;
+  }
+  
+  .universal-job-card .job-tags span {
+    font-size: 0.7rem;
+    padding: 0.2rem 0.4rem;
+  }
+}

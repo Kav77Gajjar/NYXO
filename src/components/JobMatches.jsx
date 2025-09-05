@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import UniversalJobCard from './UniversalJobCard'
 import './JobMatches.css'
 
 function JobMatches({ userEmail, onNavigateBack }) {
@@ -163,48 +164,44 @@ function JobMatches({ userEmail, onNavigateBack }) {
         </div>
       </div>
 
-      <div className="job-matches-list">
-        {sortedJobs.map(job => (
-          <div key={job.id} className="job-match-card">
-            <div className="job-header">
-              <div className="job-basic-info">
-                <h3 className="job-title">{job.title}</h3>
-                <div className="job-company">{job.company}</div>
-                <div className="job-meta">
-                  <span className="job-location">{job.location}</span>
-                  <span className="job-type">{job.type}</span>
-                  {job.remote && <span className="remote-badge">Remote</span>}
-                </div>
-              </div>
-              <div className="job-match-info">
-                <div 
-                  className="match-score"
-                  style={{ color: getMatchColor(job.matchScore) }}
-                >
-                  {job.matchScore}% Match
-                </div>
-                <div className="job-posted">{job.postedDate}</div>
-              </div>
-            </div>
+      <div className="job-matches-list" style={{
+        display: 'grid',
+        gridTemplateColumns: 'repeat(auto-fill, minmax(350px, 1fr))',
+        gap: '1.5rem'
+      }}>
+        {sortedJobs.map(job => {
+          // Transform job data to match universal card format
+          const jobData = {
+            id: job.id,
+            title: job.title,
+            company: job.company,
+            location: job.location,
+            postedDate: job.postedDate,
+            description: job.description,
+            salary: job.salary,
+            source: 'Job Board',
+            matchScore: job.matchScore,
+            tags: [...(job.skills || []), job.type, job.remote ? 'Remote' : ''].filter(Boolean).slice(0, 4),
+            isLiked: false // Can be managed by parent component
+          };
 
-            <div className="job-details">
-              <div className="job-salary">{job.salary}</div>
-              <p className="job-description">{job.description}</p>
-              
-              <div className="job-skills">
-                {job.skills.map((skill, index) => (
-                  <span key={index} className="skill-tag">{skill}</span>
-                ))}
-              </div>
-            </div>
-
-            <div className="job-actions">
-              <button className="apply-btn primary">Apply Now</button>
-              <button className="save-btn">Save Job</button>
-              <button className="details-btn">View Details</button>
-            </div>
-          </div>
-        ))}
+          return (
+            <UniversalJobCard
+              key={job.id}
+              job={jobData}
+              showMatchScore={true}
+              showHeart={true}
+              showSource={true}
+              variant="default"
+              onApply={(job) => {
+                console.log('Apply to job:', job.title);
+              }}
+              onToggleLike={(jobId) => {
+                console.log('Toggle like for job:', jobId);
+              }}
+            />
+          );
+        })}
       </div>
 
       {sortedJobs.length === 0 && (
