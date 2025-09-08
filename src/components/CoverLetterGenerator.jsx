@@ -19,11 +19,17 @@ export default function CoverLetterGenerator({ onNavigateBack }) {
   const handleSubmit = (e) => {
     e.preventDefault()
     setSubmitted(true)
+    
+    // Save form data to localStorage for use in templates
+    const formData = { degree, field, experience, isStudent }
+    localStorage.setItem('coverLetterData', JSON.stringify(formData))
+    
     // For now just log — integration with backend or next step can be added later
-    console.log({ degree, field, experience, isStudent })
-  // Navigate to templates page after submit
-  const event = new CustomEvent('navigate', { detail: { page: 'cover-letter-templates' } })
-  window.dispatchEvent(event)
+    console.log(formData)
+    
+    // Navigate to templates page after submit
+    const event = new CustomEvent('navigate', { detail: { page: 'cover-letter-templates' } })
+    window.dispatchEvent(event)
   }
 
   // If user indicates No for student while having no experience, go to templates
