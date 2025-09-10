@@ -1,0 +1,136 @@
+/* NYXO Dark Theme Color Palette */
+:root {
+  /* Core Brand Colors */
+  --pure-black: #000000;           /* Pure Black - Deep backgrounds and strong contrast */
+  --slate-grey: #708090;           /* Slate Grey - Medium elements and dividers */
+  --pure-white: #FFFFFF;           /* Pure White - Accent text and highlights */
+  --deep-teal: #008080;            /* Deep Teal - Primary accents and luxury elements */
+  --burnt-sienna: #E97451;         /* Burnt Sienna - Secondary accents and energy */
+  --old-lace: #FDF5E6;             /* Old Lace - Soft highlights and subtle accents */
+
+  /* Dark Theme Color Assignments */
+  --bg-main: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);       /* Dark gradient background */
+  --bg-secondary: linear-gradient(135deg, #2d2d2d 0%, #404040 100%);  /* Secondary dark gradient */
+  --bg-dark: linear-gradient(135deg, var(--pure-black) 0%, var(--slate-grey) 100%);  /* Darkest gradient */
+  --bg-card: linear-gradient(135deg, #333333 0%, #444444 100%);       /* Card gradient backgrounds */
+  --bg-elevated: linear-gradient(135deg, #404040 0%, #525252 100%);   /* Elevated element backgrounds */
+  
+  --text-primary: var(--pure-white);       /* Primary text - pure white for readability */
+  --text-secondary: #b0b0b0;               /* Secondary text - light grey */
+  --text-muted: var(--slate-grey);         /* Muted text - slate grey */
+  --text-accent: var(--old-lace);          /* Accent text - warm off-white */
+  
+  --accent-primary: var(--deep-teal);      /* Primary accent - deep teal */
+  --accent-secondary: var(--burnt-sienna); /* Secondary accent - burnt sienna */
+  --accent-gradient: linear-gradient(135deg, var(--deep-teal) 0%, var(--burnt-sienna) 100%);
+  
+  /* Button Colors with Gradients */
+  --btn-primary: linear-gradient(135deg, var(--deep-teal) 0%, #006666 100%);
+  --btn-secondary: linear-gradient(135deg, var(--burnt-sienna) 0%, #cc5a33 100%);
+  --btn-neutral: linear-gradient(135deg, var(--slate-grey) 0%, #5a6570 100%);
+  --btn-dark: linear-gradient(135deg, var(--pure-black) 0%, #333333 100%);
+  
+  /* Border and Shadow Colors */
+  --border-light: rgba(255, 255, 255, 0.1);     /* Subtle light borders */
+  --border-medium: rgba(255, 255, 255, 0.2);    /* Medium borders */
+  --border-accent: rgba(0, 128, 128, 0.3);      /* Teal accent borders */
+  --border-warm: rgba(233, 116, 81, 0.3);       /* Warm accent borders */
+  
+  --shadow-light: rgba(0, 0, 0, 0.3);           /* Light shadows */
+  --shadow-medium: rgba(0, 0, 0, 0.5);          /* Medium shadows */
+  --shadow-dark: rgba(0, 0, 0, 0.8);            /* Dark shadows */
+  --shadow-colored: rgba(0, 128, 128, 0.2);     /* Colored shadows */
+  
+  /* Interactive States */
+  --hover-teal: rgba(0, 128, 128, 0.2);         /* Teal hover overlay */
+  --hover-sienna: rgba(233, 116, 81, 0.2);      /* Sienna hover overlay */
+  --hover-dark: rgba(255, 255, 255, 0.1);       /* Dark theme hover */
+  
+  /* Status Colors */
+  --success: var(--deep-teal);
+  --warning: var(--burnt-sienna);
+  --error: #ff4444;
+  --info: var(--slate-grey);
+}
+
+/* Dark Theme Gradient Utility Classes */
+.bg-main { background: var(--bg-main); }
+.bg-secondary { background: var(--bg-secondary); }
+.bg-dark { background: var(--bg-dark); }
+.bg-card { background: var(--bg-card); }
+.bg-elevated { background: var(--bg-elevated); }
+
+.text-primary { color: var(--text-primary); }
+.text-secondary { color: var(--text-secondary); }
+.text-muted { color: var(--text-muted); }
+.text-accent { color: var(--text-accent); }
+.text-teal { color: var(--deep-teal); }
+.text-sienna { color: var(--burnt-sienna); }
+
+.border-light { border-color: var(--border-light); }
+.border-medium { border-color: var(--border-medium); }
+.border-accent { border-color: var(--border-accent); }
+.border-warm { border-color: var(--border-warm); }
+
+/* Enhanced Gradient Combinations */
+.gradient-main {
+  background: var(--bg-main);
+}
+
+.gradient-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-light);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.gradient-teal-sienna {
+  background: linear-gradient(135deg, var(--deep-teal) 0%, var(--burnt-sienna) 100%);
+}
+
+.gradient-dark-elevated {
+  background: linear-gradient(135deg, #1a1a1a 0%, #333333 50%, #404040 100%);
+}
+
+.gradient-hero {
+  background: linear-gradient(135deg, var(--pure-black) 0%, #1a1a1a 30%, var(--slate-grey) 100%);
+}
+
+.gradient-footer {
+  background: linear-gradient(135deg, var(--pure-black) 0%, var(--slate-grey) 100%);
+}
+
+/* Glass morphism effects for dark theme */
+.glass-light {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.glass-dark {
+  background: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.glass-teal {
+  background: rgba(0, 128, 128, 0.1);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border: 1px solid rgba(0, 128, 128, 0.3);
+}
+
+/* Glow effects for dark theme */
+.glow-teal {
+  box-shadow: 0 0 20px rgba(0, 128, 128, 0.3), 0 0 40px rgba(0, 128, 128, 0.1);
+}
+
+.glow-sienna {
+  box-shadow: 0 0 20px rgba(233, 116, 81, 0.3), 0 0 40px rgba(233, 116, 81, 0.1);
+}
+
+.glow-white {
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.2), 0 0 40px rgba(255, 255, 255, 0.1);
+}

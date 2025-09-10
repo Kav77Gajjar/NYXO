@@ -1,0 +1,349 @@
+/* NYXO Dark Theme Global Brand Color Overrides */
+/* This file ensures consistent dark theme brand colors across all components */
+
+/* Import the main theme first */
+@import './theme.css';
+
+/* Global overrides for consistent dark theme application */
+* {
+  /* Ensure all elements can access brand colors */
+  --pure-black: #000000;
+  --slate-grey: #708090;
+  --pure-white: #FFFFFF;
+  --deep-teal: #008080;
+  --burnt-sienna: #E97451;
+  --old-lace: #FDF5E6;
+}
+
+/* Force consistent dark theme colors */
+body, 
+body *,
+.App,
+.App * {
+  color: var(--pure-white) !important;
+}
+
+/* Secondary text elements */
+.text-muted,
+.secondary-text,
+.subtitle,
+.description,
+.meta,
+.small-text {
+  color: var(--text-secondary) !important;
+}
+
+/* All headers use pure white */
+h1, h2, h3, h4, h5, h6 {
+  color: var(--pure-white) !important;
+}
+
+/* Links use brand colors */
+a,
+.link,
+.nav-link {
+  color: var(--deep-teal) !important;
+}
+
+a:hover,
+.link:hover,
+.nav-link:hover {
+  color: var(--burnt-sienna) !important;
+}
+
+/* Primary buttons with gradients */
+.btn-primary,
+.primary-btn,
+.submit-btn,
+.cta-btn {
+  background: linear-gradient(135deg, var(--deep-teal) 0%, var(--burnt-sienna) 100%) !important;
+  color: var(--pure-white) !important;
+  border: none !important;
+  box-shadow: 0 0 15px rgba(0, 128, 128, 0.3) !important;
+}
+
+.btn-primary:hover,
+.primary-btn:hover,
+.submit-btn:hover,
+.cta-btn:hover {
+  background: linear-gradient(135deg, var(--burnt-sienna) 0%, var(--deep-teal) 100%) !important;
+  box-shadow: 0 0 20px rgba(233, 116, 81, 0.4) !important;
+  transform: translateY(-2px) !important;
+}
+
+/* Secondary buttons with gradients */
+.btn-secondary,
+.secondary-btn {
+  background: linear-gradient(135deg, var(--slate-grey) 0%, var(--pure-black) 100%) !important;
+  color: var(--pure-white) !important;
+  border: 1px solid var(--border-light) !important;
+}
+
+.btn-secondary:hover,
+.secondary-btn:hover {
+  background: linear-gradient(135deg, var(--pure-black) 0%, var(--slate-grey) 100%) !important;
+  box-shadow: 0 0 15px rgba(112, 128, 144, 0.3) !important;
+}
+
+/* Background colors with gradients */
+.bg-main,
+.main-bg {
+  background: var(--bg-main) !important;
+}
+
+.bg-secondary,
+.secondary-bg,
+.card-bg {
+  background: var(--bg-card) !important;
+}
+
+.bg-dark,
+.dark-bg,
+.footer-bg {
+  background: var(--bg-dark) !important;
+  color: var(--pure-white) !important;
+}
+
+/* Forms with dark theme styling */
+input,
+textarea,
+select {
+  background: var(--bg-card) !important;
+  color: var(--pure-white) !important;
+  border: 1px solid var(--border-light) !important;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  border-color: var(--deep-teal) !important;
+  box-shadow: 0 0 0 2px rgba(0, 128, 128, 0.3) !important;
+  background: var(--bg-elevated) !important;
+}
+
+/* Error states */
+.error,
+.error-message,
+.invalid {
+  color: var(--burnt-sienna) !important;
+}
+
+input.error,
+textarea.error,
+select.error {
+  border-color: var(--burnt-sienna) !important;
+  box-shadow: 0 0 0 2px rgba(233, 116, 81, 0.3) !important;
+}
+
+/* Cards and containers with glass effect */
+.card,
+.container,
+.box,
+.panel {
+  background: var(--bg-card) !important;
+  border: 1px solid var(--border-light) !important;
+  backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
+}
+
+/* Navigation elements */
+.navbar,
+.nav,
+.navigation {
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.8) 0%, rgba(45, 45, 45, 0.9) 100%) !important;
+  border: 1px solid var(--border-light) !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+}
+
+.nav-item.active,
+.nav-link.active {
+  background: linear-gradient(135deg, var(--deep-teal) 0%, var(--burnt-sienna) 100%) !important;
+  color: var(--pure-white) !important;
+  box-shadow: 0 0 15px rgba(0, 128, 128, 0.3) !important;
+}
+
+/* Status indicators */
+.success {
+  color: var(--deep-teal) !important;
+}
+
+.warning {
+  color: var(--burnt-sienna) !important;
+}
+
+.info {
+  color: var(--text-secondary) !important;
+}
+
+/* Borders and dividers */
+hr,
+.divider,
+.separator {
+  border-color: var(--border-light) !important;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Enhanced hover effects */
+.hover-teal:hover {
+  background: linear-gradient(135deg, var(--deep-teal) 0%, rgba(0, 128, 128, 0.8) 100%) !important;
+  color: var(--pure-white) !important;
+  box-shadow: 0 0 20px rgba(0, 128, 128, 0.4) !important;
+}
+
+.hover-sienna:hover {
+  background: linear-gradient(135deg, var(--burnt-sienna) 0%, rgba(233, 116, 81, 0.8) 100%) !important;
+  color: var(--pure-white) !important;
+  box-shadow: 0 0 20px rgba(233, 116, 81, 0.4) !important;
+}
+
+/* Enhanced brand gradients */
+.gradient-primary {
+  background: linear-gradient(135deg, var(--deep-teal) 0%, var(--slate-grey) 100%) !important;
+}
+
+.gradient-secondary {
+  background: linear-gradient(135deg, var(--burnt-sienna) 0%, var(--deep-teal) 100%) !important;
+}
+
+.gradient-dark {
+  background: linear-gradient(135deg, var(--pure-black) 0%, var(--slate-grey) 100%) !important;
+}
+
+/* Ensure specific component overrides */
+/* Dashboard specific */
+.dashboard {
+  background: var(--bg-main) !important;
+}
+
+.dashboard-navbar {
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.8) 0%, rgba(45, 45, 45, 0.9) 100%) !important;
+}
+
+/* Auth page specific */
+.auth-page {
+  background: var(--bg-main) !important;
+}
+
+.auth-container {
+  background: var(--bg-card) !important;
+  border: 1px solid var(--border-light) !important;
+}
+
+/* Resume templates specific */
+.resume-templates {
+  background: var(--bg-main) !important;
+}
+
+/* Job cards specific */
+.job-card {
+  background: var(--bg-card) !important;
+  border: 1px solid var(--border-light) !important;
+}
+
+.job-card:hover {
+  border-color: var(--deep-teal) !important;
+  box-shadow: 0 0 20px rgba(0, 128, 128, 0.3) !important;
+}
+
+/* Notification specific */
+.notification-item {
+  background: var(--bg-card) !important;
+  border: 1px solid var(--border-light) !important;
+}
+
+.notification-item.unread {
+  background: var(--bg-elevated) !important;
+  border-color: var(--deep-teal) !important;
+  box-shadow: 0 0 15px rgba(0, 128, 128, 0.2) !important;
+}
+
+/* Glass morphism and glow effects */
+.glass-effect {
+  background: rgba(255, 255, 255, 0.1) !important;
+  backdrop-filter: blur(15px) !important;
+  -webkit-backdrop-filter: blur(15px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+}
+
+.glow-effect {
+  box-shadow: 0 0 20px rgba(0, 128, 128, 0.3), 0 0 40px rgba(0, 128, 128, 0.1) !important;
+}
+
+/* Mobile responsiveness for dark theme */
+@media (max-width: 768px) {
+  .mobile-override {
+    background: var(--bg-main) !important;
+  }
+  
+  .mobile-nav {
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.9) 0%, rgba(45, 45, 45, 0.95) 100%) !important;
+  }
+}
+
+/* Enhanced dark theme support */
+@media (prefers-color-scheme: dark) {
+  .auto-dark {
+    background: var(--bg-dark) !important;
+    color: var(--pure-white) !important;
+  }
+  
+  .auto-dark .card {
+    background: var(--bg-card) !important;
+  }
+}
+
+/* Print styles with dark theme considerations */
+@media print {
+  * {
+    background: var(--pure-white) !important;
+    color: var(--pure-black) !important;
+  }
+  
+  .print-hide {
+    display: none !important;
+  }
+}
+
+/* Additional Card Component Overrides */
+.universal-job-card,
+.template-card,
+.application-card,
+.job-card,
+.tool-card,
+.feature-card,
+.resume-card,
+.section-card,
+[class*="card"]:not(.credit-card):not(.id-card) {
+  background: var(--bg-card) !important;
+  color: var(--text-primary) !important;
+  border: 1px solid var(--border-light) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+  backdrop-filter: blur(20px) !important;
+  box-shadow: 0 8px 32px var(--shadow-dark) !important;
+}
+
+/* Ensure all white/light backgrounds are overridden */
+*[style*="background: white"],
+*[style*="background: #fff"],
+*[style*="background: #f8f9fa"],
+*[style*="background: #f9fafb"],
+*[style*="background-color: white"],
+*[style*="background-color: #fff"],
+.bg-white,
+.bg-light,
+.bg-gray-50,
+.bg-gray-100 {
+  background: var(--bg-card) !important;
+}
+
+/* Font improvements for better visibility */
+.template-info h3,
+.card-title,
+.job-title,
+.tool-card-content h3,
+h1, h2, h3, h4, h5, h6 {
+  color: var(--text-primary) !important;
+  text-shadow: 0 0 8px rgba(0, 128, 128, 0.2) !important;
+  font-weight: 600 !important;
+}

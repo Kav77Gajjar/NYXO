@@ -47,20 +47,22 @@
 }
 
 .tool-card {
-  background: white;
-  border: 2px solid #e9ecef;
+  background: var(--bg-card);
+  border: 2px solid var(--border-light);
   border-radius: 16px;
   padding: 2rem;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   text-align: left;
-  color: #333;
+  color: var(--text-primary);
   display: flex;
   align-items: flex-start;
   gap: 1.5rem;
   position: relative;
   overflow: hidden;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 8px 32px var(--shadow-dark);
+  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
 }
 
 .tool-card::before {
@@ -70,16 +72,17 @@
   left: 0;
   width: 5px;
   height: 100%;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, var(--deep-teal) 0%, var(--burnt-sienna) 100%);
   transform: scaleY(0);
   transition: transform 0.3s ease;
+  box-shadow: 0 0 15px rgba(0, 128, 128, 0.5);
 }
 
 .tool-card:hover {
-  background: #ffffff;
-  border-color: #667eea;
-  transform: translateY(-5px);
-  box-shadow: 0 12px 35px rgba(102, 126, 234, 0.25);
+  background: var(--bg-card);
+  border-color: rgba(0, 128, 128, 0.4);
+  transform: translateY(-8px);
+  box-shadow: 0 20px 50px var(--shadow-dark), 0 0 30px rgba(0, 128, 128, 0.2);
 }
 
 .tool-card:hover::before {
@@ -105,14 +108,15 @@
   font-weight: 600;
   margin: 0 0 0.75rem 0;
   line-height: 1.3;
-  color: #333;
+  color: var(--text-primary);
+  text-shadow: 0 0 8px rgba(0, 128, 128, 0.2);
 }
 
 .tool-card-content p {
   margin: 0 0 1rem 0;
   font-size: 1rem;
   line-height: 1.5;
-  color: #6c757d;
+  color: var(--text-secondary);
 }
 
 .tool-category {

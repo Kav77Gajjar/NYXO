@@ -3,20 +3,29 @@
   line-height: 1.5;
   font-weight: 400;
 
-  /* Custom Color Theme */
-  --bg-main: #FFE5D9; /* Light peach background */
-  --text-primary: #2C2C2C; /* Dark charcoal for primary text/labels */
-  --text-secondary: #6E6E6E; /* Soft gray for secondary text/muted info */
-  --btn-primary: #FF7F50; /* Coral for primary action buttons */
-  --btn-secondary: #3A6EA5; /* Deep steel blue for search/secondary actions */
-  --accent-error: #D72638; /* Crimson red for required fields/errors */
-  --bg-white: #FFFFFF; /* Pure white for cards/containers */
-  --border-light: rgba(46, 46, 46, 0.1); /* Light border color */
-  --shadow-light: rgba(46, 46, 46, 0.08); /* Light shadow */
+  /* NYXO Dark Theme Color Palette */
+  --pure-black: #000000;           /* Pure Black - deep backgrounds and strong contrast */
+  --slate-grey: #708090;           /* Slate Grey - medium elements and dividers */
+  --pure-white: #FFFFFF;           /* Pure White - accent text and highlights */
+  --deep-teal: #008080;            /* Deep Teal - sophisticated luxury and calm */
+  --burnt-sienna: #E97451;         /* Burnt Sienna - energetic yet grounded contrast */
+  --old-lace: #FDF5E6;             /* Old Lace - soft warmth for subtle accents */
 
-  color-scheme: light;
+  /* Dark Theme Assignments */
+  --bg-main: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+  --bg-secondary: linear-gradient(135deg, #333333 0%, #444444 100%);
+  --text-primary: var(--pure-white);
+  --text-secondary: #b0b0b0;
+  --btn-primary: var(--deep-teal);
+  --btn-secondary: var(--burnt-sienna);
+  --accent-error: var(--burnt-sienna);
+  --bg-white: linear-gradient(135deg, #333333 0%, #444444 100%);
+  --border-light: rgba(255, 255, 255, 0.1);
+  --shadow-light: rgba(0, 0, 0, 0.3);
+
+  color-scheme: dark;
   color: var(--text-primary);
-  background-color: var(--bg-main);
+  background: var(--bg-main);
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -42,7 +51,7 @@ body {
   min-height: 100vh;
   overflow-x: hidden;
   width: 100%;
-  background-color: var(--bg-main);
+  background: var(--bg-main);
   color: var(--text-primary);
 }
 
@@ -97,10 +106,10 @@ button {
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: var(--btn-primary);
-  color: white;
+  background: linear-gradient(135deg, var(--deep-teal) 0%, #006666 100%);
+  color: var(--pure-white);
   cursor: pointer;
-  transition: border-color 0.25s;
+  transition: all 0.25s ease;
   
   /* Ensure buttons are touch-friendly */
   min-height: 44px;
@@ -108,7 +117,9 @@ button {
 }
 
 button:hover {
-  border-color: var(--btn-secondary);
+  background: linear-gradient(135deg, var(--burnt-sienna) 0%, #cc5a33 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px var(--shadow-light);
 }
 
 button:focus,
@@ -127,8 +138,8 @@ input, select, textarea {
   font-size: inherit;
   line-height: inherit;
   color: var(--text-primary);
-  background-color: var(--bg-main);
-  border: 1px solid var(--text-secondary);
+  background: linear-gradient(135deg, #333333 0%, #404040 100%);
+  border: 1px solid var(--border-light);
   border-radius: 4px;
   padding: 0.5em;
 }
@@ -177,15 +188,33 @@ input, select, textarea {
   }
 }
 
-/* Global override: force all text to black across the entire site */
-/* This will set all rendered text to black; links/buttons will also become black. */
+/* Global override: Apply NYXO brand colors consistently */
 html, body, #root, .App {
-  color: #000 !important;
+  color: var(--text-primary) !important;
+  background-color: var(--bg-main) !important;
 }
 
-/* Ensure all descendants inherit black text color */
-body, body * {
-  color: #000 !important;
+/* Ensure all text elements use brand colors */
+h1, h2, h3, h4, h5, h6 {
+  color: var(--text-primary) !important;
+}
+
+p, span, div {
+  color: var(--text-primary) !important;
+}
+
+/* Secondary text elements */
+.text-muted, .secondary-text {
+  color: var(--text-secondary) !important;
+}
+
+/* Links using brand colors */
+a {
+  color: var(--deep-teal) !important;
+}
+
+a:hover {
+  color: var(--burnt-sienna) !important;
 }
 
 /* Print styles */

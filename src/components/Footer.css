@@ -1,6 +1,6 @@
 .footer {
-  background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
-  color: #e2e8f0;
+  background: linear-gradient(135deg, var(--pure-black) 0%, var(--slate-grey) 100%);
+  color: var(--old-lace);
   margin-top: auto;
   padding: 3rem 0 1rem 0;
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -28,16 +28,16 @@
 .footer-title {
   font-size: 1.5rem;
   font-weight: 700;
-  color: #f1f5f9;
+  color: var(--pure-white);
   margin: 0;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, var(--deep-teal) 0%, var(--burnt-sienna) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
 .footer-description {
-  color: #cbd5e1;
+  color: var(--old-lace);
   line-height: 1.6;
   margin: 0;
 }
@@ -45,7 +45,7 @@
 .footer-heading {
   font-size: 1.1rem;
   font-weight: 600;
-  color: #f1f5f9;
+  color: var(--pure-white);
   margin: 0 0 0.5rem 0;
 }
 
@@ -59,14 +59,14 @@
 }
 
 .footer-links li a {
-  color: #cbd5e1;
+  color: var(--old-lace);
   text-decoration: none;
   transition: color 0.3s ease;
   font-size: 0.95rem;
 }
 
 .footer-links li a:hover {
-  color: #667eea;
+  color: var(--deep-teal);
 }
 
 /* Active/Clickable Links */
@@ -76,36 +76,36 @@
 }
 
 .footer-link-active:hover {
-  color: #667eea !important;
+  color: var(--deep-teal) !important;
   text-decoration: underline;
 }
 
 .footer-link-active:active {
-  color: #5a67d8 !important;
+  color: var(--burnt-sienna) !important;
 }
 
 /* Disabled Links */
 .footer-link-disabled {
-  color: #64748b !important;
+  color: var(--slate-grey) !important;
   cursor: not-allowed !important;
   opacity: 0.6;
   position: relative;
 }
 
 .footer-link-disabled:hover {
-  color: #64748b !important;
+  color: var(--slate-grey) !important;
   text-decoration: none !important;
 }
 
 .footer-link-disabled::after {
   content: " (Coming Soon)";
   font-size: 0.8rem;
-  color: #94a3b8;
+  color: var(--slate-grey);
   font-style: italic;
 }
 
 .footer-bottom {
-  border-top: 1px solid #475569;
+  border-top: 1px solid var(--slate-grey);
   padding-top: 1.5rem;
   display: flex;
   justify-content: space-between;
@@ -122,8 +122,8 @@
 }
 
 .sitemap-button {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
+  background: linear-gradient(135deg, var(--deep-teal) 0%, var(--burnt-sienna) 100%);
+  color: var(--pure-white);
   border: none;
   padding: 0.5rem 1rem;
   border-radius: 6px;
@@ -136,12 +136,12 @@
 
 .sitemap-button:hover {
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+  box-shadow: 0 4px 12px rgba(0, 128, 128, 0.3);
 }
 
 .footer-bottom p {
   margin: 0;
-  color: #94a3b8;
+  color: var(--slate-grey);
   font-size: 0.9rem;
 }
 
@@ -149,18 +149,18 @@
   display: flex;
   align-items: center;
   gap: 1rem;
-  color: #94a3b8;
+  color: var(--slate-grey);
   font-size: 0.9rem;
 }
 
 .footer-social a {
-  color: #cbd5e1;
+  color: var(--old-lace);
   text-decoration: none;
   transition: color 0.3s ease;
 }
 
 .footer-social a:hover {
-  color: #667eea;
+  color: var(--deep-teal);
 }
 
 /* Responsive Design */

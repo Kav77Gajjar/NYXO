@@ -18,14 +18,13 @@
   min-height: 100vh;
   background: var(--bg-main);
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  
 }
 
 /* Dashboard Navigation */
 .dashboard-navbar {
-  background: var(--bg-main);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.8) 0%, rgba(45, 45, 45, 0.9) 100%);
+  box-shadow: 0 4px 20px var(--shadow-medium);
+  border: 1px solid var(--border-light);
   border-radius: 16px;
   position: fixed;
   top: 10px;
@@ -55,11 +54,12 @@
 }
 
 .dashboard-nav-logo h2 {
-  color: #1e293b;
+  color: var(--deep-teal);
   margin: 0;
   font-size: 1.75rem;
   font-weight: 700;
   letter-spacing: -0.02em;
+  text-shadow: 0 0 10px rgba(0, 128, 128, 0.5);
 }
 
 .dashboard-nav-menu {
@@ -84,7 +84,7 @@
 .dashboard-nav-link {
   background: none;
   border: none;
-  color: #64748b;
+  color: var(--text-secondary);
   text-decoration: none;
   font-weight: 500;
   padding: 0.5rem 1rem;
@@ -95,14 +95,16 @@
 }
 
 .dashboard-nav-link:hover {
-  background: #f1f5f9;
-  color: #334155;
+  background: rgba(0, 128, 128, 0.1);
+  color: var(--deep-teal);
+  box-shadow: 0 0 10px rgba(0, 128, 128, 0.2);
 }
 
 .dashboard-nav-link.active {
-  background: var(--btn-primary);
-  color: white;
+  background: linear-gradient(135deg, var(--deep-teal) 0%, var(--burnt-sienna) 100%);
+  color: var(--pure-white);
   font-weight: 600;
+  box-shadow: 0 0 15px rgba(0, 128, 128, 0.3);
 }
 
 /* Mobile Menu Toggle */
@@ -116,7 +118,7 @@
 .dashboard-nav-toggle .bar {
   width: 24px;
   height: 2px;
-  background: #64748b;
+  background: var(--slate-grey);
   margin: 3px 0;
   transition: 0.3s;
   border-radius: 2px;

@@ -1,42 +1,87 @@
 /* Universal Job Card Styles */
 .universal-job-card {
-  transition: all 0.3s ease;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   cursor: pointer;
+  background: var(--bg-card);
+  border: 1px solid var(--border-light);
+  border-radius: 12px;
+  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
+  box-shadow: 0 8px 32px var(--shadow-dark);
+  position: relative;
+  overflow: hidden;
+}
+
+.universal-job-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at 80% 20%, rgba(0, 128, 128, 0.08) 0%, transparent 60%);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
 }
 
 .universal-job-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-  border-color: #3b82f6;
+  transform: translateY(-5px);
+  box-shadow: 0 15px 40px var(--shadow-dark), 0 0 25px rgba(0, 128, 128, 0.15);
+  border-color: rgba(0, 128, 128, 0.3);
+}
+
+.universal-job-card:hover::before {
+  opacity: 1;
 }
 
 .universal-job-card .job-header h3 {
   transition: color 0.2s ease;
+  color: var(--text-primary);
+  text-shadow: 0 0 8px rgba(0, 128, 128, 0.2);
 }
 
 .universal-job-card:hover .job-header h3 {
-  color: #3b82f6;
+  color: var(--deep-teal);
+  text-shadow: 0 0 12px rgba(0, 128, 128, 0.4);
 }
 
 .universal-job-card .heart-btn {
   transition: all 0.2s ease;
+  background: var(--bg-card);
+  border: 1px solid var(--border-light);
+  color: var(--text-secondary);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
 }
 
 .universal-job-card .heart-btn:hover {
-  background: rgba(239, 68, 68, 0.1) !important;
+  background: linear-gradient(135deg, rgba(239, 68, 68, 0.1), rgba(239, 68, 68, 0.05)) !important;
   color: #ef4444 !important;
+  border-color: rgba(239, 68, 68, 0.3);
+  box-shadow: 0 4px 15px rgba(239, 68, 68, 0.2);
 }
 
 .universal-job-card .heart-btn.liked {
   color: #ef4444 !important;
+  background: linear-gradient(135deg, rgba(239, 68, 68, 0.15), rgba(239, 68, 68, 0.1)) !important;
+  border-color: rgba(239, 68, 68, 0.4);
 }
 
 .universal-job-card .match-score-btn {
   transition: all 0.2s ease;
+  background: var(--bg-card);
+  border: 1px solid var(--border-light);
+  color: var(--text-primary);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
 }
 
 .universal-job-card .match-score-btn:hover {
-  background: rgba(16, 185, 129, 0.1) !important;
+  background: linear-gradient(135deg, rgba(0, 128, 128, 0.1), rgba(0, 128, 128, 0.05)) !important;
+  border-color: rgba(0, 128, 128, 0.3);
+  box-shadow: 0 4px 15px rgba(0, 128, 128, 0.2);
+  color: var(--deep-teal) !important;
 }
 
 .universal-job-card .job-tags span {

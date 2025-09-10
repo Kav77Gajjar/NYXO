@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import './theme.css'
 import './App.css'
 import Dashboard from './components/Dashboard'
 import Footer from './components/Footer'
