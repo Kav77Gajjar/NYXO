@@ -24,8 +24,6 @@ import SimpleResumeTemplate from './SimpleResumeTemplate'
 import SimpleTemplateEditor from './SimpleTemplateEditor'
 import EntryLevelResumeTemplate from './EntryLevelResumeTemplate'
 import EntryLevelTemplateEditor from './EntryLevelTemplateEditor'
-import CoverLetterGenerator from './CoverLetterGenerator'
-import CoverLetterTemplates from './CoverLetterTemplates'
 import ErrorPage from './ErrorPage'
 import Sitemap from './Sitemap'
 
@@ -449,7 +447,7 @@ function Dashboard({ onLogout, userEmail, onNavigate }) {
                 </div>
                 <div className="action-content">
                   <h3>Career Tools</h3>
-                  <p>Resume builder and cover letter generator</p>
+                  <p>Resume builder and career toolkit</p>
                 </div>
                 <div className="action-arrow">→</div>
               </div>
@@ -535,10 +533,6 @@ function Dashboard({ onLogout, userEmail, onNavigate }) {
         return <EntryLevelResumeTemplate onNavigateBack={() => setCurrentPage('resume-templates')} onEdit={() => setCurrentPage('entry-level-template-editor')} />
       case 'entry-level-template-editor':
         return <EntryLevelTemplateEditor onNavigateBack={() => setCurrentPage('entry-level-resume-template')} />
-      case 'cover-letter':
-        return <CoverLetterGenerator onNavigateBack={() => setCurrentPage('toolkit')} />
-      case 'cover-letter-templates':
-        return <CoverLetterTemplates onNavigateBack={() => setCurrentPage('toolkit')} />
       case 'error-page':
         return <ErrorPage 
           onNavigateBack={() => setCurrentPage('dashboard')} 

@@ -47,9 +47,7 @@ const Sitemap = ({ onNavigate }) => {
                 </button>
                 <div className="sub-links">
                   <button className="sitemap-link sub">Resume Builder</button>
-                  <button className="sitemap-link sub">Cover Letter Generator</button>
                   <button className="sitemap-link sub">Resume Templates</button>
-                  <button className="sitemap-link sub">Cover Letter Templates</button>
                 </div>
               </div>
 
@@ -95,15 +93,6 @@ const Sitemap = ({ onNavigate }) => {
                   <button className="sitemap-link sub">Creative Template</button>
                   <button className="sitemap-link sub">Modern Template</button>
                   <button className="sitemap-link sub">Classic Template</button>
-                </div>
-              </div>
-
-              <div className="sitemap-item">
-                <button className="sitemap-link main">Cover Letter Generator</button>
-                <div className="sub-links">
-                  <button className="sitemap-link sub">Standard Format</button>
-                  <button className="sitemap-link sub">Creative Format</button>
-                  <button className="sitemap-link sub">Technical Format</button>
                 </div>
               </div>
 

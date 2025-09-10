@@ -99,15 +99,6 @@ const Footer = ({ onNavigate }) => {
               </li>
               <li>
                 <a 
-                  href="#cover-letter" 
-                  onClick={(e) => handleLinkClick(e, 'cover-letter')}
-                  className="footer-link-active"
-                >
-                  Cover Letter Generator
-                </a>
-              </li>
-              <li>
-                <a 
                   href="#interview-prep" 
                   className="footer-link-disabled"
                   title="Coming Soon"

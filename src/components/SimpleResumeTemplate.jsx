@@ -1,11 +1,21 @@
 import React, { useState } from 'react';
 import SimpleTemplate from './SimpleTemplate';
 import SimpleTemplateEditor from './SimpleTemplateEditor';
+import EmailPopup from './EmailPopup';
+import Notification from './Notification';
+import { sendResumeByEmail } from '../utils/emailService';
 import './ResumeTemplates.css';
 
 function SimpleResumeTemplate({ onNavigateBack }) {
   const [currentView, setCurrentView] = useState('preview');
   const [templateData, setTemplateData] = useState(null);
+  const [showEmailPopup, setShowEmailPopup] = useState(false);
+  const [isEmailLoading, setIsEmailLoading] = useState(false);
+  const [notification, setNotification] = useState({ 
+    isVisible: false, 
+    type: 'success', 
+    message: '' 
+  });
 
   const handleEditTemplate = () => {
     setCurrentView('editor');
@@ -20,7 +30,37 @@ function SimpleResumeTemplate({ onNavigateBack }) {
     // You can add additional save logic here (e.g., save to localStorage, API call, etc.)
   };
 
+  const handleEmailSubmit = async (email) => {
+    setIsEmailLoading(true);
+    try {
+      await sendResumeByEmail(email, templateData, 'simple');
+      setShowEmailPopup(false);
+      setNotification({
+        isVisible: true,
+        type: 'success',
+        message: `Resume sent successfully to ${email}! Check your inbox.`
+      });
+    } catch (error) {
+      console.error('Error sending email:', error);
+      setNotification({
+        isVisible: true,
+        type: 'error',
+        message: 'Failed to send resume. Please try again later.'
+      });
+    } finally {
+      setIsEmailLoading(false);
+    }
+  };
+
+  const hideNotification = () => {
+    setNotification({ ...notification, isVisible: false });
+  };
+
   const handleDownloadPDF = () => {
+    setShowEmailPopup(true);
+  };
+
+  const handleDirectDownload = () => {
     const printWindow = window.open('', '_blank');
     
     const currentData = templateData || {
@@ -398,7 +438,10 @@ function SimpleResumeTemplate({ onNavigateBack }) {
             ✏️ Edit Template
           </button>
           <button className="download-btn" onClick={handleDownloadPDF}>
-            📄 Download PDF
+            � Get PDF via Email
+          </button>
+          <button className="download-btn" onClick={handleDirectDownload} style={{ background: '#28a745' }}>
+            �📄 Download Now
           </button>
         </div>
       </div>
@@ -409,6 +452,22 @@ function SimpleResumeTemplate({ onNavigateBack }) {
           <SimpleTemplate data={templateData} />
         </div>
       </div>
+
+      {/* Email Popup */}
+      <EmailPopup 
+        isOpen={showEmailPopup}
+        onClose={() => setShowEmailPopup(false)}
+        onSubmit={handleEmailSubmit}
+        isLoading={isEmailLoading}
+      />
+
+      {/* Notification */}
+      <Notification
+        type={notification.type}
+        message={notification.message}
+        isVisible={notification.isVisible}
+        onClose={hideNotification}
+      />
     </div>
   );
 }

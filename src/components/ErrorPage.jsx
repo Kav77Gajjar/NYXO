@@ -16,13 +16,6 @@ function ErrorPage({ onNavigateBack, featureName = "This Feature" }) {
       icon: "📄",
       status: "Available", 
       action: "Go to Resume Builder"
-    },
-    {
-      name: "Cover Letter Generator",
-      description: "Generate personalized cover letters for job applications",
-      icon: "✉️",
-      status: "Available",
-      action: "Go to Cover Letter"
     }
   ]
 
@@ -62,9 +55,6 @@ function ErrorPage({ onNavigateBack, featureName = "This Feature" }) {
         break;
       case 'Resume Builder':
         targetPage = 'resume-templates';
-        break;
-      case 'Cover Letter Generator':
-        targetPage = 'cover-letter';
         break;
       case 'Profile Management':
         targetPage = 'profile';

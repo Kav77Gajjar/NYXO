@@ -12,13 +12,6 @@ function Toolkit({ activeCategory = 'all', setActiveCategory, onNavigateBack }) 
       description: 'Create ATS-friendly resumes with professional templates',
       icon: '📄',
       category: 'Documents'
-    },
-    {
-      id: 'cover-letter',
-      name: 'Cover Letter Generator',
-      description: 'Generate personalized cover letters for specific jobs',
-      icon: '✉️',
-      category: 'Documents'
     }
   ]
 
@@ -33,13 +26,6 @@ function Toolkit({ activeCategory = 'all', setActiveCategory, onNavigateBack }) 
       })
       window.dispatchEvent(event)
     } else {
-      if (toolId === 'cover-letter') {
-        const event = new CustomEvent('navigate', {
-          detail: { page: 'cover-letter' }
-        })
-        window.dispatchEvent(event)
-        return
-      }
       if (toolId === 'interview-prep') {
         const event = new CustomEvent('navigate', {
           detail: { page: 'error-page', featureName: 'Interview Preparation' }
