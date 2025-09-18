@@ -1,4 +1,7 @@
 import { useState, useEffect } from 'react'
+import { useAuth } from '../contexts/AuthContext'
+import { useData } from '../contexts/DataContext'
+import apiService from '../services/api'
 import './Profile.css'
 
 function Profile({ userEmail, activeSection = 'personal', setActiveSection, onNavigateBack }) {
@@ -7,80 +10,114 @@ function Profile({ userEmail, activeSection = 'personal', setActiveSection, onNa
   const currentActiveSection = activeSection || localActiveSection
   const currentSetActiveSection = setActiveSection || setLocalActiveSection
 
-  // Function to get initial profile data
-  const getInitialProfileData = () => {
-    try {
-      const savedProfile = localStorage.getItem('userProfileData')
-      if (savedProfile) {
-        return JSON.parse(savedProfile)
-      }
-    } catch (error) {
-      console.error('Error loading saved profile data:', error)
+  // Get authentication and data context
+  const { user, updateUser } = useAuth()
+  const { 
+    profile, 
+    skills, 
+    profileLoading, 
+    loadProfile, 
+    updateProfile,
+    addSkill,
+    deleteSkill 
+  } = useData()
+
+  // Local state for profile data
+  const [profileData, setProfileData] = useState({
+    personalInfo: {
+      fullName: '',
+      email: '',
+      phone: '',
+      location: '',
+      linkedin: '',
+      github: '',
+      website: '',
+      aboutMe: ''
+    },
+    experience: [],
+    education: [],
+    skills: [],
+    achievements: []
+  })
+
+  // Load user data when component mounts or user/profile changes
+  useEffect(() => {
+    if (user) {
+      updateProfileData()
     }
-    
-    // Return default profile data
-    return {
+  }, [user, profile, skills])
+
+  const updateProfileData = () => {
+    if (!user) return
+
+    // Map user and profile data to local state format
+    const userData = {
       personalInfo: {
-        fullName: 'John Doe',
-        email: userEmail || 'john.doe@email.com',
-        phone: '+1 (555) 123-4567',
-        location: 'San Francisco, CA',
-        linkedin: 'linkedin.com/in/johndoe',
-        github: 'github.com/johndoe',
-        website: 'johndoe.dev',
-        aboutMe: '' // optional large field for resume/profile
+        fullName: user.full_name || `${user.first_name || ''} ${user.last_name || ''}`.trim(),
+        email: user.email || '',
+        phone: user.phone || '',
+        location: user.location || '',
+        linkedin: user.linkedin_url || '',
+        github: user.github_url || '',
+        website: user.website_url || '',
+        aboutMe: profile?.bio || ''
       },
-      experience: [
-        {
-          id: 1,
-          title: 'Frontend Developer',
-          company: 'TechCorp Inc.',
-          duration: 'Jan 2023 - Present',
-          description: 'Developed responsive web applications using React and TypeScript'
-        },
-        {
-          id: 2,
-          title: 'Junior Developer',
-          company: 'StartupXYZ',
-          duration: 'Jun 2021 - Dec 2022',
-          description: 'Built user interfaces and collaborated with backend team'
-        }
-      ],
-      education: [
-        {
-          id: 1,
-          degree: 'Bachelor of Science in Computer Science',
-          school: 'University of California, Berkeley',
-          year: '2021',
-          gpa: '3.7/4.0'
-        }
-      ],
-      skills: [
-        'React', 'JavaScript', 'TypeScript', 'HTML/CSS', 'Node.js', 
-        'Python', 'Git', 'MongoDB', 'PostgreSQL', 'AWS'
-      ],
-      achievements: [
-        {
-          id: 1,
-          title: 'Employee of the Month',
-          description: 'Recognized for outstanding performance and leadership in Q3 2023',
-          date: '2023-09',
-          category: 'Work',
-          image: null
-        },
-        {
-          id: 2,
-          title: 'Full Stack Web Development Certificate',
-          description: 'Completed comprehensive web development bootcamp with 95% score',
-          date: '2022-12',
-          category: 'Education',
-          image: null
-        }
-      ]
+      experience: [], // Will be loaded from API separately
+      education: [], // Will be loaded from API separately  
+      skills: skills ? skills.map(skill => skill.name) : [],
+      achievements: [] // Will be loaded from API separately
     }
+
+    setProfileData(userData)
   }
-  
-  const [profileData, setProfileData] = useState(getInitialProfileData())
+
+  // Load additional profile data (experience, education, achievements)
+  useEffect(() => {
+    const loadAdditionalData = async () => {
+      if (!user) return
+
+      try {
+        const [experienceData, educationData, achievementsData] = await Promise.allSettled([
+          apiService.getWorkExperience(),
+          apiService.getEducation(), 
+          apiService.getAchievements()
+        ])
+
+        setProfileData(prev => ({
+          ...prev,
+          experience: experienceData.status === 'fulfilled' ? 
+            (experienceData.value.results || experienceData.value || []).map(exp => ({
+              id: exp.id,
+              title: exp.title,
+              company: exp.company,
+              duration: exp.duration,
+              description: exp.description
+            })) : [],
+          education: educationData.status === 'fulfilled' ? 
+            (educationData.value.results || educationData.value || []).map(edu => ({
+              id: edu.id,
+              degree: edu.degree,
+              school: edu.school,
+              year: edu.year_range,
+              gpa: edu.gpa ? `${edu.gpa}/4.0` : ''
+            })) : [],
+          achievements: achievementsData.status === 'fulfilled' ? 
+            (achievementsData.value.results || achievementsData.value || []).map(ach => ({
+              id: ach.id,
+              title: ach.title,
+              description: ach.description,
+              date: ach.date_achieved,
+              category: ach.category,
+              image: ach.image
+            })) : []
+        }))
+      } catch (error) {
+        console.error('Error loading additional profile data:', error)
+      }
+    }
+
+    loadAdditionalData()
+  }, [user])
 
   const [skillInput, setSkillInput] = useState('')
   const [showSuggestions, setShowSuggestions] = useState(false)
@@ -194,46 +231,77 @@ function Profile({ userEmail, activeSection = 'personal', setActiveSection, onNa
     }
   }
 
-  const addSkill = (skillName) => {
+  const addSkillToProfile = async (skillName) => {
     const skillToAdd = skillName || skillInput.trim()
-    if (skillToAdd && !profileData.skills.includes(skillToAdd)) {
-      const updatedProfileData = {
-        ...profileData,
-        skills: [...profileData.skills, skillToAdd]
+    if (!skillToAdd || profileData.skills.includes(skillToAdd)) {
+      if (!skillToAdd) return
+      if (profileData.skills.includes(skillToAdd)) {
+        setSkillInput('')
+        setShowSuggestions(false)
+        return
       }
-      setProfileData(updatedProfileData)
-      
-      // Save to localStorage
-      try {
-        localStorage.setItem('userProfileData', JSON.stringify(updatedProfileData))
-        window.dispatchEvent(new CustomEvent('profileUpdated'))
-      } catch (error) {
-        console.error('Error saving skills:', error)
+    }
+
+    try {
+      // Add skill via API
+      const result = await addSkill({
+        name: skillToAdd,
+        level: 'intermediate', // Default level
+        category: 'technical' // Default category
+      })
+
+      if (result.success) {
+        // Update local state
+        setProfileData(prev => ({
+          ...prev,
+          skills: [...prev.skills, skillToAdd]
+        }))
+
+        setSkillInput('')
+        setShowSuggestions(false)
+      } else {
+        console.error('Failed to add skill:', result.error)
+        alert('Failed to add skill. Please try again.')
       }
-      
-      setSkillInput('')
-      setShowSuggestions(false)
+    } catch (error) {
+      console.error('Error adding skill:', error)
+      alert('Failed to add skill. Please try again.')
     }
   }
 
-  const removeSkill = (skillToRemove) => {
-    const updatedProfileData = {
-      ...profileData,
-      skills: profileData.skills.filter(skill => skill !== skillToRemove)
-    }
-    setProfileData(updatedProfileData)
-    
-    // Save to localStorage
+  const removeSkillFromProfile = async (skillToRemove) => {
     try {
-      localStorage.setItem('userProfileData', JSON.stringify(updatedProfileData))
-      window.dispatchEvent(new CustomEvent('profileUpdated'))
+      // Find the skill in the skills array from context
+      const skillToDelete = skills.find(skill => skill.name === skillToRemove)
+      
+      if (skillToDelete) {
+        const result = await deleteSkill(skillToDelete.id)
+        
+        if (result.success) {
+          // Update local state
+          setProfileData(prev => ({
+            ...prev,
+            skills: prev.skills.filter(skill => skill !== skillToRemove)
+          }))
+        } else {
+          console.error('Failed to remove skill:', result.error)
+          alert('Failed to remove skill. Please try again.')
+        }
+      } else {
+        // If skill not found in context, just remove from local state
+        setProfileData(prev => ({
+          ...prev,
+          skills: prev.skills.filter(skill => skill !== skillToRemove)
+        }))
+      }
     } catch (error) {
-      console.error('Error saving skills:', error)
+      console.error('Error removing skill:', error)
+      alert('Failed to remove skill. Please try again.')
     }
   }
 
   const selectSuggestion = (skill) => {
-    addSkill(skill)
+    addSkillToProfile(skill)
   }
 
   // Achievement functions
@@ -403,14 +471,13 @@ function Profile({ userEmail, activeSection = 'personal', setActiveSection, onNa
     }))
   }
 
-  const handleSavePersonalInfo = () => {
+  const handleSavePersonalInfo = async () => {
     // Validation with specific field checks
     const requiredFields = {
       fullName: 'Full Name',
       email: 'Email',
       phone: 'Phone',
-      location: 'Location',
-      linkedin: 'LinkedIn'
+      location: 'Location'
     }
 
     // Check for empty required fields
@@ -472,24 +539,59 @@ function Profile({ userEmail, activeSection = 'personal', setActiveSection, onNa
       return
     }
 
-    // Save the data to localStorage
     try {
-      localStorage.setItem('userProfileData', JSON.stringify(profileData))
-      // Dispatch event to notify other components
-      window.dispatchEvent(new CustomEvent('profileUpdated'))
-      console.log('Profile data saved to localStorage:', profileData)
-    } catch (error) {
-      console.error('Error saving profile data:', error)
-    }
-    
-    // Exit edit mode
-    setIsEditing(prev => ({
-      ...prev,
-      personal: false
-    }))
+      // Parse full name into first and last name
+      const nameParts = profileData.personalInfo.fullName.trim().split(' ')
+      const firstName = nameParts[0] || ''
+      const lastName = nameParts.slice(1).join(' ') || ''
 
-    // Show success message
-    alert('Personal information saved successfully!')
+      // Update user data via API
+      const userUpdateData = {
+        first_name: firstName,
+        last_name: lastName,
+        phone: profileData.personalInfo.phone,
+        location: profileData.personalInfo.location,
+        linkedin_url: profileData.personalInfo.linkedin || null,
+        github_url: profileData.personalInfo.github || null,
+        website_url: profileData.personalInfo.website || null
+      }
+
+      // Call API to update user
+      await apiService.updateCurrentUser(userUpdateData)
+
+      // Update profile bio if extended profile exists
+      if (profileData.personalInfo.aboutMe) {
+        const profileUpdateData = {
+          bio: profileData.personalInfo.aboutMe
+        }
+        await updateProfile(profileUpdateData)
+      }
+
+      // Update auth context user data
+      updateUser({
+        ...user,
+        first_name: firstName,
+        last_name: lastName,
+        full_name: profileData.personalInfo.fullName,
+        phone: profileData.personalInfo.phone,
+        location: profileData.personalInfo.location,
+        linkedin_url: profileData.personalInfo.linkedin,
+        github_url: profileData.personalInfo.github,
+        website_url: profileData.personalInfo.website
+      })
+
+      // Exit edit mode
+      setIsEditing(prev => ({
+        ...prev,
+        personal: false
+      }))
+
+      // Show success message
+      alert('Personal information saved successfully!')
+    } catch (error) {
+      console.error('Error saving profile:', error)
+      alert('Failed to save profile information. Please try again.')
+    }
   }
 
   const handleAddExperience = () => {
@@ -832,7 +934,7 @@ function Profile({ userEmail, activeSection = 'personal', setActiveSection, onNa
               {fieldErrors.fullName && <span className="error-message">{fieldErrors.fullName}</span>}
             </>
           ) : (
-            <p>{profileData.personalInfo.fullName}</p>
+            <p>{profileData.personalInfo.fullName || <em className="missing-field">Please add your full name</em>}</p>
           )}
         </div>
 
@@ -850,7 +952,7 @@ function Profile({ userEmail, activeSection = 'personal', setActiveSection, onNa
               {fieldErrors.email && <span className="error-message">{fieldErrors.email}</span>}
             </>
           ) : (
-            <p>{profileData.personalInfo.email}</p>
+            <p>{profileData.personalInfo.email || <em className="missing-field">Please add your email</em>}</p>
           )}
         </div>
 
@@ -868,7 +970,7 @@ function Profile({ userEmail, activeSection = 'personal', setActiveSection, onNa
               {fieldErrors.phone && <span className="error-message">{fieldErrors.phone}</span>}
             </>
           ) : (
-            <p>{profileData.personalInfo.phone}</p>
+            <p>{profileData.personalInfo.phone || <em className="missing-field">Please add your phone number</em>}</p>
           )}
         </div>
 
@@ -886,12 +988,12 @@ function Profile({ userEmail, activeSection = 'personal', setActiveSection, onNa
               {fieldErrors.location && <span className="error-message">{fieldErrors.location}</span>}
             </>
           ) : (
-            <p>{profileData.personalInfo.location}</p>
+            <p>{profileData.personalInfo.location || <em className="missing-field">Please add your location</em>}</p>
           )}
         </div>
 
         <div className="info-field">
-          <label>LinkedIn *</label>
+          <label>LinkedIn <span className="optional-label">(Optional)</span></label>
           {isEditing.personal ? (
             <>
               <input 
@@ -899,12 +1001,12 @@ function Profile({ userEmail, activeSection = 'personal', setActiveSection, onNa
                 value={profileData.personalInfo.linkedin}
                 onChange={(e) => handlePersonalInfoChange('linkedin', e.target.value)}
                 className={`edit-input ${fieldErrors.linkedin ? 'error' : ''}`}
-                required
+                placeholder="linkedin.com/in/yourprofile"
               />
               {fieldErrors.linkedin && <span className="error-message">{fieldErrors.linkedin}</span>}
             </>
           ) : (
-            <p>{profileData.personalInfo.linkedin}</p>
+            <p>{profileData.personalInfo.linkedin || <em className="missing-field">Add your LinkedIn profile (optional)</em>}</p>
           )}
         </div>
 
@@ -922,7 +1024,7 @@ function Profile({ userEmail, activeSection = 'personal', setActiveSection, onNa
               {fieldErrors.github && <span className="error-message">{fieldErrors.github}</span>}
             </>
           ) : (
-            <p>{profileData.personalInfo.github}</p>
+            <p>{profileData.personalInfo.github || <em className="missing-field">Add your GitHub profile (optional)</em>}</p>
           )}
         </div>
 
@@ -940,7 +1042,7 @@ function Profile({ userEmail, activeSection = 'personal', setActiveSection, onNa
               {fieldErrors.website && <span className="error-message">{fieldErrors.website}</span>}
             </>
           ) : (
-            <p>{profileData.personalInfo.website}</p>
+            <p>{profileData.personalInfo.website || <em className="missing-field">Add your website (optional)</em>}</p>
           )}
         </div>
       </div>
@@ -1152,13 +1254,13 @@ function Profile({ userEmail, activeSection = 'personal', setActiveSection, onNa
                   onKeyPress={(e) => {
                     if (e.key === 'Enter') {
                       e.preventDefault()
-                      addSkill()
+                      addSkillToProfile()
                     }
                   }}
                 />
                 <button 
                   className="add-skill-btn"
-                  onClick={() => addSkill()}
+                  onClick={() => addSkillToProfile()}
                   disabled={!skillInput.trim()}
                 >
                   Add Skill
@@ -1195,13 +1297,13 @@ function Profile({ userEmail, activeSection = 'personal', setActiveSection, onNa
                   <span 
                     key={index} 
                     className="skill-tag editable"
-                    onClick={() => removeSkill(skill)}
+                    onClick={() => removeSkillFromProfile(skill)}
                     title="Click to remove this skill"
                   >
                     {skill}
                     <button 
                       className="remove-skill-btn"
-                      onClick={() => removeSkill(skill)}
+                      onClick={() => removeSkillFromProfile(skill)}
                       title="Remove skill"
                     >
                       ×

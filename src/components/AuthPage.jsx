@@ -1,7 +1,8 @@
 import { useState } from 'react'
+import { useAuth } from '../contexts/AuthContext'
 import './AuthPage.css'
 
-function AuthPage({ onBackToHome, onLogin }) {
+function AuthPage() {
   const [isSignUp, setIsSignUp] = useState(true) // Default to sign-up form
   const [formData, setFormData] = useState({
     name: '',
@@ -10,6 +11,9 @@ function AuthPage({ onBackToHome, onLogin }) {
     password: ''
   })
   const [errors, setErrors] = useState({})
+  const [isLoading, setIsLoading] = useState(false)
+
+  const { login, register } = useAuth()
 
   const handleInputChange = (e) => {
     const { name, value } = e.target
@@ -70,7 +74,7 @@ function AuthPage({ onBackToHome, onLogin }) {
     return newErrors
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
     
     const newErrors = isSignUp ? validateSignUp() : validateLogin()
@@ -80,24 +84,55 @@ function AuthPage({ onBackToHome, onLogin }) {
       return
     }
 
-    // Handle successful form submission
-    if (isSignUp) {
-      console.log('Sign up data:', formData)
-    } else {
-      console.log('Login data:', { email: formData.email, password: formData.password })
+    setIsLoading(true)
+    setErrors({}) // Clear any previous errors
+
+    try {
+      let result
+      if (isSignUp) {
+        // Register new user
+        result = await register({
+          email: formData.email,
+          password: formData.password,
+          first_name: formData.name.split(' ')[0] || '',
+          last_name: formData.name.split(' ').slice(1).join(' ') || '',
+          username: formData.username
+        })
+      } else {
+        // Login existing user
+        result = await login({
+          email: formData.email,
+          password: formData.password
+        })
+      }
+
+      if (!result.success) {
+        // Handle authentication errors
+        if (result.error.includes('email')) {
+          setErrors({ email: result.error })
+        } else if (result.error.includes('password')) {
+          setErrors({ password: result.error })
+        } else if (result.error.includes('username')) {
+          setErrors({ username: result.error })
+        } else {
+          setErrors({ general: result.error })
+        }
+      } else {
+        // Success - user will be redirected automatically by App component
+        // Reset form
+        setFormData({
+          name: '',
+          username: '',
+          email: '',
+          password: ''
+        })
+      }
+    } catch (error) {
+      console.error('Authentication error:', error)
+      setErrors({ general: 'An unexpected error occurred. Please try again.' })
+    } finally {
+      setIsLoading(false)
     }
-    
-    // Navigate immediately without delay
-    onLogin(formData.email)
-    
-    // Reset form
-    setFormData({
-      name: '',
-      username: '',
-      email: '',
-      password: ''
-    })
-    setErrors({})
   }
 
   const switchToLogin = () => {
@@ -127,10 +162,17 @@ function AuthPage({ onBackToHome, onLogin }) {
       <div className="auth-container">
         <div className="auth-header">
           <h1>{isSignUp ? 'Create Account' : 'Welcome Back'}</h1>
-          <p>{isSignUp ? 'Join Job-Bridge and start your career journey' : 'Sign in to continue your job search'}</p>
+          <p>{isSignUp ? 'Join NYXO and start your career journey' : 'Sign in to continue your job search'}</p>
         </div>
 
         <form className="auth-form" onSubmit={handleSubmit}>
+          {/* General Error Message */}
+          {errors.general && (
+            <div className="error-message general-error">
+              {errors.general}
+            </div>
+          )}
+
           {/* Sign Up Fields */}
           {isSignUp && (
             <>
@@ -144,6 +186,7 @@ function AuthPage({ onBackToHome, onLogin }) {
                   onChange={handleInputChange}
                   placeholder="Enter your full name"
                   className={errors.name ? 'error' : ''}
+                  disabled={isLoading}
                 />
                 {errors.name && <span className="error-message">{errors.name}</span>}
               </div>
@@ -158,6 +201,7 @@ function AuthPage({ onBackToHome, onLogin }) {
                   onChange={handleInputChange}
                   placeholder="Choose a username"
                   className={errors.username ? 'error' : ''}
+                  disabled={isLoading}
                 />
                 {errors.username && <span className="error-message">{errors.username}</span>}
               </div>
@@ -175,6 +219,7 @@ function AuthPage({ onBackToHome, onLogin }) {
               onChange={handleInputChange}
               placeholder="Enter your email"
               className={errors.email ? 'error' : ''}
+              disabled={isLoading}
             />
             {errors.email && <span className="error-message">{errors.email}</span>}
           </div>
@@ -190,12 +235,20 @@ function AuthPage({ onBackToHome, onLogin }) {
               onChange={handleInputChange}
               placeholder={isSignUp ? "Create a password" : "Enter your password"}
               className={errors.password ? 'error' : ''}
+              disabled={isLoading}
             />
             {errors.password && <span className="error-message">{errors.password}</span>}
           </div>
 
-          <button type="submit" className="submit-btn">
-            {isSignUp ? 'Create Account' : 'Sign In'}
+          <button type="submit" className="submit-btn" disabled={isLoading}>
+            {isLoading ? (
+              <>
+                <span className="loading-spinner-small"></span>
+                {isSignUp ? 'Creating Account...' : 'Signing In...'}
+              </>
+            ) : (
+              isSignUp ? 'Create Account' : 'Sign In'
+            )}
           </button>
 
           <div className="form-footer">
@@ -206,6 +259,7 @@ function AuthPage({ onBackToHome, onLogin }) {
                   type="button" 
                   className="link-btn"
                   onClick={switchToLogin}
+                  disabled={isLoading}
                 >
                   Sign in here
                 </button>
@@ -217,6 +271,7 @@ function AuthPage({ onBackToHome, onLogin }) {
                   type="button" 
                   className="link-btn"
                   onClick={switchToSignUp}
+                  disabled={isLoading}
                 >
                   Create one here
                 </button>

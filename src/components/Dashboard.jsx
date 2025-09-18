@@ -2,6 +2,8 @@ import React, { useState, useEffect, useContext } from 'react';
 import './Dashboard.css';
 import './navigation-alignment-fix.css';
 import { useTranslation } from '../contexts/TranslationContext';
+import { useData } from '../contexts/DataContext';
+import { useAuth } from '../contexts/AuthContext';
 import Toolkit from './Toolkit'
 import JobController from './JobController'
 import Profile from './Profile'
@@ -35,6 +37,16 @@ function Dashboard({ onLogout, userEmail, onNavigate }) {
   const [toolkitActiveCategory, setToolkitActiveCategory] = useState('all')
   const [errorPageFeatureName, setErrorPageFeatureName] = useState('')
   const { t } = useTranslation()
+  const { user } = useAuth()
+  const { 
+    analytics, 
+    applications, 
+    jobs, 
+    analyticsLoading, 
+    applicationsLoading,
+    loadAnalytics,
+    loadApplications 
+  } = useData()
   
   // Listen for custom navigation events from child components
   useEffect(() => {
@@ -257,11 +269,19 @@ function Dashboard({ onLogout, userEmail, onNavigate }) {
   )
 
   const renderDashboardHome = () => {
-    // Extract username from email - get the part before @ and capitalize first letter
+    // Get username from user data or email
     const getUsername = () => {
-      if (!userEmail) return 'Professional'
-      const username = userEmail.split('@')[0]
-      return username.charAt(0).toUpperCase() + username.slice(1)
+      if (user?.first_name) {
+        return user.first_name
+      }
+      if (user?.username) {
+        return user.username.charAt(0).toUpperCase() + user.username.slice(1)
+      }
+      if (userEmail) {
+        const username = userEmail.split('@')[0]
+        return username.charAt(0).toUpperCase() + username.slice(1)
+      }
+      return 'Professional'
     }
     
     return (
@@ -318,8 +338,12 @@ function Dashboard({ onLogout, userEmail, onNavigate }) {
                 <div className="activity-icon job-searched">🔍</div>
                 <div className="activity-title">{t('jobsSearched')}</div>
               </div>
-              <div className="activity-number">127</div>
-              <div className="activity-trend positive">+12 {t('thisWeek')}</div>
+              <div className="activity-number">
+                {analyticsLoading ? '...' : (analytics?.jobs_searched_count || jobs?.length || 0)}
+              </div>
+              <div className="activity-trend positive">
+                +{analytics?.jobs_searched_this_week || 0} {t('thisWeek')}
+              </div>
             </div>
             
             <div 
@@ -331,8 +355,12 @@ function Dashboard({ onLogout, userEmail, onNavigate }) {
                 <div className="activity-title">{t('applicationsSent')}</div>
                 <div className="activity-arrow">→</div>
               </div>
-              <div className="activity-number">18</div>
-              <div className="activity-trend positive">+3 {t('thisWeek')}</div>
+              <div className="activity-number">
+                {applicationsLoading ? '...' : (applications?.length || 0)}
+              </div>
+              <div className="activity-trend positive">
+                +{analytics?.applications_this_week || 0} {t('thisWeek')}
+              </div>
             </div>
             
             <div 
@@ -344,8 +372,12 @@ function Dashboard({ onLogout, userEmail, onNavigate }) {
                 <div className="activity-title">{t('jobMatches')}</div>
                 <div className="activity-arrow">→</div>
               </div>
-              <div className="activity-number">34</div>
-              <div className="activity-trend positive">+7 {t('newMatches')}</div>
+              <div className="activity-number">
+                {analyticsLoading ? '...' : (analytics?.job_matches_count || 0)}
+              </div>
+              <div className="activity-trend positive">
+                +{analytics?.new_matches_this_week || 0} {t('newMatches')}
+              </div>
             </div>
           </div>
         </div>
