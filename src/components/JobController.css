@@ -11,6 +11,13 @@
   min-width: 160px;
   max-width: 220px;
 }
+
+/* Spinner animation for loading states */
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
 /* Job Controller Layout - Two column design with left sidebar */
 .job-controller {
   color: var(--text-primary);

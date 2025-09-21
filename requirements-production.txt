@@ -1,0 +1,39 @@
+# Production requirements for NYXO application
+# Includes all dependencies from backend/requirements.txt plus production-specific packages
+
+# Core Django packages
+Django>=5.2.0,<6.0
+djangorestframework>=3.14.0
+django-cors-headers>=4.0.0
+
+# Database
+psycopg2-binary>=2.9.0
+dj-database-url>=2.0.0
+
+# Environment management
+python-decouple>=3.8
+
+# API documentation
+drf-spectacular>=0.27.0
+
+# HTTP requests for external APIs
+requests>=2.28.0
+
+# Authentication & Security
+djangorestframework-simplejwt>=5.2.0
+
+# Additional utilities
+django-filter>=23.0.0
+Pillow>=10.0.0
+python-dateutil>=2.8.0
+
+# Production dependencies
+gunicorn>=21.0.0
+gevent>=23.0.0
+whitenoise>=6.5.0
+
+# Development dependencies (optional, comment out for minimal image)
+# django-debug-toolbar>=4.0.0
+# pytest>=7.0.0
+# pytest-django>=4.5.0
+# coverage>=7.0.0

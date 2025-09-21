@@ -1,0 +1,29 @@
+services:
+  - type: web
+    name: nyxo-app
+    env: docker
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    plan: starter
+    region: oregon
+    branch: main
+    healthCheckPath: /api/v1/auth/
+    envVars:
+      - key: DEBUG
+        value: "False"
+      - key: SECRET_KEY
+        generateValue: true
+      - key: DJANGO_SETTINGS_MODULE
+        value: job_aggregator.settings.production
+      - key: ALLOWED_HOSTS
+        value: "*.onrender.com"
+      - key: CORS_ALLOWED_ORIGINS
+        value: "https://*.onrender.com"
+      - key: CORS_ALLOW_ALL_ORIGINS
+        value: "False"
+      - key: JOOBLE_API_KEY
+        value: "823c8c01-6d5f-4762-99f2-2b05a8bc160c"
+      - key: EMAIL_BACKEND
+        value: "django.core.mail.backends.console.EmailBackend"
+    buildCommand: echo "Docker build will handle everything"
+    startCommand: "./start.sh"

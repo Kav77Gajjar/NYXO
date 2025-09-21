@@ -49,7 +49,14 @@ export const AuthProvider = ({ children }) => {
       setLoading(true);
       const response = await apiService.login(credentials);
       
-      // Fetch user data after successful login
+      // The login response already includes user data, no need to fetch again
+      if (response.user) {
+        setUser(response.user);
+        setIsAuthenticated(true);
+        return { success: true, user: response.user };
+      }
+      
+      // Fallback: fetch user data if not included in login response
       const userData = await apiService.getCurrentUser();
       setUser(userData);
       setIsAuthenticated(true);

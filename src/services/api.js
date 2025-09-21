@@ -428,6 +428,37 @@ class ApiService {
     return await this.request('/analytics/career-progress/');
   }
 
+  // Job Search Methods
+  async searchJobs(searchParams) {
+    return await this.request('/external/search/', {
+      method: 'POST',
+      body: JSON.stringify(searchParams),
+    });
+  }
+
+  async getJobs(params = {}) {
+    const queryString = new URLSearchParams(params).toString();
+    return await this.request(`/jobs/${queryString ? `?${queryString}` : ''}`);
+  }
+
+  async getJobRecommendations() {
+    return await this.request('/jobs/recommendations/');
+  }
+
+  async calculateJobMatches() {
+    return await this.request('/jobs/calculate-matches/', {
+      method: 'POST',
+    });
+  }
+
+  async getJobMatchDetails(jobId) {
+    return await this.request(`/jobs/${jobId}/match-details/`);
+  }
+
+  async getSearchHistory() {
+    return await this.request('/external/search/history/');
+  }
+
   // External API Methods
   async syncExternalJobs() {
     return await this.request('/external-apis/sync-jobs/', {

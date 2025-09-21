@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import UniversalJobCard from './UniversalJobCard'
+import apiService from '../services/api'
 import './JobController.css'
 import './dropdown-fix.css' // Import the dropdown fix styles
 import './emergency-fix.css' // Import emergency fixes
@@ -16,6 +17,70 @@ function JobController({ activeTab = 'search', setActiveTab, onNavigateBack }) {
   const currentSetActiveTab = setActiveTab || setLocalActiveTab
 
   const [openDropdown, setOpenDropdown] = useState(null);
+  
+  // Search state
+  const [searchResults, setSearchResults] = useState([])
+  const [isSearching, setIsSearching] = useState(false)
+  const [searchError, setSearchError] = useState(null)
+  const [searchFilters, setSearchFilters] = useState({
+    keywords: '',
+    location: '',
+    job_type: '',
+    experience_level: '',
+    salary_min: '',
+    salary_max: ''
+  })
+
+  // Search functionality
+  const handleSearch = async () => {
+    if (!searchFilters.keywords.trim()) {
+      setSearchError('Please enter job keywords to search')
+      return
+    }
+
+    setIsSearching(true)
+    setSearchError(null)
+    
+    try {
+      const searchParams = {
+        keywords: searchFilters.keywords,
+        location: searchFilters.location,
+        job_type: searchFilters.job_type || undefined,
+        experience_level: searchFilters.experience_level || undefined,
+        salary_min: searchFilters.salary_min || undefined,
+        salary_max: searchFilters.salary_max || undefined,
+        page: 1,
+        limit: 20
+      }
+
+      // Remove undefined values
+      Object.keys(searchParams).forEach(key => 
+        searchParams[key] === undefined && delete searchParams[key]
+      )
+
+      const response = await apiService.searchJobs(searchParams)
+      
+      if (response.success) {
+        setSearchResults(response.jobs || [])
+      } else {
+        setSearchError(response.error || 'Failed to search jobs')
+        setSearchResults([])
+      }
+    } catch (error) {
+      console.error('Job search failed:', error)
+      setSearchError('Failed to search jobs. Please try again.')
+      setSearchResults([])
+    } finally {
+      setIsSearching(false)
+    }
+  }
+
+  const updateSearchFilter = (field, value) => {
+    setSearchFilters(prev => ({
+      ...prev,
+      [field]: value
+    }))
+  }
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -272,29 +337,50 @@ function JobController({ activeTab = 'search', setActiveTab, onNavigateBack }) {
               type="text" 
               placeholder="Job title, keywords, or company"
               className="search-input"
+              value={searchFilters.keywords}
+              onChange={(e) => updateSearchFilter('keywords', e.target.value)}
+              onKeyPress={(e) => e.key === 'Enter' && handleSearch()}
             />
             <input 
               type="text" 
               placeholder="Location"
               className="location-input"
+              value={searchFilters.location}
+              onChange={(e) => updateSearchFilter('location', e.target.value)}
+              onKeyPress={(e) => e.key === 'Enter' && handleSearch()}
             />
           </div>
           <div className="search-btns-group">
-            <button className="search-btn compound-main">
+            <button 
+              className="search-btn compound-main"
+              onClick={handleSearch}
+              disabled={isSearching}
+            >
               <div className="btn-icon-container">
-                <svg 
-                  width="20" 
-                  height="20" 
-                  viewBox="0 0 24 24" 
-                  fill="none" 
-                  stroke="currentColor" 
-                  strokeWidth="2" 
-                  strokeLinecap="round" 
-                  strokeLinejoin="round"
-                >
-                  <circle cx="11" cy="11" r="8"></circle>
-                  <path d="m21 21-4.35-4.35"></path>
-                </svg>
+                {isSearching ? (
+                  <div className="spinner" style={{
+                    width: '20px',
+                    height: '20px',
+                    border: '2px solid #f3f3f3',
+                    borderTop: '2px solid #3498db',
+                    borderRadius: '50%',
+                    animation: 'spin 1s linear infinite'
+                  }}></div>
+                ) : (
+                  <svg 
+                    width="20" 
+                    height="20" 
+                    viewBox="0 0 24 24" 
+                    fill="none" 
+                    stroke="currentColor" 
+                    strokeWidth="2" 
+                    strokeLinecap="round" 
+                    strokeLinejoin="round"
+                  >
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <path d="m21 21-4.35-4.35"></path>
+                  </svg>
+                )}
               </div>
             </button>
             <button className="liked-btn compound-side" onClick={() => currentSetActiveTab('saved')}>
@@ -333,13 +419,17 @@ function JobController({ activeTab = 'search', setActiveTab, onNavigateBack }) {
                 role="option"
                 tabIndex="0"
                 onClick={() => {
-                  document.querySelector('#dropdown-job-type').previousElementSibling.firstChild.textContent = 'Full-time';
+                  const selectedText = 'Full-time';
+                  updateSearchFilter('job_type', 'full-time');
+                  document.querySelector('#dropdown-job-type').previousElementSibling.firstChild.textContent = selectedText;
                   document.querySelector('#dropdown-job-type').style.display = 'none';
                   document.querySelector('#dropdown-job-type').previousElementSibling.setAttribute('aria-expanded', 'false');
                 }}
                 onKeyDown={(e) => {
                   if (e.key === 'Enter') {
-                    document.querySelector('#dropdown-job-type').previousElementSibling.firstChild.textContent = 'Full-time';
+                    const selectedText = 'Full-time';
+                    updateSearchFilter('job_type', 'full-time');
+                    document.querySelector('#dropdown-job-type').previousElementSibling.firstChild.textContent = selectedText;
                     document.querySelector('#dropdown-job-type').style.display = 'none';
                     document.querySelector('#dropdown-job-type').previousElementSibling.setAttribute('aria-expanded', 'false');
                   }
@@ -352,13 +442,17 @@ function JobController({ activeTab = 'search', setActiveTab, onNavigateBack }) {
                 role="option"
                 tabIndex="0"
                 onClick={() => {
-                  document.querySelector('#dropdown-job-type').previousElementSibling.firstChild.textContent = 'Part-time';
+                  const selectedText = 'Part-time';
+                  updateSearchFilter('job_type', 'part-time');
+                  document.querySelector('#dropdown-job-type').previousElementSibling.firstChild.textContent = selectedText;
                   document.querySelector('#dropdown-job-type').style.display = 'none';
                   document.querySelector('#dropdown-job-type').previousElementSibling.setAttribute('aria-expanded', 'false');
                 }}
                 onKeyDown={(e) => {
                   if (e.key === 'Enter') {
-                    document.querySelector('#dropdown-job-type').previousElementSibling.firstChild.textContent = 'Part-time';
+                    const selectedText = 'Part-time';
+                    updateSearchFilter('job_type', 'part-time');
+                    document.querySelector('#dropdown-job-type').previousElementSibling.firstChild.textContent = selectedText;
                     document.querySelector('#dropdown-job-type').style.display = 'none';
                     document.querySelector('#dropdown-job-type').previousElementSibling.setAttribute('aria-expanded', 'false');
                   }
@@ -371,13 +465,17 @@ function JobController({ activeTab = 'search', setActiveTab, onNavigateBack }) {
                 role="option"
                 tabIndex="0"
                 onClick={() => {
-                  document.querySelector('#dropdown-job-type').previousElementSibling.firstChild.textContent = 'Contract';
+                  const selectedText = 'Contract';
+                  updateSearchFilter('job_type', 'contract');
+                  document.querySelector('#dropdown-job-type').previousElementSibling.firstChild.textContent = selectedText;
                   document.querySelector('#dropdown-job-type').style.display = 'none';
                   document.querySelector('#dropdown-job-type').previousElementSibling.setAttribute('aria-expanded', 'false');
                 }}
                 onKeyDown={(e) => {
                   if (e.key === 'Enter') {
-                    document.querySelector('#dropdown-job-type').previousElementSibling.firstChild.textContent = 'Contract';
+                    const selectedText = 'Contract';
+                    updateSearchFilter('job_type', 'contract');
+                    document.querySelector('#dropdown-job-type').previousElementSibling.firstChild.textContent = selectedText;
                     document.querySelector('#dropdown-job-type').style.display = 'none';
                     document.querySelector('#dropdown-job-type').previousElementSibling.setAttribute('aria-expanded', 'false');
                   }
@@ -390,13 +488,17 @@ function JobController({ activeTab = 'search', setActiveTab, onNavigateBack }) {
                 role="option"
                 tabIndex="0"
                 onClick={() => {
-                  document.querySelector('#dropdown-job-type').previousElementSibling.firstChild.textContent = 'Remote';
+                  const selectedText = 'Remote';
+                  updateSearchFilter('job_type', 'remote');
+                  document.querySelector('#dropdown-job-type').previousElementSibling.firstChild.textContent = selectedText;
                   document.querySelector('#dropdown-job-type').style.display = 'none';
                   document.querySelector('#dropdown-job-type').previousElementSibling.setAttribute('aria-expanded', 'false');
                 }}
                 onKeyDown={(e) => {
                   if (e.key === 'Enter') {
-                    document.querySelector('#dropdown-job-type').previousElementSibling.firstChild.textContent = 'Remote';
+                    const selectedText = 'Remote';
+                    updateSearchFilter('job_type', 'remote');
+                    document.querySelector('#dropdown-job-type').previousElementSibling.firstChild.textContent = selectedText;
                     document.querySelector('#dropdown-job-type').style.display = 'none';
                     document.querySelector('#dropdown-job-type').previousElementSibling.setAttribute('aria-expanded', 'false');
                   }
@@ -502,7 +604,76 @@ function JobController({ activeTab = 'search', setActiveTab, onNavigateBack }) {
       </div>
 
       <div className="search-results">
-        <p>Use the search form above to find new job opportunities that match your profile.</p>
+        {searchError && (
+          <div className="error-message" style={{
+            color: '#ff4444',
+            background: 'rgba(255, 68, 68, 0.1)',
+            padding: '1rem',
+            borderRadius: '8px',
+            marginBottom: '1rem'
+          }}>
+            {searchError}
+          </div>
+        )}
+
+        {isSearching ? (
+          <div className="loading-container" style={{
+            textAlign: 'center',
+            padding: '2rem'
+          }}>
+            <div className="spinner" style={{
+              width: '40px',
+              height: '40px',
+              border: '4px solid #f3f3f3',
+              borderTop: '4px solid #3498db',
+              borderRadius: '50%',
+              animation: 'spin 1s linear infinite',
+              margin: '0 auto'
+            }}></div>
+            <p style={{ marginTop: '1rem' }}>Searching for jobs...</p>
+          </div>
+        ) : searchResults.length > 0 ? (
+          <div className="search-results-grid" style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
+            gap: '1rem'
+          }}>
+            {searchResults.map((job, index) => (
+              <UniversalJobCard
+                key={job.external_id || job.id || index}
+                job={{
+                  id: job.external_id || job.id || index,
+                  company: job.company || 'Unknown Company',
+                  position: job.title || 'Position Title',
+                  location: job.location || 'Location not specified',
+                  type: job.job_type || 'Full-time',
+                  postedDate: job.posted_date || new Date().toISOString(),
+                  description: job.description || 'No description available',
+                  source: job.source || 'External',
+                  isLiked: false,
+                  tags: job.tags || [],
+                  sourceUrl: job.source_url || '#'
+                }}
+                onToggleLike={() => {}}
+                showMatchScore={false}
+                showHeart={true}
+                showSource={true}
+                variant="search"
+              />
+            ))}
+          </div>
+        ) : searchFilters.keywords ? (
+          <div className="no-results" style={{
+            textAlign: 'center',
+            padding: '2rem',
+            color: '#666'
+          }}>
+            <p>No jobs found for your search criteria.</p>
+            <p>Try adjusting your keywords or filters.</p>
+          </div>
+        ) : (
+          <p>Use the search form above to find new job opportunities that match your profile.</p>
+        )}
       </div>
     </div>
   )

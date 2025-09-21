@@ -2,9 +2,10 @@
 Django settings for job_aggregator project.
 """
 
-from pathlib import Path
 import os
 import sys
+from pathlib import Path
+from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -165,7 +166,7 @@ SPECTACULAR_SETTINGS = {
 }
 
 # External APIs
-JOOBLE_API_KEY = 'your_jooble_api_key_here'  # Replace with actual key
+JOOBLE_API_KEY = config('JOOBLE_API_KEY', default='your_jooble_api_key_here')
 JOOBLE_API_BASE_URL = 'https://jooble.org/api/'
 
 # Custom User Model
