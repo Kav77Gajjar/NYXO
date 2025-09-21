@@ -5,8 +5,8 @@ from django.contrib import admin
 from django.urls import path, include, re_path
 from django.conf import settings
 from django.conf.urls.static import static
-from django.views.generic import TemplateView
 from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
+from .views import serve_react_app
 
 urlpatterns = [
     # Admin
@@ -25,7 +25,7 @@ urlpatterns = [
     path('api/v1/analytics/', include('apps.analytics.urls')),
     
     # Serve React frontend for all other routes (catch-all)
-    re_path(r'^.*$', TemplateView.as_view(template_name='index.html'), name='frontend'),
+    re_path(r'^(?P<path>.*)$', serve_react_app, name='frontend'),
 ]
 
 # Serve media files in development

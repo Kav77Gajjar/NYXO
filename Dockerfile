@@ -52,6 +52,9 @@ COPY backend/ ./backend/
 # Copy built frontend files from the builder stage to Django's staticfiles directory
 COPY --from=frontend-builder /app/frontend/dist ./backend/job_aggregator/staticfiles/
 
+# Debug: List files in staticfiles directory
+RUN ls -la ./backend/job_aggregator/staticfiles/ || echo "Staticfiles directory not found"
+
 # Create directories for media and static files
 RUN mkdir -p /app/backend/media /app/backend/staticfiles
 
