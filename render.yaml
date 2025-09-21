@@ -16,7 +16,7 @@ services:
       - key: DJANGO_SETTINGS_MODULE
         value: settings.production
       - key: ALLOWED_HOSTS
-        value: "nyxo-1.onrender.com,*.onrender.com,localhost,127.0.0.1"
+        value: "nyxo-1.onrender.com,.onrender.com,localhost,127.0.0.1"
       - key: CORS_ALLOWED_ORIGINS
         value: "https://*.onrender.com"
       - key: CORS_ALLOW_ALL_ORIGINS

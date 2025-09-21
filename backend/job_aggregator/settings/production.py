@@ -13,6 +13,19 @@ ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='localhost,127.0.0.1').split(','
 # Clean up any empty strings and whitespace
 ALLOWED_HOSTS = [host.strip() for host in ALLOWED_HOSTS if host.strip()]
 
+# Ensure Render domains are always included
+RENDER_HOSTS = ['nyxo-1.onrender.com', '.onrender.com']
+for host in RENDER_HOSTS:
+    if host not in ALLOWED_HOSTS:
+        ALLOWED_HOSTS.append(host)
+
+# Temporary: Allow all hosts for deployment debugging (REMOVE IN PRODUCTION!)
+ALLOWED_HOSTS = ['*']
+
+# Debug: Print ALLOWED_HOSTS to logs
+print(f"ALLOWED_HOSTS configured as: {ALLOWED_HOSTS}")
+print(f"DEBUG setting: {DEBUG}")
+
 # Security headers
 SECURE_BROWSER_XSS_FILTER = True
 SECURE_CONTENT_TYPE_NOSNIFF = True
