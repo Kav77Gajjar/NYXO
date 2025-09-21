@@ -14,9 +14,9 @@ services:
       - key: SECRET_KEY
         generateValue: true
       - key: DJANGO_SETTINGS_MODULE
-        value: job_aggregator.settings.production
+        value: settings.production
       - key: ALLOWED_HOSTS
-        value: "*.onrender.com"
+        value: "nyxo-1.onrender.com,*.onrender.com,localhost,127.0.0.1"
       - key: CORS_ALLOWED_ORIGINS
         value: "https://*.onrender.com"
       - key: CORS_ALLOW_ALL_ORIGINS

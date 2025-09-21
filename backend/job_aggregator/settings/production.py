@@ -7,7 +7,11 @@ DEBUG = config('DEBUG', default=False, cast=bool)
 
 # Security settings for production
 SECRET_KEY = config('SECRET_KEY')
-ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='').split(',')
+
+# Configure ALLOWED_HOSTS for production
+ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='localhost,127.0.0.1').split(',')
+# Clean up any empty strings and whitespace
+ALLOWED_HOSTS = [host.strip() for host in ALLOWED_HOSTS if host.strip()]
 
 # Security headers
 SECURE_BROWSER_XSS_FILTER = True
