@@ -1,5 +1,5 @@
 # Multi-stage Docker build for NYXO - React Frontend + Django Backend
-FROM node:18-alpine AS frontend-builder
+FROM node:20-alpine AS frontend-builder
 
 # Set working directory for frontend build
 WORKDIR /app/frontend
@@ -7,8 +7,8 @@ WORKDIR /app/frontend
 # Copy package files
 COPY package*.json ./
 
-# Install dependencies
-RUN npm ci --only=production
+# Install dependencies (including dev dependencies needed for build)
+RUN npm ci
 
 # Copy frontend source code
 COPY src/ ./src/
