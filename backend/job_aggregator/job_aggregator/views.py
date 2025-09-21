@@ -16,9 +16,16 @@ def serve_react_app(request, path=''):
     Serve React application files and handle SPA routing
     """
     try:
-        # Define the static files directory where React build files are located
-        # BASE_DIR points to /app/backend/job_aggregator, so we need to go up one level
-        static_dir = os.path.join(settings.BASE_DIR.parent, 'staticfiles')
+        # Use STATIC_ROOT setting which should point to where collectstatic puts files
+        static_dir = str(settings.STATIC_ROOT)
+        
+        # Log the paths for debugging
+        import logging
+        logger = logging.getLogger(__name__)
+        logger.info(f"BASE_DIR: {settings.BASE_DIR}")
+        logger.info(f"STATIC_ROOT: {settings.STATIC_ROOT}")
+        logger.info(f"Looking for static files in: {static_dir}")
+        logger.info(f"Requested path: {path}")
         
         # If no path specified, serve index.html
         if not path:

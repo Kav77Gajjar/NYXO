@@ -50,7 +50,7 @@ else:
 
 # Static files configuration for production
 STATIC_URL = '/static/'
-STATIC_ROOT = BASE_DIR / 'staticfiles'
+STATIC_ROOT = BASE_DIR.parent / 'staticfiles'  # Points to /app/backend/staticfiles
 
 # Frontend build files will be copied to staticfiles during Docker build
 STATICFILES_DIRS = []
@@ -59,7 +59,7 @@ STATICFILES_DIRS = []
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'staticfiles'],  # Look for templates in staticfiles (where React build is)
+        'DIRS': [BASE_DIR.parent / 'staticfiles'],  # Look for templates in staticfiles (where React build is)
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

@@ -1,0 +1,44 @@
+version: '3.8'
+
+services:
+  # React Frontend Development Server
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile.frontend
+    ports:
+      - "5173:5173"  # React dev server (Vite default)
+    volumes:
+      - ./src:/app/src
+      - ./public:/app/public
+      - ./index.html:/app/index.html
+      - ./package.json:/app/package.json
+      - ./vite.config.js:/app/vite.config.js
+    environment:
+      - VITE_API_URL=http://localhost:8000
+    command: npm run dev -- --host 0.0.0.0 --port 5173
+    restart: unless-stopped
+    depends_on:
+      - backend
+
+  # Django Backend API Server
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile.backend
+    ports:
+      - "8000:8000"  # Django API server
+    environment:
+      - DEBUG=True
+      - SECRET_KEY=dev-secret-key-change-in-production
+      - DATABASE_URL=sqlite:///db.sqlite3
+      - JOOBLE_API_KEY=${JOOBLE_API_KEY}
+      - ALLOWED_HOSTS=localhost,127.0.0.1,0.0.0.0,frontend
+      - CORS_ALLOWED_ORIGINS=http://localhost:5173,http://frontend:5173
+    volumes:
+      - ./backend:/app/backend
+    restart: unless-stopped
+
+volumes:
+  frontend_node_modules:
+  backend_staticfiles:
