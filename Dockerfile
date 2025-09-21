@@ -50,7 +50,8 @@ RUN pip install --no-cache-dir -r requirements-production.txt
 COPY backend/ ./backend/
 
 # Copy built frontend files from the builder stage to Django's staticfiles directory
-COPY --from=frontend-builder /app/frontend/dist ./backend/job_aggregator/staticfiles/
+# The BASE_DIR in Django is /app/backend/job_aggregator, so staticfiles should be at /app/backend/staticfiles
+COPY --from=frontend-builder /app/frontend/dist ./backend/staticfiles/
 
 # Create directories for media and static files
 RUN mkdir -p /app/backend/media /app/backend/staticfiles

@@ -17,7 +17,8 @@ def serve_react_app(request, path=''):
     """
     try:
         # Define the static files directory where React build files are located
-        static_dir = os.path.join(settings.BASE_DIR, 'staticfiles')
+        # BASE_DIR points to /app/backend/job_aggregator, so we need to go up one level
+        static_dir = os.path.join(settings.BASE_DIR.parent, 'staticfiles')
         
         # If no path specified, serve index.html
         if not path:
@@ -51,7 +52,7 @@ def serve_react_app(request, path=''):
                     return response
             else:
                 # Fallback: create a basic HTML page if index.html doesn't exist
-                html_content = """
+                html_content = f"""
                 <!DOCTYPE html>
                 <html>
                 <head>
@@ -63,6 +64,8 @@ def serve_react_app(request, path=''):
                     <div id="root">
                         <h1>NYXO Job Aggregator</h1>
                         <p>Welcome to NYXO! The React frontend files are being built.</p>
+                        <p>Looking for files in: {static_dir}</p>
+                        <p>Files found: {os.listdir(static_dir) if os.path.exists(static_dir) else 'Directory not found'}</p>
                         <p>API is available at: <a href="/api/v1/">/api/v1/</a></p>
                         <p>Admin panel: <a href="/admin/">/admin/</a></p>
                         <p>API Documentation: <a href="/api/docs/">/api/docs/</a></p>

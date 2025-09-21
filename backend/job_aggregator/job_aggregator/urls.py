@@ -12,7 +12,7 @@ urlpatterns = [
     # Admin
     path('admin/', admin.site.urls),
     
-    # API Documentation
+    # API Documentation (moved to more specific paths to avoid conflicts)
     path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
     path('api/docs/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
     
@@ -24,8 +24,11 @@ urlpatterns = [
     path('api/v1/external/', include('apps.external_apis.urls')),
     path('api/v1/analytics/', include('apps.analytics.urls')),
     
-    # Serve React frontend for all other routes (catch-all)
-    re_path(r'^(?P<path>.*)$', serve_react_app, name='frontend'),
+    # Root path explicitly serves React app
+    path('', serve_react_app, {'path': ''}, name='frontend-root'),
+    
+    # Serve React frontend for all other non-API routes (catch-all)
+    re_path(r'^(?!api/|admin/|static/|media/)(?P<path>.*)$', serve_react_app, name='frontend'),
 ]
 
 # Serve media files in development
