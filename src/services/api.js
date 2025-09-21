@@ -1,7 +1,10 @@
 // API Service Layer for NYXO Job Aggregator
 // Handles all communication with Django backend
 
-const API_BASE_URL = 'http://127.0.0.1:8000/api/v1';
+// Determine API base URL based on environment
+const API_BASE_URL = process.env.NODE_ENV === 'production' 
+  ? '/api/v1'  // Use relative URL in production (same domain)
+  : 'http://127.0.0.1:8000/api/v1';  // Use localhost in development
 
 class ApiService {
   constructor() {
