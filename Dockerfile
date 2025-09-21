@@ -25,7 +25,7 @@ FROM python:3.11-slim
 # Set environment variables
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
-ENV DJANGO_SETTINGS_MODULE=job_aggregator.settings.production
+ENV DJANGO_SETTINGS_MODULE=settings.production
 
 # Set work directory
 WORKDIR /app
@@ -61,7 +61,7 @@ RUN chmod +x start.sh
 
 # Collect static files
 WORKDIR /app/backend/job_aggregator
-RUN python manage.py collectstatic --noinput --settings=job_aggregator.settings.production
+RUN python manage.py collectstatic --noinput --settings=settings.production
 
 # Create non-root user
 RUN adduser --disabled-password --gecos '' appuser
