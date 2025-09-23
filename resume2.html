@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume Builder--2</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Cormorant+Garamond:wght@400;700&family=Josefin+Sans:wght@400;700&family=Cardo:wght@400;700&family=Forum&display=swap" rel="stylesheet">
+    <style>
+        /* Define font families */
+        .font-playfair { font-family: 'Playfair Display', serif; }
+        .font-cormorant { font-family: 'Cormorant Garamond', serif; }
+        .font-josefin { font-family: 'Josefin Sans', sans-serif; }
+        .font-cardo { font-family: 'Cardo', serif; }
+        .font-forum { font-family: 'Forum', serif; }
+
+        /* Define color themes using CSS variables */
+        :root, [data-theme='professional-blue'] {
+            --primary-color: #3b82f6; /* blue-500 */
+            --primary-hover: #2563eb; /* blue-600 */
+            --text-color: #1f2937; /* gray-800 */
+            --section-border: #9ca3af; /* gray-400 */
+        }
+        [data-theme='modern-teal'] {
+            --primary-color: #14b8a6; /* teal-500 */
+            --primary-hover: #0d9488; /* teal-600 */
+            --text-color: #1f2937;
+            --section-border: #374151; /* gray-700 */
+        }
+        [data-theme='classic-gray'] {
+            --primary-color: #4b5563; /* gray-600 */
+            --primary-hover: #374151; /* gray-700 */
+            --text-color: #111827; /* gray-900 */
+            --section-border: #111827; /* gray-900 */
+        }
+
+        /* Style for active links */
+        .template-link.active {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        .design-card.active {
+            outline: 3px solid var(--primary-color);
+            outline-offset: 2px;
+        }
+
+        /* Apply theme colors */
+        .text-primary { color: var(--primary-color); }
+        .bg-primary { background-color: var(--primary-color); }
+        .hover\:bg-primary-hover:hover { background-color: var(--primary-hover); }
+        
+        /* General Styles for printing */
+        @media print {
+            body > * { display: none; }
+            .no-print { display: none !important; }
+            #print-container, #print-container * {
+                display: block !important;
+                visibility: visible !important;
+            }
+            #print-container {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                box-sizing: border-box;
+                -webkit-print-color-adjust: exact;
+                color-adjust: exact;
+            }
+            .print-name {
+                font-size: 1.6rem;
+                font-weight: 600;
+                margin-bottom: 0.25rem;
+                color: var(--text-color);
+            }
+            .print-contact-details {
+                font-size: 10pt;
+                line-height: 1.4;
+                margin: 0;
+            }
+            .resume-section {
+                margin-bottom: 0.6rem;
+                page-break-inside: avoid;
+            }
+             .resume-section h3 {
+                font-size: 1.15rem;
+                font-weight: 700;
+                border-bottom: 2px solid var(--section-border);
+                padding-bottom: 4px;
+                margin-bottom: 6px;
+                color: var(--text-color);
+                display: flex;
+                align-items: center;
+                gap: 8px;
+            }
+            .resume-section h3 svg {
+                width: 16px; height: 16px;
+                stroke-width: 2.5; flex-shrink: 0;
+            }
+            .resume-section p {
+                white-space: pre-wrap;
+                font-size: 10.5pt;
+                line-height: 1.35;
+                color: #333;
+            }
+            .font-playfair { font-family: 'Playfair Display', serif; }
+            .font-cormorant { font-family: 'Cormorant Garamond', serif; }
+            .font-josefin { font-family: 'Josefin Sans', sans-serif; }
+            .font-cardo { font-family: 'Cardo', serif; }
+            .font-forum { font-family: 'Forum', serif; }
+
+            /* --- LAYOUT: Classic --- */
+            .layout-classic { padding: 1.5cm; }
+            .layout-classic .print-header { text-align: center; margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 2px solid var(--section-border); }
+            
+            /* --- LAYOUT: Modern --- */
+            .layout-modern { padding: 1.5cm; }
+            .layout-modern .print-header { 
+                text-align: center; 
+                margin-bottom: 1rem; 
+                padding-bottom: 1rem; 
+                border-bottom: 1px solid #333;
+            }
+            .layout-modern .print-name {
+                font-size: 2rem;
+                font-weight: 700;
+                letter-spacing: 0.05em;
+                margin-bottom: 0.5rem;
+                text-transform: uppercase;
+            }
+            .layout-modern .resume-section h3 {
+                border-bottom: none;
+                border-top: 1px solid #ccc;
+                padding-top: 0.6rem;
+                margin-top: 0.6rem;
+                font-size: 1.1rem;
+                font-weight: 700;
+                letter-spacing: 0.05em;
+            }
+            .layout-modern .print-body > .resume-section:first-child h3 {
+                border-top: none;
+                margin-top: 0;
+                padding-top: 0;
+            }
+            .layout-modern .resume-section h3 svg {
+                display: none;
+            }
+
+            /* --- LAYOUT: Sidebar (Shared) --- */
+            .layout-sidebar-dark, .layout-sidebar-light { display: flex; min-height: 297mm; }
+            .layout-sidebar-dark .print-sidebar, .layout-sidebar-light .print-sidebar { width: 35%; padding: 1.2cm; box-sizing: border-box; }
+            .layout-sidebar-dark .print-main, .layout-sidebar-light .print-main { width: 65%; padding: 1.2cm; box-sizing: border-box; }
+            .layout-sidebar-dark .print-header, .layout-sidebar-light .print-header { text-align: left; margin-bottom: 1.5rem; }
+            
+            /* --- LAYOUT: Sidebar Dark --- */
+            .layout-sidebar-dark .print-sidebar { background-color: #2d3748; color: #f7fafc; }
+            .layout-sidebar-dark .print-sidebar h3 { color: #f7fafc; border-bottom-color: #a0aec0; }
+            .layout-sidebar-dark .print-sidebar p { color: #e2e8f0; }
+            .layout-sidebar-dark .print-main .print-name { color: var(--primary-color); }
+            
+            /* --- LAYOUT: Sidebar Light --- */
+            .layout-sidebar-light .print-sidebar { background-color: #f7fafc; }
+            .layout-sidebar-light .print-sidebar .resume-section h3 { color: var(--primary-color); border-bottom-color: #e2e8f0;}
+
+            /* --- LAYOUT: Timeline --- */
+            .layout-timeline { padding: 1.5cm; }
+            .layout-timeline .print-header { text-align: center; margin-bottom: 2rem; }
+            .layout-timeline .print-body { position: relative; }
+            .layout-timeline .print-body::before { content: ''; position: absolute; left: 10px; top: 10px; bottom: 10px; width: 2px; background-color: #cbd5e0;}
+            .layout-timeline .resume-section { position: relative; padding-left: 40px; margin-bottom: 1.5rem; }
+            .layout-timeline .resume-section h3 { border-bottom: none; padding-bottom: 0; }
+            .layout-timeline .resume-section h3::before { content: ''; position: absolute; left: 0px; top: 5px; width: 22px; height: 22px; background-color: white; border: 4px solid var(--primary-color); border-radius: 50%; z-index: 1;}
+        }
+    </style>
+</head>
+<body class="bg-gray-100 font-playfair">
+
+    <div class="container mx-auto p-4 md:p-8">
+        <header class="text-center mb-8 no-print">
+            <h1 class="text-4xl font-bold text-gray-800">Interactive Resume Builder</h1>
+            <p class="text-gray-600 mt-2">Select a design, choose a template, customize it, and print your professional resume.</p>
+        </header>
+
+        <div class="flex flex-col md:flex-row gap-8">
+            <aside class="w-full md:w-1/3 xl:w-1/4 flex flex-col gap-8 no-print">
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h2 class="text-xl font-semibold mb-4 text-gray-700">1. Choose a UI Design</h2>
+                    <div id="ui-design-picker" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-2 gap-4">
+                        </div>
+                </div>
+
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h2 class="text-xl font-semibold mb-4 text-gray-700">2. Choose a Template</h2>
+                    <ul id="template-list" class="space-y-2 max-h-60 overflow-y-auto"></ul>
+                </div>
+
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h2 class="text-xl font-semibold mb-4 text-gray-700">3. Customize Font</h2>
+                    <div>
+                        <h3 class="font-medium text-gray-600 mb-2">Font Style</h3>
+                        <div id="font-style-picker" class="space-y-1">
+                            <label class="flex items-center font-playfair">
+                                <input type="radio" name="font" value="font-playfair" class="mr-2" checked>
+                                Serif (Playfair Display)
+                            </label>
+                            <label class="flex items-center font-cormorant">
+                                <input type="radio" name="font" value="font-cormorant" class="mr-2">
+                                Serif (Cormorant Garamond)
+                            </label>
+                            <label class="flex items-center font-josefin">
+                                <input type="radio" name="font" value="font-josefin" class="mr-2">
+                                Sans-serif (Josefin Sans)
+                            </label>
+                            <label class="flex items-center font-cardo">
+                                <input type="radio" name="font" value="font-cardo" class="mr-2">
+                                Serif (Cardo)
+                            </label>
+                            <label class="flex items-center font-forum">
+                                <input type="radio" name="font" value="font-forum" class="mr-2">
+                                Serif (Forum)
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+
+            <main class="w-full md:w-2/3 xl:w-3/4">
+                <div class="bg-white p-6 sm:p-8 rounded-lg shadow-md">
+                    <div class="flex flex-col sm:flex-row justify-between sm:items-center mb-6 no-print">
+                        <h2 id="resume-title" class="text-2xl font-bold text-primary transition-colors"></h2>
+                        <button id="print-button" class="bg-primary hover:bg-primary-hover text-white font-bold py-2 px-4 rounded-lg flex items-center gap-2 transition-colors mt-4 sm:mt-0">
+                            <i data-lucide="printer"></i>
+                            Print / Save as PDF
+                        </button>
+                    </div>
+                    <div id="resume-form-container">
+                        <form id="resume-form" class="space-y-6"></form>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <div id="print-container" class="hidden"></div>
+
+    <script>
+        // --- DATA FOR UI DESIGNS (LAYOUTS) ---
+        const uiDesigns = [
+            { id: 'classic', name: 'Classic', img: 'clasic.png' },
+            { id: 'modern', name: 'Modern', img: 'clasic2.png' }, // NOTE: Replace 'modern.png' with the correct path to your image.
+        ];
+
+        // --- DATA FOR ALL RESUME SAMPLES (CONTENT) ---
+        const resumeData = [
+            { id: 'template1', title: 'Sample I: Functional (Experienced)', content: { 'Contact Information': `IM A. SAMPLE I\n1234 North 55 Street\nBellevue, Nebraska 68005\n(402) 292-2345\nimasample1@xxx.com`, 'Summary of Qualifications': `Exceptionally well organized and resourceful Professional with more than six years experience and a solid academic background in accounting and financial management; excellent analytical and problem solving skills; able to handle multiple projects while producing high quality work in a fast-paced, deadline-oriented environment.`, 'Education': `Bachelor of Science, Bellevue University, Bellevue, NE (In Progress)\nMajor: Accounting\nExpected Graduation Date: January, 20xx\nMinor: Computer Information Systems\nGPA to date: 3.95/4.00`, 'Professional Accomplishments: Accounting & Financial Management': `• Developed and maintained accounting records for up to fifty bank accounts.\n• Formulated monthly and year-end financial statements and generated various payroll records, including federal and state payroll reports, annual tax reports, W-2 and 1099 forms, etc.\n• Tested accuracy of account balances and prepared supporting documentation for submission during a comprehensive three-year audit of financial operations.\n• Formulated intricate pro-forma budgets.\n• Calculated and implemented depreciation/amortization schedules.`, 'Professional Accomplishments: Information Systems': `• Converted manual to computerized accounting systems for two organizations.\n• Analyzed and successfully reprogrammed software to meet customer requirements.\n• Researched and corrected problems to assure effective operation of newly computerized systems.`, 'Work History': `• Student Intern, Financial Accounting Development Program, Mutual of Omaha, Omaha, NE (Summer 20xx)\n• Accounting Coordinator, Nebraska Special Olympics, Omaha, NE (20xx-20xx)\n• Bookkeeper, SMC, Inc., Omaha, NE (20xx-20xx)\n• Bookkeeper, First United Methodist Church, Altus, OK (20xx-20xx)`, 'Professional Affiliation': `Member, IMA, Bellevue University Student Chapter`, 'Computer Skills': `Proficient in MS Office (Word, Excel, PowerPoint, Outlook), QuickBooks\nBasic Knowledge of MS Access, SQL, Visual Basic, C++` } },
+            { id: 'template2', title: 'Sample II: Chronological (Internship)', content: { 'Contact Information': `IM A. SAMPLE II\n4321 South 55 Street\nBellevue, Nebraska 68005\n(402) 291-5432\nimasample2@xxx.com`, 'Objective': `Internship or Part-time Position in Marketing, Public Relations or related field utilizing strong academic background and excellent communication skills.`, 'Education': `BS in Business Administration with Marketing Emphasis\nBellevue University, Bellevue, NE\nExpected Graduation Date: June, 20xx\nGPA to date: 3.56/4.00\n\nRelevant Coursework:\nPrinciples of Marketing, Business Communication, Internet Marketing, Public Relations, Consumer Behavior, Business Policy & Strategy`, 'Work History': `Academic Tutor (20xx to present)\nBellevue University, Bellevue, NE\n• Assist college students in overcoming deficiencies and successfully mastering academic coursework.\n\nSenior Accounts Receivable Clerk (20xx-20xx)\nLincoln Financial Group, Omaha, NE\n• Researched story ideas, wrote articles and participated in the publication of a weekly in-house newsletter.\n• Assisted customers and staff members in resolving problems and balancing accounts; trained new staff members.\n• Managed and recorded daily accounts receivable deposits of up to $450,000.\n• Conducted extensive research to recover lost checks and organized system to stop payment and replace all checks.\n\nAdvertising Coordinator, The Vue (20xx to present)\nBellevue University Student Newspaper`, 'Community Service': `Volunteer, Publicity Committee (20xx, 20xx)\nBrushup Nebraska Paint-A-Thon`, 'Added Value': `Language Skills: Bilingual (English/Spanish)\nComputer Skills: MS Office (Word, Excel, PowerPoint), PhotoShop` } },
+            { id: 'template3', title: 'Sample III: Chronological (Academic)', content: { 'Contact Information': `IM A. SAMPLE III\n3456 Westview Road\nBellevue, Nebraska 68005\n(402) 291-5678\nimasample3@xxx.com`, 'Summary of Qualifications': `Experienced business professional with a solid academic background and a demonstrated commitment to providing high quality customer service; described as a "take charge" person with exceptional communication and human relations skills; proficient in the use of MS Office (Word, Excel, PowerPoint) with basic knowledge of PeopleSoft.`, 'Education': `Bellevue University, Bellevue, NE (June 20xx)\nBachelor of Science in Management of Human Resources\nGPA in major: 3.84/4.00\nGraduated with distinction`, 'Professional Experience': `West Telemarketing, Omaha, NE (20xx to Present)\nCustomer Service Supervisor (20xx to present)\n• Supervise operations and staff in a 20-person inbound telemarketing unit, including hiring, training and evaluating employees, preparing and administering annual budgets, developing business plans, etc.\n• Assess level of customer satisfaction and resolve sensitive and complex issues raised by customers; provide additional training and take other action as required to maintain a high level of customer satisfaction.\n\nCustomer Service Representative (20xx-20xx)\n• Handled incoming calls from customers and potential customers, provided information and received orders using CRT to input data.\n• Interviewed customers and recommended other available products to meet their needs; received several Incentive Awards for sales efforts.\n• Provided orientation and training to new staff members.`, 'Professional Affiliations and Activities': `• Member, Society for Human Resources Management (SHRM) (20xx to 20xx)\n• Bellevue University Student Chapter\n• Chair, Program Development Committee (20xx)\n• President, American Business Women's Association, Gold Star Chapter (20xx)` } },
+            { id: 'template4', title: 'Sample IV: Functional (Modern)', content: { 'Contact Information': `IM A. SAMPLE IV\n987 Northridge Drive\nOmaha, Nebraska 68123\n(402) 543-1234\nimasample4@xxx.com`, 'Objective': `Position in market research or financial analysis where strong technical skills, mathematical/statistical background and problem solving abilities can be applied towards the successful achievement of business goals and objectives.`, 'Professional Profile': `Exceptionally well organized, resourceful and highly motivated with the ability to handle multiple projects and produce timely, high quality work. Strong analytical and human relations skills; especially effective in helping customers and associates resolve issues and concerns.`, 'Professional Skills: Analysis and Problem Solving': `• Researched and developed a survey instrument, subsequently used to obtain information from customers regarding their satisfaction with products purchased.\n• Compiled and analyzed statistical data to identify potential target markets for future sales and marketing efforts.\n• Completed independent research project on the use of mathematical/statistical models as tools for solving various business problems.\n• Conducted quality control inspections, analyzed results and developed action plans to address areas of concern.`, 'Professional Skills: Communications and Customer Relations': `• Received Customer Service Satisfaction Award for high quality of services provided to both vendors and customers.\n• Handled customer inquiries and sales; effectively represented company to vendors and prospective customers, resulting in a 15% increase in sales in just six months.\n• Provided orientation, training and guidance to new employees.`, 'Education': `Bachelor of Science, Bellevue University, Bellevue, NE (June, 20xx)\nMajor: Computer Information Systems in Business\nMinor: Mathematics\nGPA: 3.98/4.00\nGraduated summa cum laude`, 'Technical Skills': `• Java, PERL, ASP, PHP Scripting, Relational Databases, SQL\n• Inferential Statistics, Data Analysis, Calculus & Mathematical Analysis, SPSS`, 'Work Experience': `• Intern-Market Research, Mutual of Omaha, Omaha, NE (Fall Semester, 20xx)\n• Sales Associate & Machinist Assistant, Precision Tool, Omaha, NE (20xx to present)` } },
+            { id: 'template5', title: 'Sample V: Functional (Military)', content: { 'Contact Information': `IM A. SAMPLE V\n987 Northridge Drive\nOmaha, Nebraska 68123\n(402) 543-1234\nimasample5@xxx.com`, 'Professional Profile': `Self-motivated, resourceful and dynamic leader with extensive experience and a strong educational background in management, training and employee development; exceptional communication skills and a demonstrated ability to create and manage cohesive, productive work teams; proficient in the use of Microsoft Word, Excel and other software applications.`, 'Skills: Management and Administration': `• Directed, guided and motivated a workforce of up to 300 individuals with diverse technical backgrounds and experiences.\n• Successfully improved work performance of a "marginal" work team, as evidenced by an increase to a "satisfactory" performance rating after only six months as team leader.\n• Provided day-to-day supervision for an administrative staff of up to sixty employees.\n• Planned, developed and administered annual budgets ranging from $150,000 to $300,000.`, 'Skills: Training and Development': `• Taught college level courses in leadership, management, team building, effective writing and speech communications.\n• Certified as Master Instructor; designed and developed curriculum; selected, trained and evaluated other instructors.\n• Advised and educated personnel on ways to enhance and strengthen their promotability and job performance.`, 'Skills: Communication and Counseling': `• Conducted formal investigations and utilized a variety of counseling techniques to resolve complex issues involving domestic abuse, racial discrimination, etc.\n• Marketed and promoted company programs to employees and the general public through presentations to audiences of over 1000 people.`, 'Education and Training': `Bachelor of Science in Management (20xx)\nBellevue University, Bellevue, Nebraska\nGPA: 4.00/4.00, Dean's Scholar, Graduated with Professional Honors\n\nAssociate of Applied Science in Communications Technology (20xx)\nCommunity College of the Air Force`, 'Work History': `Various Positions of Increasing Responsibility and Leadership\nUnited States Air Force (20xx to present)\n• Currently serving as Squadron Operation Superintendent.\n• Scheduled to leave the Air Force in September 20xx.`, 'Volunteer/Community Service': `• Coach, Youth Soccer, Bellevue Boys Club\n• Unit Coordinator, U.S. Savings Bond Drive` } },
+            { id: 'template6', title: 'Sample VI: Chronological (Managerial)', content: { 'Contact Information': `IM A. SAMPLE VI\n2345 Frederick Street\nOmaha, Nebraska 68123\n(402) 489-3421\nimasample6@xxx.com`, 'Professional Highlights': `Extensive technical and management experience in information systems technology with a solid academic background. Excellent communicator with strong leadership skills. Areas of expertise:\n• Operations Management\n• Mainframe & PC Operations\n• Customer Relations\n• Project Management\n• Software Development\n• Technical Support\n• Quality Management\n• Systems Design\n• Troubleshooting`, 'Work Experience': `Supervisor, Financial Systems, Omaha Public Power District, Omaha NE (20xx to present)\n• Oversee the maintenance and enhancement of financial systems to ensure process integrity and system stability.\n• Managed the implementation of a major software upgrade, significantly increasing efficiency.\n• Converted contract and payee information from a third party system, resulting in approx. $72,000 in annual revenue.\n• Promoted into management position after only six months as a Systems Analyst.\n\nProgrammer/Analyst, Bishop Clarkson Hospital, Omaha NE (20xx-20xx)\n• Provided systems support and enhancements to user areas throughout the hospital.\n• Developed and implemented an automated system for processing employee timesheets.\n• Recognized as Information Systems Employee of the Year for high quality of customer service.\n\nSenior Computer Operator, Bergen Mercy Hospital, Omaha NE (20xx-20xx)\n• Supervised shift operations and staff, trained employees, and monitored work performance.`, 'Education': `MBA with Concentration in Management Information Systems\nBellevue University, Bellevue NE (Expected Graduation: June 20xx)\n\nBachelor of Science, Bellevue University, Bellevue NE (20xx)\nMajor: Computer Information Systems\nGPA: 3.45/4.00, Dean's Scholar\n\nCertificate in Computer Programming\nElectronic Computer Programming Institute, Omaha NE (20xx)`, 'Technical Knowledge and Skills': `• C, C++, Visual Basic, COBOL\n• Windows 9x/200x/XP, UNIX/Linux\n• SQL, Relational Database Management\n• MS Office Suite (Word, Excel, PowerPoint, Outlook, Access)` } },
+            { id: 'template7', title: 'Sample VII: Graduate Assistantship', content: { 'Contact Information': `IM A. SAMPLE VII\n4321 Country Club Road\nOmaha, Nebraska 68123\n(402) 555-9876\nimasample7@xxx.com`, 'Objective': `To obtain a Graduate Assistantship where strong academic background and excellent communication skills can be utilized to help college students achieve their educational goals.`, 'Education': `Bachelor of Arts, Bellevue University, Bellevue NE (20xx)\nMajors: Psychology, Sociology\nGPA: 4.00/4.00, Graduated Summa Cum Laude, Dean's Scholar, National Dean's List\n\nRelevant Coursework:\nFundamentals of Guidance & Counseling, Psychological Assessment, Research Methods, Personality Theory, Learning Theory, Social Psychology`, 'Professional Experience': `Writing Tutor and Test Administrator, Bellevue University, Bellevue, NE (20xx – 20xx)\n• Assisted in the preparation and administration of various assessment instruments, including CLEP, DANTES and placement tests.\n• Provided tutorial assistance to undergraduate and graduate students in writing/composition.\n\nResearch Assistant, University of Nebraska Medical Center, Omaha, NE (Summer 20xx, 20xx)\n• Assisted child psychologist in a Summer Research Enrichment Program, including observations of client behavior, data entry and preparation of research reports.`, 'Collegiate Honors and Activities': `• Listed in Who's Who Among Students in American Colleges and Universities\n• Member, Pi Gamma Mu and Alpha Chi Honor Societies\n• President, Behavioral and Social Sciences Student Organization\n• Member, Bellevue University Student Advisory Council` } },
+            { id: 'template8', title: 'Sample VIII: Computer/Technical', content: { 'Contact Information': `IM A. SAMPLE VIII\n5432 North 97 Street\nOmaha, Nebraska 68134\n(402) 493-1234\nimasample8@xxx.com`, 'Objective': `Seeking position in Information Systems or related field utilizing solid academic background along with exceptionally strong analytical, problem solving and customer service skills.`, 'Education': `BS in Computer Information Systems-Web-based Networking\nBellevue University, Bellevue NE\nExpected Graduation Date: January 20xx\nGPA to date: 3.86/4.00, Dean's Scholar\n\nAssociate of Applied Science, Metropolitan Community College, Omaha NE (20xx)\nMajor: Management Information Systems\nGPA: 3.45/4.00`, 'Technical Knowledge and Skills': `• Operating Systems: Windows 19xx/20xx/XP/NT, UNIX/Linux\n• Technical Support: Installation, Configuration & Troubleshooting of Hardware & Software\n• Languages: Visual Basic, C, C++, Visual C++, Java, HTML, XML, ASP.NET\n• Database Management: Relational Databases. SQL, PL/SQL, MS Access\n• Applications: MS Office (Word, Excel, PowerPoint, Outlook), MS Project`, 'Professional Experience': `Computer Support Technician/Intern, Union Pacific Railroad, Omaha NE (Summer 20xx)\n• Assisted in systems administration and configuration in UNIX and Windows NT.\n• Installed and maintained local area networks, including Novell and Windows systems.\n• Staffed Help Desk; analyzed and resolved system problems encountered by end users.\n• Participated in the design and development of the department's web site.\n\nComputer Lab Assistant, Bellevue University, Bellevue NE (20xx-20xx)\n• Provided advice and guidance to college students on the effective use of PCs and various software applications.`, 'Collegiate Activities': `• Volunteer Contributor, Bellevue University Computer Lab Newsletter\n• Member, Varsity Baseball Team, Bellevue University` } },
+            { id: 'template9', title: 'Sample IX: Functional (HR)', content: { 'Contact Information': `IM A. SAMPLE IX\n987 Northridge Drive\nOmaha, Nebraska 68123\n(402) 543-1234\nimasample9@xxx.com`, 'Objective': `Position in Human Resources Administration utilizing strong human relations, customer service and problem solving skills.`, 'Skills: Analysis and Problem Solving': `• Researched and developed a survey instrument for employee satisfaction.\n• Compiled and analyzed statistical data to identify potential sources for recruiting.\n• Completed independent research project on the impact of "family friendly" HR policies on employee retention.`, 'Skills: Communications and Customer Relations': `• Provided orientation and training to new employees.\n• Greeted applicants, scheduled interviews, and conducted reference checks.\n• Received Customer Service Satisfaction Award for high quality of services.\n• Handled customer inquiries and sales; increased sales by 15% in six months.`, 'Education': `Bachelor of Science, Bellevue University, Bellevue, NE (In Progress)\nMajor: Psychology\nMinor: Communication Arts\nExpected Graduation: August 20xx\nGPA to date: 3.98/4.00, Dean's Scholar\n\nAssociate of Arts, Iowa Western Community College, Council Bluffs, IA (20xx)\nArea of Emphasis: Business Administration`, 'Work Experience': `• Senior Sales Associate, Precision Tool, Omaha, NE (20xx to present)\n• Human Resources Intern, Oriental Trading, Omaha, NE (Spring Semester 20xx)` } },
+            { id: 'template10', title: 'Sample X: Human/Social Service', content: { 'Contact Information': `IM A. SAMPLE X\n3083 North South Street, Apt. A-1\nGrand Island, Nebraska 68803\n(308) 308-3083\nimasample10@xxxx.net`, 'Objective': `Seeking Position in Human/Social Service Administration or related field utilizing strong academic background, experience and excellent interpersonal skills.`, 'Education': `BS in Human & Social Service Administration, Bellevue University, Bellevue, NE (Jan 20xx)\nGPA: 3.81/4.00, Dean's Scholar\n\nAAS in Human Services (Dec 19xx), 75-Hr Basic Nursing Assistant Program (Jan 20xx)\nCentral Community College Hastings Campus, Hastings, NE`, 'Work History': `Day Rehabilitation Specialist, Greater NE Goodwill Industries, Grand Island, NE (June 20xx - Present)\n• Manage a caseload of twenty consumers, assist them in setting and reaching individual plans.\n• Facilitate group sessions on Mental Illness, Stress Management and Healthy Relationships.\n\nAssistant Receptionist, Tiffany Square Care Center, Grand Island, NE (Jan - June 20xx)\n• Arranged and facilitated weekend activities for residents.\n• Contacted families to set up dates and times to review and discuss care plans.\n\nEmployment Trainer, Central NE Goodwill Industries, Grand Island, NE (Aug 19xx - May 20xx)\n• Managed a caseload of twenty consumers and provided on-the-job coaching to help them succeed.\n• Conducted group job search training sessions and assisted with applications, cover letters and resumes.\n\nCriminal Justice/Shelter Advocate, Crisis Center Inc & Family Violence Coalition, Grand Island, NE (July 20xx - Oct 20xx)\n• Responded to crisis calls and and provided support to victims of domestic abuse.\n\nSocial Services Assistant, Tiffany Square Care Center, Grand Island, NE (Jan 20xx - Sept 20xx)\n• Conducted tours, provided orientation and general assistance for new residents.`, 'Community Service': `Volunteer, Women's Health Services, Grand Island, NE (Fall 20xx - present)\n• Assisted professional staff and participated in one-on-one discussions with women seeking advice on health-related issues.` } }
+        ];
+
+        document.addEventListener('DOMContentLoaded', function() {
+            lucide.createIcons();
+
+            const uiDesignPicker = document.getElementById('ui-design-picker');
+            const templateList = document.getElementById('template-list');
+            const resumeTitle = document.getElementById('resume-title');
+            const resumeForm = document.getElementById('resume-form');
+            const printButton = document.getElementById('print-button');
+            const printContainer = document.getElementById('print-container');
+            const fontStylePicker = document.getElementById('font-style-picker');
+            
+            let currentFont = 'font-playfair';
+            let currentLayout = 'classic';
+
+            function getIconForSection(title) {
+                const lowerTitle = title.toLowerCase();
+                if (lowerTitle.includes('contact')) return 'user-circle';
+                if (lowerTitle.includes('summary') || lowerTitle.includes('profile') || lowerTitle.includes('objective') || lowerTitle.includes('highlights')) return 'file-text';
+                if (lowerTitle.includes('education')) return 'graduation-cap';
+                if (lowerTitle.includes('experience') || lowerTitle.includes('history')) return 'briefcase';
+                if (lowerTitle.includes('skills')) return 'wrench';
+                if (lowerTitle.includes('accomplishments')) return 'award';
+                if (lowerTitle.includes('affiliations') || lowerTitle.includes('activities') || lowerTitle.includes('community') || lowerTitle.includes('value')) return 'users';
+                return 'dot';
+            }
+
+            function createSectionElement(section) {
+                const sectionDiv = document.createElement('div');
+                sectionDiv.className = 'resume-section';
+
+                const titleEl = document.createElement('h3');
+                const iconSVG = lucide.icons[section.iconName] ? lucide.icons[section.iconName].toSvg({ 'stroke-width': 2.5, 'width': 16, 'height': 16 }) : '';
+                titleEl.innerHTML = `${iconSVG}<span>${section.title}</span>`;
+                
+                const contentEl = document.createElement('p');
+                contentEl.textContent = section.content;
+
+                sectionDiv.appendChild(titleEl);
+                sectionDiv.appendChild(contentEl);
+                return sectionDiv;
+            }
+            
+            function renderTemplate(templateId) {
+                const template = resumeData.find(t => t.id === templateId);
+                if (!template) return;
+
+                resumeTitle.textContent = template.title;
+                resumeForm.innerHTML = '';
+
+                for (const [sectionTitle, sectionContent] of Object.entries(template.content)) {
+                    const sectionDiv = document.createElement('div');
+                    
+                    const label = document.createElement('label');
+                    const iconName = getIconForSection(sectionTitle);
+                    label.innerHTML = `<i data-lucide="${iconName}" class="inline-block w-4 h-4 mr-2 text-primary transition-colors"></i> ${sectionTitle}`;
+                    label.className = 'flex items-center text-sm font-semibold text-gray-700 mb-1';
+                    
+                    const textarea = document.createElement('textarea');
+                    textarea.value = sectionContent;
+                    textarea.className = 'w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-primary/50 focus:border-primary/50';
+                    textarea.rows = Math.max(3, sectionContent.split('\n').length + 1);
+                    textarea.style.resize = 'vertical';
+
+                    sectionDiv.appendChild(label);
+                    sectionDiv.appendChild(textarea);
+                    resumeForm.appendChild(sectionDiv);
+                }
+                
+                lucide.createIcons();
+
+                document.querySelectorAll('.template-link').forEach(link => {
+                    link.classList.toggle('active', link.dataset.templateId === templateId);
+                });
+            }
+
+            function prepareForPrint() {
+                printContainer.className = `hidden ${currentFont} ${currentLayout}`;
+                printContainer.innerHTML = '';
+
+                const formElements = resumeForm.elements;
+                const formLabels = resumeForm.querySelectorAll('label');
+
+                const allSections = Array.from(formLabels).map((label, index) => ({
+                    title: label.textContent.trim(),
+                    content: formElements[index].value,
+                    iconName: label.querySelector('i')?.dataset.lucide || 'dot'
+                }));
+
+                const contactInfoIndex = allSections.findIndex(s => s.title.toLowerCase().includes('contact information'));
+                const contactInfo = contactInfoIndex > -1 ? allSections.splice(contactInfoIndex, 1)[0] : { content: 'Name\nContact Details' };
+                const bodySections = allSections;
+
+                const contactLines = contactInfo.content.split('\n').filter(line => line.trim() !== '');
+                const name = contactLines[0] || '';
+                const otherDetails = contactLines.slice(1);
+
+                const headerDiv = document.createElement('div');
+                headerDiv.className = 'print-header';
+                
+                const nameEl = document.createElement('h2');
+                nameEl.className = 'print-name';
+                nameEl.textContent = name;
+                headerDiv.appendChild(nameEl);
+                
+                if (currentLayout === 'modern') {
+                    const detailEl = document.createElement('p');
+                    detailEl.className = 'print-contact-details';
+                    detailEl.textContent = otherDetails.join('  •  ');
+                    headerDiv.appendChild(detailEl);
+                } else {
+                    otherDetails.forEach(detail => {
+                        const detailEl = document.createElement('p');
+                        detailEl.className = 'print-contact-details';
+                        detailEl.textContent = detail;
+                        headerDiv.appendChild(detailEl);
+                    });
+                }
+
+
+                if (currentLayout.startsWith('sidebar')) {
+                    const sidebarKeywords = ['education', 'skills', 'affiliations', 'community', 'value', 'technical knowledge', 'technical skills', 'languages'];
+                    const sidebarDiv = document.createElement('div');
+                    sidebarDiv.className = 'print-sidebar';
+                    const mainDiv = document.createElement('div');
+                    mainDiv.className = 'print-main';
+                    
+                    mainDiv.appendChild(headerDiv);
+
+                    bodySections.forEach(section => {
+                        const targetDiv = sidebarKeywords.some(keyword => section.title.toLowerCase().includes(keyword)) ? sidebarDiv : mainDiv;
+                        targetDiv.appendChild(createSectionElement(section));
+                    });
+                    
+                    printContainer.appendChild(sidebarDiv);
+                    printContainer.appendChild(mainDiv);
+
+                } else { // Classic, Modern, or Timeline
+                    printContainer.appendChild(headerDiv);
+                    const bodyDiv = document.createElement('div');
+                    bodyDiv.className = 'print-body';
+                    bodySections.forEach(section => bodyDiv.appendChild(createSectionElement(section)));
+                    printContainer.appendChild(bodyDiv);
+                }
+                
+                window.print();
+            }
+            
+            function renderUiDesigns() {
+                uiDesignPicker.innerHTML = '';
+                uiDesigns.forEach(design => {
+                    const card = document.createElement('div');
+                    card.className = 'design-card cursor-pointer rounded-lg overflow-hidden transition-all duration-200 hover:scale-105 border';
+                    card.dataset.designId = design.id;
+                    card.innerHTML = `
+                        <img src="${design.img}" alt="${design.name} design" class="w-full h-auto object-cover bg-gray-200">
+                        <p class="text-center text-sm font-medium py-2 bg-gray-50">${design.name}</p>
+                    `;
+                    uiDesignPicker.appendChild(card);
+                });
+            }
+
+            function renderTemplateList() {
+                templateList.innerHTML = '';
+                 resumeData.forEach(template => {
+                    const li = document.createElement('li');
+                    const a = document.createElement('a');
+                    a.href = '#';
+                    a.textContent = template.title;
+                    a.dataset.templateId = template.id;
+                    a.className = 'template-link block w-full text-left px-4 py-2 rounded-md text-gray-600 hover:bg-gray-200 transition-colors';
+                    li.appendChild(a);
+                    templateList.appendChild(li);
+                });
+            }
+
+            uiDesignPicker.addEventListener('click', function(e) {
+                const card = e.target.closest('.design-card');
+                if (card) {
+                    currentLayout = card.dataset.designId;
+                    document.querySelectorAll('.design-card').forEach(c => c.classList.remove('active'));
+                    card.classList.add('active');
+                }
+            });
+            
+            templateList.addEventListener('click', function(e) {
+                e.preventDefault();
+                if (e.target.tagName === 'A') {
+                    renderTemplate(e.target.dataset.templateId);
+                }
+            });
+
+            printButton.addEventListener('click', prepareForPrint);
+            
+            fontStylePicker.addEventListener('change', (e) => {
+                if(e.target.name === 'font') {
+                    document.body.classList.remove('font-playfair', 'font-cormorant', 'font-josefin', 'font-cardo', 'font-forum');
+                    document.body.classList.add(e.target.value);
+                    currentFont = e.target.value;
+                }
+            });
+
+            // --- Initialize default view ---
+            renderUiDesigns();
+            renderTemplateList();
+            
+            if (uiDesigns.length > 0) {
+                document.querySelector('.design-card').classList.add('active');
+                currentLayout = uiDesigns[0].id;
+            }
+            if (resumeData.length > 0) {
+                renderTemplate(resumeData[0].id);
+            }
+        });
+    </script>
+
+</body>
+</html>
