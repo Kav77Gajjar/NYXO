@@ -21,7 +21,17 @@ export const AuthProvider = ({ children }) => {
 
   // Check if user is authenticated on app load
   useEffect(() => {
-    checkAuthStatus();
+    // Always bypass auth - go directly to dashboard
+    const fake = {
+      id: 'dev-user',
+      email: 'dev@example.com',
+      first_name: 'Dev',
+      last_name: 'User',
+      username: 'dev'
+    }
+    setUser(fake)
+    setIsAuthenticated(true)
+    setLoading(false)
   }, []);
 
   const checkAuthStatus = async () => {
